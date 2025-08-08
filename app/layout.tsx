@@ -17,19 +17,22 @@ const raleway = Raleway({ subsets: ["latin"], variable: "--font-raleway" });
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: ["400"], variable: "--font-bebas-neue" });
 
 export const metadata: Metadata = {
-  title: "Community Homestay Nepal: Authentic Local Experiences & Trips",
+  title: "RARA Treks, Tours and Travel",
   description:
-    "Over 50 Local Community Homestay Experiences in Nepal. Authentic trips with positive impact that give deep insight in the villages and nature of Nepal.",
+    "Explore authentic RARA Tours and Treks in Nepal. Discover local experiences, community homestays, and nature-filled adventures that make a positive impact.",
   keywords: [
-    "community homestay nepal",
-    "homestay",
-    "community",
-    "chn community",
-    "chn",
-    "community homestay network",
-    "homestay network",
+    "RARA Tours and Trek Nepal",
+    "RARA Trek",
+    "Nepal homestay",
+    "community tourism",
+    "CHN Nepal",
+    "RARA community network",
+    "homestay network Nepal",
+    "trekking in Nepal",
+    "RARA Lake tour",
   ],
 };
+
 
 export default function RootLayout({
   children,
