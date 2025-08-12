@@ -25,13 +25,13 @@
         {/* Header with title and navigation buttons */}
         <div className="flex items-end justify-between mb-8">
           <div className="flex flex-col gap-1">
-            <p className="text-2xl font-satisfy">Popular destination</p>
-            <h1 className="text-4xl flex items-center gap-1 font-bold text-gray-900">
+            <p className="text-xl lg:text-2xl font-satisfy">Popular destination</p>
+            <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
               Trending <p className="text-[#71B344]">{title}</p>
             </h1>
           </div>
           {/* Custom navigation buttons */}
-          <div className="flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
             <Button
               variant="outline"
               size="icon"

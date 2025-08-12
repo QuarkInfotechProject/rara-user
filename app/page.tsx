@@ -1,10 +1,8 @@
 import React from "react";
 import HeroSection from "@/components/home/hero-section";
 import Journey from "@/components/home/Journey";
-import TrekCarousel from "@/components/home/TrekCarousel";
-import TourCarousel from "@/components/home/TourCarousel";
-import ActivityCarousel from "@/components/home/ActivityCarousel";
 import MainTourComponent from "@/components/home/TravelContent";
+import Experience from "@/components/home/Experience";
 
 async function Home() {
   return (
@@ -14,6 +12,7 @@ async function Home() {
       </div>
       <Journey />
       <MainTourComponent />
+      <Experience />
     </main>
   );
 }
