@@ -85,7 +85,7 @@
         </Carousel>
 
         <div className="w-full flex items-center justify-center">
-          <Button className="flex items-center gap-1">
+          <Button className="flex items-center gap-1 border border-[#71B344]">
             View All Tours <ArrowRight />
           </Button>
         </div>
