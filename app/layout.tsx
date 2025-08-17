@@ -68,7 +68,7 @@ export default function RootLayout({
               <Header />
               {children}
               {auth}
-              {/* <Footer /> */}
+              <Footer />
               <Toaster />
               <NextTopLoader height={5} color="hsl(var(--primary))" />
               <WelcomeModalClientWrapper />

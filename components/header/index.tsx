@@ -4,19 +4,9 @@ import CHNLogo from "../chn-logo";
 import Link from "next/link";
 import MobileHeader from "./mobile-header";
 import { cn } from "@/lib/utils";
-import ProfileButton from "./profile-button";
-import { Button } from "@/components/ui/button";
 import { IconSearch } from "@tabler/icons-react";
-import QuickSearchPopup from "../search/quick-search-popup";
 import useHeader from "@/lib/hooks/use-header";
-import { ChevronDown, EarthIcon, PhoneCallIcon } from "lucide-react";
-import {
-  PersonSimpleHike,
-  Jeep,
-  Mountains,
-  AirplaneTakeoff,
-  PersonSimpleTaiChi,
-} from "@phosphor-icons/react";
+import { EarthIcon, PhoneCallIcon } from "lucide-react";
 import NavigationMenu from "./NavigationMenu";
 
 export const TRANSPARENT_PATHS = new Set(["/"]);
@@ -71,7 +61,6 @@ function Header() {
           <NavigationMenu />
         </div>
       </header>
-      <MobileHeader />
     </Fragment>
   );
 }

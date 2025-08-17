@@ -1,49 +1,48 @@
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import HeritageImg from "@/assets/images/home/heritage.webp";
-import Link from "next/link";
+"use client";
+
 import React from "react";
-import { Copyright } from "lucide-react";
+import useHeader from "@/lib/hooks/use-header";
+import FooterLogoSection from "./FooterLogoSection";
+import FooterContactSection from "./FooterContactSection";
+import FooterMenuSection from "./FooterMenuSection";
+import FooterRatingSocialSection from "./FooterRatingSocialSection";
+import FooterAssociates from "./FooterAssociates";
+import FooterCopyright from "./FooterCopyright";
+import { footerData } from "./footerData";
 
 function FooterBottomMenuAndImage() {
+  const { isTransparent } = useHeader();
+
   return (
-    <>
-      <div
-        className={cn(
-          "sm:absolute sm:-translate-x-1/2 sm:bottom-4 sm:left-1/2 sm:z-20 sm:text-white",
-          "font-medium text-sm md:text-base text-center mt-5 sm:mt-0 sm:px-5",
-          "flex flex-wrap gap-x-4 gap-y-1 md:gap-y-0 md:gap-x-8 justify-center items-center w-full"
-        )}
-      >
-        <div className="flex flex-wrap gap-2 justify-center *:underline mb-1">
-          <Link href="/terms-and-conditions">Terms</Link> |<Link href="/privacy-policy">Privacy</Link> |
-          <Link href="/inquiry-and-cancellation-policy">Inquiry & Cancellation</Link>
-        </div>
-        <p className="flex gap-1 items-center">
-          <Copyright size={16} /> 2024 Community Homestay Network, Inc.
-        </p>
-        <div className="flex flex-wrap gap-x-4 md:gap-x-8 justify-center items-center">
-          <p>
-            Crafted by{" "}
-            <Link className="underline" href="http://quarkinfotech.com/" rel="noreferrer" target="_blank">
-              QuarkInfoTech
-            </Link>
-          </p>
+    <div className="flex flex-col w-full items-start bg-[#1E2F22] py-12">
+      <div className="flex flex-col md:flex-row gap-6 items-start w-full justify-between md:container px-3 border-b pb-8">
+        <FooterLogoSection
+          companyInfo={footerData.companyInfo}
+          isTransparent={isTransparent}
+        />
+
+        <div className="flex flex-col gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:px-8">
+            <FooterContactSection contactInfo={footerData.contactInfo} />
+
+            <div className="grid grid-cols-3 gap-6">
+              {footerData.menuSections.map((section) => (
+                <FooterMenuSection key={section.title} section={section} />
+              ))}
+            </div>
+          </div>
+
+          <FooterRatingSocialSection
+            rating={footerData.rating}
+            socialLinks={footerData.socialLinks}
+          />
+
+          <FooterAssociates associates={footerData.associates} />
         </div>
       </div>
-      <Image
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 w-[110vw] max-w-none md:max-w-[1750px] object-cover object-top md:-mb-[8vw] lg:-mb-[200px]"
-        src={HeritageImg}
-        alt="Nepal Heritage"
-        draggable={false}
-      />
-      <div
-        className={cn(
-          "absolute left-0 right-0 bottom-0 z-10 h-14 sm:h-40",
-          "bg-gradient-to-b from-transparent via-transparent to-gray-900"
-        )}
-      />
-    </>
+
+      <FooterCopyright copyright={footerData.copyright} />
+    </div>
   );
 }
 

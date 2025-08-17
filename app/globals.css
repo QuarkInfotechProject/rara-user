@@ -159,3 +159,29 @@
     transform: translateY(0);
   }
 }
+
+@layer components {
+
+  
+  .star-filled {
+    @apply text-yellow-400;
+  }
+  
+  .star-empty {
+    @apply text-gray-300;
+  }
+  
+  .loading-skeleton {
+    @apply animate-pulse bg-gray-300 rounded;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
