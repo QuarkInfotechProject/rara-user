@@ -22,7 +22,7 @@ export default function TestimonialGrid({
 
   return (
     <div
-      className={`max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 h-full ${className}`}
+      className={`w-full lg:max-w-4xl w-full flex lg:grid lg:grid-cols-1 lg:grid-cols-2 gap-6 h-full ${className}`}
     >
       {/* Left Column - Scrolls Down */}
       <ScrollingColumn

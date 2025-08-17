@@ -25,7 +25,9 @@
         {/* Header with title and navigation buttons */}
         <div className="flex items-end justify-between mb-8">
           <div className="flex flex-col gap-1">
-            <p className="text-xl lg:text-2xl font-satisfy">Popular destination</p>
+            <p className="text-xl lg:text-2xl font-satisfy">
+              Popular destination
+            </p>
             <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
               Trending <p className="text-[#71B344]">{title}</p>
             </h1>
@@ -69,16 +71,17 @@
           }}
           className="w-full"
         >
-          <CarouselContent className="-ml-2 md:-ml-4 pb-6">
+          <CarouselContent className="-ml-4 sm:-ml-2 md:-ml-4 pb-6">
             {data.map((trek, index) => (
               <CarouselItem
                 key={index}
-                className="pl-2 md:pl-4 gap-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                className="pl-4 sm:pl-2 md:pl-4 basis-[85%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 snap-start"
               >
                 <TrekCard {...trek} />
               </CarouselItem>
             ))}
           </CarouselContent>
+
           {/* Hidden default carousel buttons for programmatic access */}
           <CarouselPrevious className="hidden" data-carousel="prev" />
           <CarouselNext className="hidden" data-carousel="next" />

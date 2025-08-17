@@ -50,8 +50,8 @@ const News = ({ newsItems = newsData, onViewAll, onNewsClick }: NewsProps) => {
   const displayedNews = newsItems.slice(0, 3);
 
   return (
-    <div className="w-full container flex flex-col gap-6 pt-8">
-      <div className="flex w-full items-end justify-between mb-8">
+    <div className="w-full container flex flex-col gap-4 pt-8">
+      <div className="flex w-full items-end justify-between lg:mb-8">
         <div className="flex flex-col gap-1">
           <p className="text-xl lg:text-2xl font-satisfy">
             Here is our insight on the latest trend

@@ -4,6 +4,7 @@ import TestimonialHeader from "./TestimonialHeader";
 import TestimonialBackground from "./TestimonialBackground";
 import TestimonialGrid from "./TestimonialGrid";
 import { testimonialData } from "./testimonialData";
+import MobileTestimonial from "./MobileTestimonial";
 
 interface TestimonialProps {
   className?: string;
@@ -27,7 +28,7 @@ export default function Testimonial({
     <div
       className={`w-full flex items-start h-full overflow-hidden justify-start ${className}`}
     >
-      <div className="w-full flex flex-col items-start justify-start relative gap-12">
+      <div className="w-full hidden lg:flex flex-col items-start justify-start relative gap-12">
         {/* Background Image */}
         <TestimonialBackground />
 
@@ -39,6 +40,10 @@ export default function Testimonial({
           {/* Testimonial Grid with Scrolling Columns */}
           <TestimonialGrid testimonials={testimonialData} />
         </div>
+      </div>
+
+      <div className="block lg:hidden">
+        <MobileTestimonial />
       </div>
     </div>
   );

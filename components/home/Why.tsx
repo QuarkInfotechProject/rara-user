@@ -49,15 +49,30 @@ const Why = () => {
 
   return (
     <div className="w-full flex items-center justify-center py-4 bg-[#1E2F22]">
-      <div className="flex flex-col items-center justify-center container py-6">
+      <div className="w-full flex flex-col items-center justify-center md:container py-6">
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center flex items-center justify-center gap-2">
           Why choose <span className="text-[#71B344]">Rara Trek</span>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+        <div className="hidden md:block grid md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
           {cardData.map((card: CardData, index: number) => (
             <div
               key={index}
               className={`${index === 1 || index === 4 ? "lg:mt-8" : ""}`}
+            >
+              <Card
+                icon={card.icon}
+                title={card.title}
+                description={card.description}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="block md:hidden flex flex-col gap-8 w-full">
+          {cardData.map((card: CardData, index: number) => (
+            <div
+              key={index}
+              className={`w-[70%] ${index % 2 === 0 ? "ml-auto" : "mr-auto"}`}
             >
               <Card
                 icon={card.icon}

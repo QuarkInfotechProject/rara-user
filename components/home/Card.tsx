@@ -9,7 +9,7 @@ interface CardProps {
 
 const Card = ({ icon, title, description }: CardProps) => {
   return (
-    <div className="w-full flex flex-col items-center justify-center text-center p-6 h-full">
+    <div className="w-lg md:w-full flex flex-col items-center justify-center text-center p-1 md:p-6 h-full">
       <div className="mb-3">
         <Image
           src={icon}
