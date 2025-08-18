@@ -12,7 +12,7 @@ This API returns a list of available treks, tours, or activities. Each product i
 
 ## Response Format
 
-````ts
+`````ts
 [
   {
     id: string;
@@ -72,13 +72,13 @@ The response also includes timestamps to manage lifecycle states such as creatio
     deleted_at?: string | null;// Nullable, only present if soft-deleted
   }
 ]
-````
+`````
 
 ---
 
 ## Example Response
 
-```json
+````json
 [
   {
     "id": "1",
@@ -135,22 +135,23 @@ The response also includes timestamps to manage lifecycle states such as creatio
 ##Example Response
 ```json
 [
-{
-"id": "1",
-"type": "Trek",
-"title": "Annapurna Base Camp Trek",
-"startDate": "July 30, 2025",
-"endDate": "August 15, 2025",
-"duration": "15 Days",
-"groupSize": 10,
-"difficulty": "Moderate",
-"originalPrice": 1500,
-"discountedPrice": 1200,
-"image": "/assets/1.png",
-"currency": "USD",
-"created_at": "2025-06-01T10:00:00Z",
-"updated_at": "2025-08-15T09:30:00Z",
-"deleted_at": null
-}
+    {
+        "id": "1",
+        "type": "Trek",
+        "title": "Annapurna Base Camp Trek",
+        "startDate": "July 30, 2025",
+        "endDate": "August 15, 2025",
+        "duration": "15 Days",
+        "groupSize": 10,
+        "difficulty": "Moderate",
+        "originalPrice": 1500,
+        "discountedPrice": 1200,
+        "image": "/assets/1.png",
+        "currency": "USD",
+        "created_at": "2025-06-01T10:00:00Z",
+        "updated_at": "2025-08-15T09:30:00Z",
+        "deleted_at": null
+    }
 ]
 ```json
+````
