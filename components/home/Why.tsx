@@ -53,7 +53,7 @@ const Why = () => {
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center flex items-center justify-center gap-2">
           Why choose <span className="text-[#71B344]">Rara Trek</span>
         </h2>
-        <div className="hidden md:block grid md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
           {cardData.map((card: CardData, index: number) => (
             <div
               key={index}

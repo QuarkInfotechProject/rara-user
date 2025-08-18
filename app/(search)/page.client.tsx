@@ -1,19 +1,14 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import axios from "axios";
-import SearchFilters from "@/components/search/search-filters";
 import useProductSearch from "@/lib/hooks/use-product-search";
-import MapView from "@/components/search/map-view";
 import ProductGrid from "@/components/search/product-grid";
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "@/types/product.types";
-import CHNSafety from "@/components/chn-safety";
 import useProductSearchTags from "@/lib/hooks/use-product-search-tags";
 import { useMapView } from "@/lib/context/google-map-provider";
 import { PaginatedResponse } from "@/types/index.types";
 import SearchPagination from "@/components/search/search-pagination";
-import { cn } from "@/lib/utils";
-import SearchFiltersMobile from "@/components/search/search-filters.mobile";
 import { searchContent } from "@/lib/data/search";
 
 function SearchPage() {
@@ -28,11 +23,17 @@ function SearchPage() {
       const { data } = await axios.post<PaginatedResponse<Product>>(
         "/api/product/list",
         {
-          filters: { ...filter, type: filter.type === "all" ? undefined : filter.type.slice(0, -1), bounds: bounds },
+          filters: {
+            ...filter,
+            // Remove type filtering to get all products
+            type: undefined,
+            bounds: bounds,
+          },
         },
         {
           params: {
-            page: filter.page,
+            page: 1, // Always fetch from page 1
+            per_page: 1000, // Fetch a large number to get all products
           },
         }
       );
@@ -41,37 +42,74 @@ function SearchPage() {
     throwOnError: false,
   });
 
+  // Group products by type
+  const productsByType = useMemo(() => {
+    if (!products?.data.data) return [];
+
+    // Group products by type
+    const grouped = products.data.data.reduce((acc, product) => {
+      const type = product.type;
+      if (!acc[type]) {
+        acc[type] = [];
+      }
+      acc[type].push(product);
+      return acc;
+    }, {} as Record<string, Product[]>);
+
+    // Convert to array with dynamic configuration
+    return Object.entries(grouped)
+      .map(([type, productList]) => ({
+        type,
+        products: productList,
+        config: {
+          title: type.charAt(0).toUpperCase() + type.slice(1) + "s",
+          description: `Explore our ${type} options`,
+        },
+      }))
+      .sort((a, b) => a.type.localeCompare(b.type)); // Sort alphabetically
+  }, [products?.data.data]);
+
   useEffect(() => {
     reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter.type]);
 
   return (
     <main>
       <div className="sticky top-20">
-        <SearchFilters />
-        <div className="grid md:grid-cols-[1.5fr_1fr]">
-          <div
-            className={cn(
-              "relative z-10",
-              "max-md:shadow-[1px_-10px_15px_5px_#0000003d]",
-              "max-md:rounded-t-3xl bg-primary-light w-full",
-              "order-2 md:order-1 max-md:-mt-4"
-            )}
-          >
-            <SearchFiltersMobile className="p-6 pt-2 max-w-[100vw]" />
+        <div className="w-full">
+          <div className="w-full">
             <div className="px-6 md:p-8 !pb-0">
-              <h4 className="font-bebas-neue text-3xl md:text-4xl">{activeTag?.name ?? typeData?.name}</h4>
-              <p>{activeTag?.description ?? typeData?.description}</p>
+              <h4 className="font-bebas-neue text-3xl md:text-4xl">
+                {activeTag?.name ?? typeData?.name ?? "All Products"}
+              </h4>
+              <p>
+                {activeTag?.description ??
+                  typeData?.description ??
+                  "Discover all our offerings organized by category"}
+              </p>
             </div>
-            <ProductGrid className="p-6 md:p-8 !pb-0" loading={isPending} products={products?.data.data} />
-            <SearchPagination className="py-4" totalPages={products?.data.last_page ?? 1} />
-          </div>
-          <div className="h-[40vh] max-md:sticky max-md:top-0 md:h-full  order-1 md:order-2">
-            <MapView key="search-map-view" places={products?.data.data} type={filter.type} />
+
+            {/* Display all products together */}
+            <ProductGrid
+              className="p-6 md:p-8 !pb-0"
+              products={products?.data.data || []}
+            />
+
+            {/* Show loading or no products message */}
+            {isPending && (
+              <div className="p-6 md:p-8 flex justify-center">
+                <div className="text-lg">Loading products...</div>
+              </div>
+            )}
+
+            {!isPending &&
+              (!products?.data.data || products.data.data.length === 0) && (
+                <div className="p-6 md:p-8 text-center text-gray-500">
+                  <p className="text-xl">No products found</p>
+                </div>
+              )}
           </div>
         </div>
-        <CHNSafety />
       </div>
     </main>
   );

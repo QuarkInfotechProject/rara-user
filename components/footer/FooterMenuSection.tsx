@@ -15,7 +15,7 @@ function FooterMenuSection({ section }: FooterMenuSectionProps) {
           <Link
             key={item.label}
             href={item.href}
-            className="text-[#F2F5F0] hover:text-white transition-colors"
+            className="text-[#F2F5F0] hover:text-white transition-colors font-md"
           >
             {item.label}
           </Link>

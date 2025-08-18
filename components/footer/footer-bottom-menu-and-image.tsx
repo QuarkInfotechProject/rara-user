@@ -25,7 +25,7 @@ function FooterBottomMenuAndImage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:px-8">
             <FooterContactSection contactInfo={footerData.contactInfo} />
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-3 gap-8">
               {footerData.menuSections.map((section) => (
                 <FooterMenuSection key={section.title} section={section} />
               ))}
