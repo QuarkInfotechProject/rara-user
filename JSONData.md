@@ -33,7 +33,7 @@ This API returns a list of available treks, tours, or activities. Each product i
   }
 ]
 
-````ts
+````
 
 # Product List API Documentation
 
@@ -52,7 +52,7 @@ The response also includes timestamps to manage lifecycle states such as creatio
 
 ## Response Format
 
-```ts
+````ts
 [
   {
     id: string;
@@ -78,7 +78,7 @@ The response also includes timestamps to manage lifecycle states such as creatio
 
 ## Example Response
 
-```json
+````ts
 [
   {
     "id": "1",
@@ -98,7 +98,7 @@ The response also includes timestamps to manage lifecycle states such as creatio
     "deleted_at": null
   }
 ]
-```json
+````
 
 ---
 
@@ -133,7 +133,7 @@ The response also includes timestamps to manage lifecycle states such as creatio
 - Recommended to cache the response for better performance in high-traffic applications.
 
 ##Example Response
-```json
+````ts
 [
 {
 "id": "1",
@@ -153,4 +153,4 @@ The response also includes timestamps to manage lifecycle states such as creatio
 "deleted_at": null
 }
 ]
-```json
+````
