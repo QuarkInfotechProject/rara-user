@@ -18,11 +18,11 @@ function Header() {
     <Fragment>
       <header
         className={cn(
-          "hidden  md:block relative z-50 mb-6",
-          !isTransparent && "border-b bg-white"
+          "hidden w-fullw md:block relative  z-50 mb-6",
+          !isTransparent && "border-b bg-[#F2F5F0]"
         )}
       >
-        <div className="w-full container flex flex-col items-center">
+        <div className="w-full container bg-[#F2F5F0]  flex flex-col items-center">
           <div className=" w-full px-8 flex justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-[20px] my-8 items-center py-3">
             <div>
               <Link href="/">
@@ -61,6 +61,7 @@ function Header() {
           <NavigationMenu />
         </div>
       </header>
+      <MobileHeader />
     </Fragment>
   );
 }

@@ -1,4 +1,4 @@
-# Product List API Documentation
+# RARA TREK AND TOURS API Documentation
 
 ## Endpoint
 
@@ -26,7 +26,7 @@ This API returns a list of available treks, tours, or activities. Each product i
     originalPrice: number;
     discountedPrice: number;
     image: string;             // Path or URL to image
-    currency: string;          // Example: "USD"
+    currency: string;          // Example: "NPR/USD"
     created_at: string;        // ISO 8601 Format: "YYYY-MM-DDTHH:mm:ssZ"
     updated_at: string;        // ISO 8601 Format: "YYYY-MM-DDTHH:mm:ssZ"
     deleted_at?: string | null; // Nullable, present only if soft-deleted

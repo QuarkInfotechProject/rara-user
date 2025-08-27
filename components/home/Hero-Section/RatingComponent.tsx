@@ -27,7 +27,7 @@ export const RatingComponent = ({
   };
 
   return (
-    <div className="w-[24.4px] absolute top-[calc(50%_-_36px)] right-[40px] hidden lg:flex flex-col items-center justify-center gap-2.5 z-[3] text-xs text-black font-mulish">
+    <div className="w-[24.4px] absolute top-[calc(50%_-_36px)] right-[60px] hidden lg:flex flex-col items-center justify-center gap-2.5 z-[3] text-xs text-black font-mulish">
       <Image
         className="w-[22px] relative max-h-full overflow-hidden"
         width={22}

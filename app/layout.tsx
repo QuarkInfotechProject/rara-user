@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${sen.variable} ${satisfy.variable} ${mulish.variable} min-h-screen flex flex-col bg-[#F2F5F0] text-black`}
+        className={`${sen.variable} ${satisfy.variable} ${mulish.variable} min-h-screen  flex flex-col bg-[#F2F5F0] text-black`}
       >
         <ReactQueryContext>
           <UserContext>

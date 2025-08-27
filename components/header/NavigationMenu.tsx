@@ -89,7 +89,7 @@ function NavigationMenu() {
   };
 
   return (
-    <div className="w-full flex justify-center gap-24 items-center">
+    <div className="w-full flex justify-center gap-24 pb-6 bg-[#F2F5F0]  items-center">
       {navigationItems.map((item) => {
         const IconComponent = item.icon;
         const isActive = activeDropdown === item.id;

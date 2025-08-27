@@ -12,7 +12,7 @@ import News from "@/components/home/News";
 async function Home() {
   return (
     <main className="flex flex-col gap-10 pb-10">
-      <div className="w-full px-3 md:px-10">
+      <div>
         <HeroSection />
       </div>
       <Journey />

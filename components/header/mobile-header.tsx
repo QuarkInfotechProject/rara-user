@@ -1,15 +1,11 @@
 "use client";
 import React from "react";
 import CHNLogo from "../chn-logo";
-import MobileMenu from "./mobile-menu";
 import Link from "next/link";
-import { TRANSPARENT_PATHS } from "./index";
-import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import QuickSearchPopup from "../search/quick-search-popup";
-import { Button } from "@/components/ui/button";
-import { IconSearch } from "@tabler/icons-react";
 import useHeader from "@/lib/hooks/use-header";
+import { Search } from "lucide-react";
+import MobileMenu from "./mobile-menu";
 
 function MobileHeader() {
   const { isTransparent } = useHeader();
@@ -18,28 +14,29 @@ function MobileHeader() {
     <header className="relative z-10 md:hidden">
       <div
         className={cn(
-          "px-6 grid grid-cols-2 gap-3 items-center py-4",
+          "px-6 gap-3 items-center py-4",
           !isTransparent && "border-b bg-white",
           isTransparent && "[&_svg]:text-white"
         )}
       >
-        <Link href="/">
-          <CHNLogo className="h-12 w-auto" variant={isTransparent ? "white" : "default"} />
-        </Link>
-        <div className="ml-auto flex gap-4 items-center">
-          <QuickSearchPopup>
-            <Button
-              className={cn(
-                "aspect-square h-8 p-0 rounded-full text-black",
-                isTransparent && "backdrop-blur-lg bg-white/50"
-              )}
-              variant={isTransparent ? "secondary" : "outline"}
-            >
-              <IconSearch size={20} />
-            </Button>
-          </QuickSearchPopup>
-          <MobileMenu />
+        <div className=" w-full px-4 flex flex-col justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-full mt-8 mb-3 items-center py-3">
+          <div className="flex w-full justify-between items-center">
+            <div>
+              <Link href="/">
+                <CHNLogo
+                  variant={isTransparent ? "white" : "default"}
+                  className="w-full h-14 object-contain"
+                />
+              </Link>
+            </div>
+            {/* <QuickSearchPopup> */}
+            <div className="px-4">
+              <Search size={20} stroke="gray" />
+            </div>
+            {/* </QuickSearchPopup> */}
+          </div>
         </div>
+        <MobileMenu />
       </div>
     </header>
   );

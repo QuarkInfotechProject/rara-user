@@ -72,7 +72,7 @@ export const SocialIcons = ({
   };
 
   return (
-    <div className="w-[24.4px] absolute top-[calc(50%_-_36px)] left-[40px] hidden lg:flex flex-col items-center justify-center gap-[18px] z-[2]">
+    <div className="w-[24.4px] absolute top-[calc(50%_-_36px)] left-[60px] hidden lg:flex flex-col items-center justify-center gap-[18px] z-[2]">
       {socialMedia.map((social: SocialMedia, index: number) => (
         <Link
           key={index}

@@ -20,7 +20,7 @@ export const HeroContent = ({
       </div>
       <Button className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-start py-2 px-4 gap-2 z-[1] text-base text-whitesmoke font-inter hover:bg-opacity-90 transition-all cursor-pointer">
         <div className="relative leading-[150%]">{hero.buttonText}</div>
-        <ChevronRightIcon className="text-black" size={16} />
+        <ChevronRightIcon className="text-white" size={16} />
       </Button>
     </div>
   );
