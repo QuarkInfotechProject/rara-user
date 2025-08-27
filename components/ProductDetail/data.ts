@@ -389,54 +389,78 @@ export const trekDataApiResponse = {
         },
       ],
     },
-    faqData: [
-      {
-        question: "Why is Annapurna best trek in Nepal?",
-        answer:
-          "The Annapurna Circuit is considered one of the best treks in Nepal due to its diverse landscapes, ranging from subtropical forests to high-altitude deserts. It offers stunning mountain views, rich cultural experiences with local communities, and the challenging yet rewarding Thorong La Pass at 5,416m.",
-      },
-      {
-        question:
-          "How much difficult is it for basic new beginners to the world of trekking?",
-        answer:
-          "For complete beginners, the Annapurna Base Camp trek is moderately challenging but achievable with proper preparation. You'll need basic fitness (ability to walk 5-7 hours daily), no technical climbing skills required. Start with shorter hikes 2-3 months before, focus on cardio and leg strength, and consider hiring a guide for your first Himalayan experience.",
-      },
-      {
-        question: "What is the best time of year to do the ABC trek?",
-        answer:
-          "The optimal times for ABC trek are pre-monsoon (March-May) and post-monsoon (September-November). March-May offers blooming rhododendrons and warmer weather, while September-November provides crystal clear mountain views and stable weather. Avoid monsoon season (June-August) due to heavy rainfall and poor visibility.",
-      },
-      {
-        question: "What permits are required for the ABC trek?",
-        answer:
-          "You need two permits for ABC trek: Annapurna Conservation Area Permit (ACAP) costing NPR 3,000 for foreigners, and TIMS (Trekkers' Information Management System) card costing NPR 2,000. Both can be obtained in Kathmandu or Pokhara. Bring passport photos and copies of your passport.",
-      },
-      {
-        question: "How long does the ABC trek take?",
-        answer:
-          "The standard ABC trek typically takes 7-12 days depending on your itinerary and acclimatization needs. Most trekkers complete it in 8-10 days, including rest days. This allows proper acclimatization and time to enjoy the stunning mountain views without rushing.",
-      },
-      {
-        question: "What should I pack for the ABC trek?",
-        answer:
-          "Essential items include: layered clothing system, waterproof jacket and pants, trekking boots, sleeping bag (rated -10°C), headlamp, water purification tablets, first aid kit, and trekking poles. Pack light but don't compromise on safety gear. Most equipment can be rented in Pokhara if needed.",
-      },
-      {
-        question: "Do I need a guide for ABC trek?",
-        answer:
-          "While not mandatory, hiring a local guide is highly recommended, especially for beginners. Guides provide safety, cultural insights, help with navigation, and support during emergencies. They're familiar with weather patterns, altitude sickness symptoms, and can enhance your overall trekking experience significantly.",
-      },
-      {
-        question: "What is the maximum altitude of ABC trek?",
-        answer:
-          "Annapurna Base Camp sits at 4,130 meters (13,549 feet) above sea level. The trek involves gradual altitude gain which helps with acclimatization. Most trekkers don't experience severe altitude sickness due to the gradual ascent, but it's important to stay hydrated and ascend slowly.",
-      },
-      {
-        question: "How much does the ABC trek cost?",
-        answer:
-          "Total cost varies widely: budget trekking (teahouses, no guide) costs $300-500, mid-range with guide costs $600-900, and premium organized treks cost $1000-1500. This includes permits, accommodation, meals, guide/porter fees, and transportation. Costs depend on service level and group size.",
-      },
-    ],
+    faqData: {
+      images: [
+        {
+          id: 1,
+          src: "/assets/faq.png",
+          alt: "Annapurna Base Camp trek frequently asked questions",
+        },
+        {
+          id: 2,
+          src: "/assets/faq.png",
+          alt: "Trekking guide answering questions from trekkers",
+        },
+        {
+          id: 3,
+          src: "/assets/faq.png",
+          alt: "Mountain landscape with trekking information",
+        },
+        {
+          id: 4,
+          src: "/assets/faq.png",
+          alt: "Preparation and planning for Himalayan trekking",
+        },
+      ],
+      questions: [
+        {
+          question: "Why is Annapurna best trek in Nepal?",
+          answer:
+            "The Annapurna Circuit is considered one of the best treks in Nepal due to its diverse landscapes, ranging from subtropical forests to high-altitude deserts. It offers stunning mountain views, rich cultural experiences with local communities, and the challenging yet rewarding Thorong La Pass at 5,416m.",
+        },
+        {
+          question:
+            "How much difficult is it for basic new beginners to the world of trekking?",
+          answer:
+            "For complete beginners, the Annapurna Base Camp trek is moderately challenging but achievable with proper preparation. You'll need basic fitness (ability to walk 5-7 hours daily), no technical climbing skills required. Start with shorter hikes 2-3 months before, focus on cardio and leg strength, and consider hiring a guide for your first Himalayan experience.",
+        },
+        {
+          question: "What is the best time of year to do the ABC trek?",
+          answer:
+            "The optimal times for ABC trek are pre-monsoon (March-May) and post-monsoon (September-November). March-May offers blooming rhododendrons and warmer weather, while September-November provides crystal clear mountain views and stable weather. Avoid monsoon season (June-August) due to heavy rainfall and poor visibility.",
+        },
+        {
+          question: "What permits are required for the ABC trek?",
+          answer:
+            "You need two permits for ABC trek: Annapurna Conservation Area Permit (ACAP) costing NPR 3,000 for foreigners, and TIMS (Trekkers' Information Management System) card costing NPR 2,000. Both can be obtained in Kathmandu or Pokhara. Bring passport photos and copies of your passport.",
+        },
+        {
+          question: "How long does the ABC trek take?",
+          answer:
+            "The standard ABC trek typically takes 7-12 days depending on your itinerary and acclimatization needs. Most trekkers complete it in 8-10 days, including rest days. This allows proper acclimatization and time to enjoy the stunning mountain views without rushing.",
+        },
+        {
+          question: "What should I pack for the ABC trek?",
+          answer:
+            "Essential items include: layered clothing system, waterproof jacket and pants, trekking boots, sleeping bag (rated -10°C), headlamp, water purification tablets, first aid kit, and trekking poles. Pack light but don't compromise on safety gear. Most equipment can be rented in Pokhara if needed.",
+        },
+        {
+          question: "Do I need a guide for ABC trek?",
+          answer:
+            "While not mandatory, hiring a local guide is highly recommended, especially for beginners. Guides provide safety, cultural insights, help with navigation, and support during emergencies. They're familiar with weather patterns, altitude sickness symptoms, and can enhance your overall trekking experience significantly.",
+        },
+        {
+          question: "What is the maximum altitude of ABC trek?",
+          answer:
+            "Annapurna Base Camp sits at 4,130 meters (13,549 feet) above sea level. The trek involves gradual altitude gain which helps with acclimatization. Most trekkers don't experience severe altitude sickness due to the gradual ascent, but it's important to stay hydrated and ascend slowly.",
+        },
+        {
+          question: "How much does the ABC trek cost?",
+          answer:
+            "Total cost varies widely: budget trekking (teahouses, no guide) costs $300-500, mid-range with guide costs $600-900, and premium organized treks cost $1000-1500. This includes permits, accommodation, meals, guide/porter fees, and transportation. Costs depend on service level and group size.",
+        },
+      ],
+    },
     reviewsData: [
       {
         id: 1,

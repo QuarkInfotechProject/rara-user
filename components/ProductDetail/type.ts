@@ -74,12 +74,21 @@ export interface ItineraryDay {
   meal: string;
 }
 
-// Updated FAQ interface
+export interface FAQImage {
+  id: number;
+  src: string;
+  alt: string;
+}
+
 export interface FAQ {
   question: string;
   answer: string;
 }
 
+export interface FAQData {
+  images: FAQImage[];
+  questions: FAQ[];
+}
 // Updated Review interface
 export interface Review {
   id: number;
@@ -124,7 +133,7 @@ export interface TrekData {
   cost_detail: CostDetail;
   trip_location: trip_location;
   departureData: DepartureData;
-  faqData: FAQ[];
+  faqData: FAQData;
   reviewsData: Review[];
 }
 
@@ -210,9 +219,8 @@ export interface TripLocationProps {
   data?: trip_location;
 }
 
-// Updated FAQ component props
 export interface FaqProps {
-  data?: FAQ[];
+  data?: FAQData;
 }
 
 // Updated Review component props
