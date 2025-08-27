@@ -104,7 +104,7 @@ export interface DepartureItem {
   id: number;
   dateRange: string;
   price: string;
-  statusSubtext?: string; // Optional field for status text
+  statusSubtext?: string; 
 }
 
 export interface DepartureData {

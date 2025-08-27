@@ -9,32 +9,41 @@ import MonthTabs from "./Departure/MonthTabs";
 import NoDataMessage from "./Departure/NoDataMessage";
 
 const Departure = ({ data }: DepartureProps) => {
-  // Early return if no data is provided
   if (!data) {
     return <NoDataMessage />;
   }
 
-  const availableMonths: string[] = Object.keys(data).filter(
-    (month: string) => data[month] && data[month].length > 0
+  const { id, title, ...departureMonths } = data;
+
+  const availableMonths: string[] = Object.keys(departureMonths).filter(
+    (month: string) =>
+      departureMonths[month] && departureMonths[month].length > 0
   );
 
   const [activeTab, setActiveTab] = useState<string>(availableMonths[0] || "");
 
-  const handleEnquire = useCallback((departure: DepartureItem): void => {
-    alert(
-      `Enquiry for: ${departure.dateRange}\nPrice: ${departure.price} per person`
-    );
-  }, []);
+  const handleEnquire = useCallback(
+    (departure: DepartureItem): void => {
+      alert(
+        `Enquiry for: ${departure.dateRange}\nPrice: ${
+          departure.price
+        } per person\nTrek: ${title || "Unknown Trek"}`
+      );
+    },
+    [title]
+  );
 
   const handleCreateCustomTrip = useCallback((): void => {
-    alert("Redirecting to custom trip creation...");
-  }, []);
+    alert(
+      `Redirecting to custom trip creation for: ${title || "Unknown Trek"}`
+    );
+  }, [title]);
 
   const handleTabChange = useCallback((month: string): void => {
     setActiveTab(month);
   }, []);
 
-  const currentDepartures: DepartureItem[] = data[activeTab] || [];
+  const currentDepartures: DepartureItem[] = departureMonths[activeTab] || [];
 
   return (
     <div className="w-full flex flex-col gap-6">
@@ -54,12 +63,16 @@ const Departure = ({ data }: DepartureProps) => {
             <DepartureTable
               departures={currentDepartures}
               onEnquire={handleEnquire}
+              trekId={id} 
+              trekTitle={title} 
             />
           </div>
         </div>
       </div>
 
-      <CustomTripSection onCreateCustomTrip={handleCreateCustomTrip} />
+      <CustomTripSection
+        onCreateCustomTrip={handleCreateCustomTrip}
+      />
     </div>
   );
 };

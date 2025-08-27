@@ -36,7 +36,7 @@ const Product_Detail = () => {
   const scrollToSection = (sectionId: any) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const offset = 120; // Account for sticky header
+      const offset = 120;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -52,7 +52,7 @@ const Product_Detail = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = tabs.map((tab) => document.getElementById(tab.id));
-      const scrollPosition = window.scrollY + 150; // Offset for better detection
+      const scrollPosition = window.scrollY + 150;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -85,7 +85,14 @@ const Product_Detail = () => {
   const itineraryData = trekInfo.itinerary;
   const costDetailData = trekInfo.cost_detail;
   const TripLocationData = trekInfo.trip_location;
-  const departureData = trekInfo.departureData;
+
+  // Fix: Create departureData with correct structure
+  const departureData = {
+    id: trekInfo.id,
+    title: trekInfo.title,
+    ...trekInfo.departureData, // This should contain the month data
+  };
+
   const faqData = trekInfo.faqData;
   const reviewsData = trekInfo.reviewsData;
 

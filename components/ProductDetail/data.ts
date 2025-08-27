@@ -3,6 +3,7 @@ export const trekDataApiResponse = {
   message: "Trek data fetched successfully",
   data: {
     type: "trek",
+    id: "1",
     title: "Annapurna Base Camp Trek",
     location: {
       region: "Annapurna Region",

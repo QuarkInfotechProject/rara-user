@@ -4,8 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { DepartureTableProps } from "./types";
 import { DepartureItem } from "../../type";
+import TrekInquiryPopup from "./Inquire";
 
-const DepartureTable = ({ departures, onEnquire }: DepartureTableProps) => {
+interface ExtendedDepartureTableProps extends DepartureTableProps {
+  trekId?: string;
+  trekTitle?: string;
+}
+
+const DepartureTable = ({
+  departures,
+  onEnquire,
+  trekId,
+  trekTitle,
+}: ExtendedDepartureTableProps) => {
   return (
     <div className="rounded-lg overflow-hidden">
       <Table>
@@ -35,12 +46,17 @@ const DepartureTable = ({ departures, onEnquire }: DepartureTableProps) => {
                 </div>
               </TableCell>
               <TableCell className="text-center">
-                <Button
+                {/* <Button
                   onClick={() => onEnquire(departure)}
                   className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200"
                 >
                   Enquire Now
-                </Button>
+                </Button> */}
+                <TrekInquiryPopup
+                  departure={departure}
+                  trekId={trekId}
+                  trekTitle={trekTitle}
+                />
               </TableCell>
             </TableRow>
           ))}
