@@ -4,7 +4,6 @@ import Breadcrumbs from "@/app/(product)/_components/breadcrumbs";
 import ProductTags from "@/components/product/product-tags";
 import RatingPreview from "@/components/product/rating-preview";
 import ProductImagesMobile from "@/components/product/product-images-mobile";
-import WishlistIcon from "@/components/product/wishlist-icon";
 import FAQGrid from "@/components/product/faqs/faq-grid";
 import BlogsGridCard from "@/components/blog/blogs-grid-card";
 import getProductReviews from "@/lib/utils/server/get-product-reviews";
@@ -12,7 +11,6 @@ import CancellationPolicy from "@/app/(product)/_components/cancellation-policy"
 import ProductImages from "@/components/product/product-images";
 import ProductProvider from "./_hooks/product-provider";
 import { notFound } from "next/navigation";
-import ProductActionsButtons, { ShareIcon } from "./product-action-buttons";
 import ProductsSlider from "@/components/product/products-slider";
 import { NearbyHomestay, RelatedCircuit, RelatedExperience, RelatedPackage } from "@/types/product.types";
 import ReviewsAndRatings from "./reviews-and-ratings";
@@ -78,16 +76,7 @@ async function Layout({ params, children }: Props) {
             gridImages={[product.files.featuredImage, ...product.files.featuredImages]}
             galleryImages={product.files.galleryImages}
           />
-          <button className="absolute bottom-3 left-3 bg-white rounded-full p-1">
-            <WishlistIcon productId={product.id} stroke={1.5} />
-          </button>
-          <ShareIcon
-            id={product.id}
-            title={product.name}
-            tagline={product.tagline}
-            image={product.files.featuredImage}
-            className="absolute bottom-3 left-14"
-          />
+          
         </div>
         <div className="container max-w-7xl pt-4">
           <Breadcrumbs title={product.name} productType={params.productType} />
@@ -100,12 +89,7 @@ async function Layout({ params, children }: Props) {
                 totalRatings={Number(product.total_rating)}
               />
             </div>
-            <ProductActionsButtons
-              id={product.id}
-              title={product.name}
-              tagline={product.tagline}
-              image={product.files.featuredImage}
-            />
+           
           </div>
           <ProductImages
             gridImages={[product.files.featuredImage, ...product.files.featuredImages]}

@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { IconMapPin, IconStarFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
-import WishlistIcon from "./wishlist-icon";
 import { cn } from "@/lib/utils";
 import { ProductPrice } from "@/types/product.types";
 import IconVerified from "../icons/verified";
@@ -129,11 +128,7 @@ function ProductCard4(props: Props) {
         </div>
       </div>
       {props.badge && <Badge className="absolute top-3 rounded-l-[2px]">{props.badge}</Badge>}
-      <WishlistIcon
-        productId={props.id}
-        size={28}
-        className="absolute top-3 right-3 cursor-pointer text-muted-foreground bg-white rounded-full p-1 border"
-      />
+     
     </article>
   );
 }

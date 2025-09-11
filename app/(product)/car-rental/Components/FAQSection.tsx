@@ -10,7 +10,7 @@ import { faqs } from "./data";
 
 const FAQSection: React.FC = () => {
   return (
-    <section className="py-16 bg-white min-h-screen">
+    <section className="py-16 bg-white h-auto">
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold  mb-4">

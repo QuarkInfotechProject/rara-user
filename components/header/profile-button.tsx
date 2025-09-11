@@ -50,9 +50,7 @@ function ProfileButton({ className, variant = "default" }: Props) {
           variant={variant}
           asChild
         >
-          <Link href="/login">
             <IconUser size={20} />
-          </Link>
         </Button>
       )}
     </>

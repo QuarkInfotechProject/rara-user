@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Star, Upload, X } from "lucide-react";
 import {
@@ -10,17 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-
-interface ReviewData {
-  name: string;
-  overallRating: number;
-  cleanliness: number;
-  hospitality: number;
-  valueForMoney: number;
-  communication: number;
-  review: string;
-  photo: File | null;
-}
+import { ReviewData } from "./Reviews/types"; // <-- use shared type
 
 interface TrekReviewDialogProps {
   isOpen: boolean;
@@ -85,39 +76,22 @@ const TrekReviewDialog = ({
 }: TrekReviewDialogProps) => {
   const [reviewData, setReviewData] = useState<ReviewData>({
     name: "",
-    overallRating: 0,
-    cleanliness: 0,
-    hospitality: 0,
-    valueForMoney: 0,
-    communication: 0,
+    rating: 0,
     review: "",
     photo: null,
   });
 
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [hoveredStars, setHoveredStars] = useState<{
-    overall: number;
-    cleanliness: number;
-    hospitality: number;
-    valueForMoney: number;
-    communication: number;
-  }>({
-    overall: 0,
-    cleanliness: 0,
-    hospitality: 0,
-    valueForMoney: 0,
-    communication: 0,
-  });
+  const [hoveredStar, setHoveredStar] = useState(0);
 
-  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       setReviewData((prev) => ({ ...prev, photo: file }));
 
-      // Create preview URL
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setPhotoPreview(e.target?.result as string);
+      reader.onload = (event) => {
+        setPhotoPreview(event.target?.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -128,60 +102,22 @@ const TrekReviewDialog = ({
     setPhotoPreview(null);
   };
 
-  const handleStarHover = (category: string, star: number) => {
-    setHoveredStars((prev) => ({ ...prev, [category]: star }));
-  };
-
-  const handleStarLeave = (category: string) => {
-    setHoveredStars((prev) => ({ ...prev, [category]: 0 }));
-  };
-
-  const handleRatingChange = (category: keyof ReviewData, rating: number) => {
-    setReviewData((prev) => ({ ...prev, [category]: rating }));
-  };
-
   const handleSubmit = () => {
-    if (
-      reviewData.name &&
-      reviewData.overallRating > 0 &&
-      reviewData.cleanliness > 0 &&
-      reviewData.hospitality > 0 &&
-      reviewData.valueForMoney > 0 &&
-      reviewData.communication > 0 &&
-      reviewData.review
-    ) {
+    if (reviewData.name && reviewData.rating > 0 && reviewData.review) {
       onSubmit(reviewData);
+
       // Reset form
-      setReviewData({
-        name: "",
-        overallRating: 0,
-        cleanliness: 0,
-        hospitality: 0,
-        valueForMoney: 0,
-        communication: 0,
-        review: "",
-        photo: null,
-      });
+      setReviewData({ name: "", rating: 0, review: "", photo: null });
       setPhotoPreview(null);
-      setHoveredStars({
-        overall: 0,
-        cleanliness: 0,
-        hospitality: 0,
-        valueForMoney: 0,
-        communication: 0,
-      });
+      setHoveredStar(0);
       onClose();
     }
   };
 
   const isFormValid =
-    reviewData.name.trim() &&
-    reviewData.overallRating > 0 &&
-    reviewData.cleanliness > 0 &&
-    reviewData.hospitality > 0 &&
-    reviewData.valueForMoney > 0 &&
-    reviewData.communication > 0 &&
-    reviewData.review.trim();
+    reviewData.name.trim() !== "" &&
+    reviewData.rating > 0 &&
+    reviewData.review.trim() !== "";
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -196,7 +132,7 @@ const TrekReviewDialog = ({
         </DialogHeader>
 
         <div className="space-y-6 py-4">
-          {/* Photo Upload Section */}
+          {/* Photo Upload */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-gray-700">
               Upload Photo
@@ -247,58 +183,17 @@ const TrekReviewDialog = ({
             />
           </div>
 
-          {/* Individual Rating Categories */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
-              Rate Individual Aspects
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <StarRating
-                rating={reviewData.cleanliness}
-                onRatingChange={(rating) =>
-                  handleRatingChange("cleanliness", rating)
-                }
-                label="Cleanliness"
-                hoveredStar={hoveredStars.cleanliness}
-                onHover={(star) => handleStarHover("cleanliness", star)}
-                onLeave={() => handleStarLeave("cleanliness")}
-              />
-
-              <StarRating
-                rating={reviewData.hospitality}
-                onRatingChange={(rating) =>
-                  handleRatingChange("hospitality", rating)
-                }
-                label="Hospitality"
-                hoveredStar={hoveredStars.hospitality}
-                onHover={(star) => handleStarHover("hospitality", star)}
-                onLeave={() => handleStarLeave("hospitality")}
-              />
-
-              <StarRating
-                rating={reviewData.valueForMoney}
-                onRatingChange={(rating) =>
-                  handleRatingChange("valueForMoney", rating)
-                }
-                label="Value for Money"
-                hoveredStar={hoveredStars.valueForMoney}
-                onHover={(star) => handleStarHover("valueForMoney", star)}
-                onLeave={() => handleStarLeave("valueForMoney")}
-              />
-
-              <StarRating
-                rating={reviewData.communication}
-                onRatingChange={(rating) =>
-                  handleRatingChange("communication", rating)
-                }
-                label="Communication"
-                hoveredStar={hoveredStars.communication}
-                onHover={(star) => handleStarHover("communication", star)}
-                onLeave={() => handleStarLeave("communication")}
-              />
-            </div>
-          </div>
+          {/* Rating */}
+          <StarRating
+            rating={reviewData.rating}
+            onRatingChange={(rating) =>
+              setReviewData((prev) => ({ ...prev, rating }))
+            }
+            label="Overall Rating"
+            hoveredStar={hoveredStar}
+            onHover={setHoveredStar}
+            onLeave={() => setHoveredStar(0)}
+          />
 
           {/* Review Text */}
           <div className="space-y-2">

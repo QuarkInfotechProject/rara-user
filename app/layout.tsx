@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Sen, Satisfy, Mulish } from "next/font/google";
 import "./globals.css";
-import AuthModalContext from "@/lib/context/auth-modal-context";
 import Header from "@/components/header";
 import ReactQueryContext from "@/lib/context/react-query-context";
 import Footer from "@/components/footer";
@@ -9,7 +8,6 @@ import UserContext from "@/lib/context/user-context";
 import { Toaster } from "react-hot-toast";
 import NextTopLoader from "nextjs-toploader";
 import GlobalScripts from "@/components/global-scripts";
-import WelcomeModalClientWrapper from "@/components/auth/welcome-modal-client-wrapper";
 import ScrollToTopTempFix from "@/components/scroll-to-top-temp-fix";
 import Topbar from "@/components/header/Topbar";
 
@@ -51,29 +49,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  auth,
 }: Readonly<{
   children: React.ReactNode;
-  auth: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body
-        className={`${sen.variable} ${satisfy.variable} ${mulish.variable} min-h-screen  flex flex-col bg-[#F2F5F0] text-black`}
+        className={`${sen.variable} ${satisfy.variable} ${mulish.variable} min-h-screen flex flex-col bg-[#F2F5F0] text-black`}
       >
         <ReactQueryContext>
           <UserContext>
-            <AuthModalContext>
-              <Topbar />
-              <Header />
-              {children}
-              {auth}
-              <Footer />
-              <Toaster />
-              <NextTopLoader height={5} color="hsl(var(--primary))" />
-              <WelcomeModalClientWrapper />
-              <ScrollToTopTempFix />
-            </AuthModalContext>
+            <Topbar />
+            <Header />
+            {children}
+            <Footer />
+            <Toaster />
+            <NextTopLoader height={5} color="hsl(var(--primary))" />
+            <ScrollToTopTempFix />
           </UserContext>
         </ReactQueryContext>
         <GlobalScripts />
@@ -81,3 +73,4 @@ export default function RootLayout({
     </html>
   );
 }
+
