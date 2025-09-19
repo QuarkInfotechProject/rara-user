@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "@/components/ui/card";
 import { Calendar, Users, TrendingUp } from "lucide-react";
 
 interface TrekDetailsProps {
@@ -17,7 +16,7 @@ const TrekDetails = ({ duration, minPeople, difficulty }: TrekDetailsProps) => (
       </div>
       <div className="flex items-center gap-2 text-gray-600">
         <Users className="w-4 h-4" />
-        <span className="text-sm">min {minPeople} people</span>
+        <span className="text-sm">Min {minPeople} people</span>
       </div>
       <div className="flex items-center gap-2 text-gray-600">
         <TrendingUp className="w-4 h-4" />

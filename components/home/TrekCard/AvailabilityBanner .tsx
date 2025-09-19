@@ -13,10 +13,16 @@ const AvailabilityBanner = ({
     return null;
   }
 
+  const seats = parseInt(availableSeats, 10);
+
+  if (isNaN(seats) || seats >= 5) {
+    return null;
+  }
+
   return (
     <div className="px-2 border-red-200">
       <p className="text-sm text-red-500 font-medium">
-        {availableSeats} seats available - {date}
+        {seats} seats available
       </p>
     </div>
   );

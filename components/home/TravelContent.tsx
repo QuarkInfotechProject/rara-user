@@ -1,16 +1,103 @@
 "use client";
-import React from "react";
-import { trekData } from "@/data/data";
+import React, { useState, useEffect } from "react";
 import TourCarousel from "./TourCarousel";
+import { Product, ApiResponse } from "@/types/prod";
 
 const MainTourComponent = () => {
+  const [trekData, setTrekData] = useState<Product[]>([]);
+  const [tourData, setTourData] = useState<Product[]>([]);
+  const [activityData, setActivityData] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchData = async (type: string): Promise<Product[]> => {
+    try {
+
+      const response = await fetch(
+        `/api/product/homepage/product-list/${type}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result: ApiResponse = await response.json();
+
+      if (result.code === 0 && result.data && Array.isArray(result.data)) {
+        return result.data;
+      } else {
+        console.log(
+          `${type} API returned code: ${result.code}, message: ${result.message}`
+        );
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+
+        const [trekResult, tourResult, activityResult] = await Promise.all([
+          fetchData("treks"),
+          fetchData("tours"),
+          fetchData("activities"),
+        ]);
+
+        setTrekData(trekResult);
+        setTourData(tourResult);
+        setActivityData(activityResult);
+
+        if (
+          trekResult.length === 0 &&
+          tourResult.length === 0 &&
+          activityResult.length === 0
+        ) {
+          setError("No data available for any category");
+        }
+      } catch (err) {
+        setError("Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <div className="text-red-500">Error: {error}</div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <TourCarousel title="Trek" data={trekData} /> 
-
-      <TourCarousel title="Tour" data={trekData} />
-
-      <TourCarousel title="Activity" data={trekData} />
+      <TourCarousel title="Trek" data={trekData} />
+      <TourCarousel title="Tour" data={tourData} />
+      <TourCarousel title="Activity" data={activityData} />
     </div>
   );
 };
