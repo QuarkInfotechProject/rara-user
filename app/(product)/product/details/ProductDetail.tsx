@@ -37,6 +37,18 @@ import RelatedProductCover from "@/components/home/RelatedProductCover";
 const Product_Detail = ({ productData }: ProductDetailProps) => {
   const [activeTab, setActiveTab] = useState<string>("Trip_Overview");
 
+  // Helper function to safely convert to number
+  const safeNumber = (value: any, defaultValue: number = 0): number => {
+    if (typeof value === "number" && !isNaN(value)) {
+      return value;
+    }
+    if (typeof value === "string") {
+      const parsed = parseFloat(value);
+      return isNaN(parsed) ? defaultValue : parsed;
+    }
+    return defaultValue;
+  };
+
   // Tab configuration
   const tabs = [
     { id: "Trip_Overview", label: "Overview" },
@@ -84,13 +96,13 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [tabs]);
 
-  // Header data mapping
+  // Header data mapping with safe number conversion
   const headerData: HeaderData = {
     type: productData.type,
     title: productData.name,
     location: productData.location,
-    rating: productData.average_rating || 0,
-    total_rating: productData.total_rating || 0,
+    rating: safeNumber(productData.average_rating, 0),
+    total_rating: safeNumber(productData.total_rating, 0),
     tagline: productData.tagline,
   };
 
@@ -284,15 +296,15 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     departureData: transformDepartureData(),
   };
 
-  // Inquiry data mapping with proper price structure
+  // Inquiry data mapping with proper price structure and safe number conversion
   const inquiryData: InquiryData = {
     id: productData.id,
     title: productData.name,
     prices:
       productData.prices?.map((price) => ({
         number_of_people: price.number_of_people,
-        original_price_usd: parseFloat(price.original_price_usd),
-        discounted_price_usd: parseFloat(price.discounted_price_usd),
+        original_price_usd: safeNumber(price.original_price_usd, 0),
+        discounted_price_usd: safeNumber(price.discounted_price_usd, 0),
       })) || [],
     impact: productData.impact,
     what_to_bring: productData.what_to_bring || [],
@@ -307,15 +319,15 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
       order: faq.order,
     })) || [];
 
-  // Reviews data mapping
+  // Reviews data mapping with safe number conversion
   const reviewsData: ReviewsData = {
     title: productData.name,
-    average_rating: productData.average_rating || 0,
-    total_rating: productData.total_rating || 0,
-    total_comment: productData.total_comment || 0,
+    average_rating: safeNumber(productData.average_rating, 0),
+    total_rating: safeNumber(productData.total_rating, 0),
+    total_comment: safeNumber(productData.total_comment, 0),
   };
 
-  // Related packages data mapping
+  // Related packages data mapping with safe number conversion
   const relatedPackagesData: RelatedCircuit[] =
     productData.related_circuit?.map((circuit) => ({
       id: circuit.id,
@@ -335,8 +347,8 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
       featuredImages: circuit.featuredImages || [],
       prices: circuit.prices || [],
       tags: circuit.tags || [],
-      average_rating: circuit.average_rating || 0,
-      total_rating: circuit.total_rating || 0,
+      average_rating: safeNumber(circuit.average_rating, 0),
+      total_rating: safeNumber(circuit.total_rating, 0),
       short_description: circuit.tagline || "",
       duration: circuit.overview?.duration || undefined,
     })) || [];

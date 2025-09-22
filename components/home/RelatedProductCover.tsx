@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { RelatedCircuit } from "@/components/ProductDetail/type";
 import RelatedTrekCard from "./TrekCard/RelatedTrekCard";
 
-// Define props interface for RelatedProductCover
 interface RelatedProductCoverProps {
   title?: string;
   data: RelatedCircuit[];
@@ -110,7 +109,7 @@ const RelatedProductCover = ({
           </Button>
         </div>
       </div>
-{/* 
+
       <Carousel
         opts={{
           align: "start",
@@ -131,7 +130,7 @@ const RelatedProductCover = ({
 
         <CarouselPrevious className="hidden" data-carousel={`prev-${title}`} />
         <CarouselNext className="hidden" data-carousel={`next-${title}`} />
-      </Carousel> */}
+      </Carousel>
 
       <div className="w-full flex items-center justify-center">
         <Button className="flex items-center gap-1 border border-[#71B344] bg-white text-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300">
