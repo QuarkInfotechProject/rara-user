@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { RootInterface } from "@/components/ProductDetail/type";
 import Product_Detail from "../../details/ProductDetail";
+import SEOMeta from "@/components/SeoMeta";
 
 interface ProductDetailResponse {
   code: number;
@@ -13,6 +14,7 @@ interface ProductDetailResponse {
 
 const TrekDetail = () => {
   const params = useParams();
+  const pathname = usePathname();
   const slug = params.slug as string;
 
   const [productData, setProductData] = useState<RootInterface["data"] | null>(
@@ -20,6 +22,23 @@ const TrekDetail = () => {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Generate SEO data
+  const currentUrl = `${
+    process.env.SITE_ORIGIN || "http://localhost:3000"
+  }${pathname}`;
+
+  const metaTitle = productData?.name
+    ? `${productData.name} - Adventure Trek in ${
+        productData.location || "Nepal"
+      }`
+    : "Adventure Trek - RARA Treks";
+
+  const metaDescription =
+    productData?.description ||
+    `Experience the amazing ${productData?.name || "trek"} in ${
+      productData?.location || "Nepal"
+    }. ${productData?.tagline || "Book your adventure today with RARA Treks."}`;
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -105,7 +124,18 @@ const TrekDetail = () => {
     );
   }
 
-  return <Product_Detail productData={productData} />;
+  return (
+    <div>
+      <SEOMeta
+        title={metaTitle}
+        description={metaDescription}
+        url={currentUrl}
+        type="article"
+        siteName="RARA Treks, Tours and Travel"
+      />
+      <Product_Detail productData={productData} />
+    </div>
+  );
 };
 
 export default TrekDetail;

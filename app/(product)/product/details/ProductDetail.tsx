@@ -29,8 +29,10 @@ import {
   TransformedDepartureItem,
   InquiryData,
   FAQ,
+  ShareData,
   ReviewsData,
   RelatedCircuit,
+  FAQImage,
 } from "@/components/ProductDetail/type";
 import RelatedProductCover from "@/components/home/RelatedProductCover";
 
@@ -96,6 +98,11 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [tabs]);
 
+    const shareData: ShareData = {
+      slug: productData.slug || "",
+      dossiers: productData.dossiers || [],
+    };
+
   // Header data mapping with safe number conversion
   const headerData: HeaderData = {
     type: productData.type,
@@ -139,6 +146,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
 
   // Intro data mapping
   const introData: IntroData = {
+    tagline: productData.tagline,
     intro: productData.short_description,
     description: productData.description,
   };
@@ -146,6 +154,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
   // Overview data mapping with proper structure
   const overviewData: TripOverview = {
     description: productData.description,
+    intro: productData.short_description,
     details: {
       duration: productData.overview?.duration
         ? `${productData.overview.duration} days`
@@ -311,16 +320,26 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
   };
 
   // FAQ data mapping
-  const faqData: FAQ[] =
-    productData.faqs?.map((faq) => ({
-      id: faq.id,
-      question: faq.question,
-      answer: faq.answer,
-      order: faq.order,
-    })) || [];
+const faqData: FAQ[] =
+  productData.faqs?.map((faq) => ({
+    id: faq.id,
+    question: faq.question,
+    answer: faq.answer,
+    order: faq.order,
+  })) || [];
+
+const faqImages: FAQImage[] =
+  Array.isArray(productData.files?.faqImages)
+    ? productData.files.faqImages.map((img: { id: any; url: any; }, index: number) => ({
+        id: img.id,
+        src: img.url,
+        alt: `FAQ Image ${index + 1}`,
+      }))
+    : [];
 
   // Reviews data mapping with safe number conversion
   const reviewsData: ReviewsData = {
+    slug: productData.slug,
     title: productData.name,
     average_rating: safeNumber(productData.average_rating, 0),
     total_rating: safeNumber(productData.total_rating, 0),
@@ -357,7 +376,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     <div className="w-full flex flex-col gap-4 bg-[#F2F5F0]">
       <div className="w-full flex flex-col gap-4 container mt-8">
         <Breadcrumbs data={headerData} />
-        <Header data={headerData} />
+        <Header data={headerData} shareData={shareData} />
       </div>
 
       <div className="w-full md:container">
@@ -365,7 +384,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
       </div>
 
       <div className="container w-full flex md:hidden">
-        <HeaderBtm data={headerData} />
+        <HeaderBtm data={shareData} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 container mb-6">
@@ -425,7 +444,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
 
             {faqData.length > 0 && (
               <div id="FAQs">
-                <Faq data={faqData} />
+                <Faq data={faqData} images={faqImages} />
               </div>
             )}
           </div>

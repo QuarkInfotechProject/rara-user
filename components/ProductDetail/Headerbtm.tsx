@@ -4,41 +4,52 @@ import {
   ShareNetworkIcon,
 } from "@phosphor-icons/react/dist/ssr";
 
+interface Dossier {
+  id: number;
+  content?: string | null;
+  pdf_file: string;
+}
+
 interface HeaderProps {
   data: {
     type?: string;
     title?: string;
+    name?: string;
     location?: string;
     rating?: number;
     total_rating?: number;
     tagline?: string;
-    dossier?: string; // PDF URL from API
+    slug?: string;
+    dossiers?: Dossier[];
+  };
+  shareData?: {
+    slug: string;
+    dossiers: Dossier[];
   };
 }
 
-const HeaderBtm = ({ data }: HeaderProps) => {
+const HeaderBtm = ({ data, shareData }: HeaderProps) => {
   if (!data) return null;
 
-  const { title, dossier } = data;
+  const { title, name } = data;
+  const displayTitle = title || name;
+  const dossiers = data.dossiers || shareData?.dossiers || [];
+  const hasDossier = dossiers.length > 0 && dossiers[0]?.pdf_file;
 
   const handleShare = async () => {
     const currentUrl = window.location.href;
 
-    // Check if Web Share API is supported (mobile devices)
     if (navigator.share) {
       try {
         await navigator.share({
-          title: title || "Tour Details",
-          text: `Check out this amazing tour: ${title}`,
+          title: displayTitle || "Tour Details",
+          text: `Check out this amazing tour: ${displayTitle}`,
           url: currentUrl,
         });
       } catch (error) {
-        console.log("Error sharing:", error);
-        // Fallback to clipboard
         fallbackShare(currentUrl);
       }
     } else {
-      // Fallback for desktop browsers
       fallbackShare(currentUrl);
     }
   };
@@ -48,56 +59,67 @@ const HeaderBtm = ({ data }: HeaderProps) => {
       await navigator.clipboard.writeText(url);
       alert("Link copied to clipboard!");
     } catch (error) {
-      console.log("Error copying to clipboard:", error);
       prompt("Copy this link:", url);
     }
   };
 
   const handleDownload = () => {
-    if (!dossier) {
+    if (!dossiers.length) {
       alert("Dossier not available for download");
       return;
     }
 
-    // Create a temporary link element to trigger download
+    const dossier = dossiers[0];
+    if (!dossier.pdf_file) {
+      alert("Dossier file not available");
+      return;
+    }
+
     const link = document.createElement("a");
-    link.href = dossier;
-    link.download = `${
-      title ? title.replace(/\s+/g, "_") : "tour"
-    }_dossier.pdf`;
+    link.href = dossier.pdf_file;
+    link.download = displayTitle
+      ? `${displayTitle.replace(/\s+/g, "_")}_dossier.pdf`
+      : `tour_${dossier.id}_dossier.pdf`;
     link.target = "_blank";
 
-    // Append to body, click, and remove
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      window.open(dossier.pdf_file, "_blank");
+    }
   };
 
   return (
     <div className="flex flex-col w-full mb-3">
       <div className="w-full flex flex-col items-start justify-start gap-2">
         <div className="flex items-center justify-between w-full">
-          {/* Actions Section */}
           <span className="flex items-center justify-between w-full">
-            <span
+            <button
               className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity p-2 rounded-lg hover:bg-gray-100"
               onClick={handleShare}
+              type="button"
             >
               <ShareNetworkIcon className="w-5 h-5" />
               <p className="text-sm font-medium">Share</p>
-            </span>
+            </button>
 
-            <span
+            <button
               className={`flex items-center gap-1 cursor-pointer transition-opacity p-2 rounded-lg hover:bg-gray-100 ${
-                !dossier ? "opacity-50 cursor-not-allowed" : "hover:opacity-80"
+                !hasDossier
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:opacity-80"
               }`}
-              onClick={handleDownload}
+              onClick={hasDossier ? handleDownload : undefined}
+              type="button"
+              disabled={!hasDossier}
             >
               <FileArrowDownIcon className="w-5 h-5" />
               <p className="text-sm font-medium">
-                {dossier ? "Download Dossier" : "Dossier Unavailable"}
+                {hasDossier ? "Download Dossier" : "Dossier Unavailable"}
               </p>
-            </span>
+            </button>
           </span>
         </div>
       </div>

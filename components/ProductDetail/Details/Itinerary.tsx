@@ -144,7 +144,7 @@ const Itinerary = ({ data }: ItineraryProps) => {
 
                 {/* Content Card */}
                 <div className="ml-12 md:ml-16">
-                  <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div className="bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                     {/* Day Header - Always Visible */}
                     <div
                       className="p-4 md:p-6 cursor-pointer"

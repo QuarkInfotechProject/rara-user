@@ -22,6 +22,7 @@ interface TripDetails {
 
 interface TripOverviewData {
   description: string;
+  intro: string;
   details: TripDetails;
   highlights: string[];
 }
@@ -90,10 +91,10 @@ const Trip_Overview = ({ data }: UpdatedTripOverviewProps) => {
       <h1 className="text-3xl font-bold">Trip Overview</h1>
 
       <div className="rounded-3xl bg-white p-6 flex flex-col w-full gap-6 shadow-sm">
-        {data.description && (
+        {data.intro && (
           <p
             className="text-lg text-[#3E641C] leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: data.description }}
+            dangerouslySetInnerHTML={{ __html: data.intro }}
           >
             {/* {data.description} */}
           </p>
@@ -153,23 +154,13 @@ const Trip_Overview = ({ data }: UpdatedTripOverviewProps) => {
         </div>
       </div>
 
-      {data.highlights && data.highlights.length > 0 && (
-        <div className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
-          <h2 className="font-bold text-xl text-[#3E641C]">Trip Highlights</h2>
-          <ul className="list-none space-y-3">
-            {data.highlights.map((highlight, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <span className="inline-flex items-center justify-center w-6 h-6 bg-[#71B344] text-white text-sm font-bold rounded-full flex-shrink-0 mt-0.5">
-                  ✓
-                </span>
-                <span className="text-gray-700 leading-relaxed">
-                  {highlight}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
+        <h2 className="font-bold text-xl text-[#3E641C]">Trip Highlights</h2>
+        <div
+          className="[&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-2"
+          dangerouslySetInnerHTML={{ __html: data.description }}
+        />
+      </div>
     </div>
   );
 };

@@ -62,13 +62,8 @@ const Altitude_chart = ({
                 return (
                   <div
                     key={`day-${dayNumber}`}
-                    className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200"
-                  >
-                    <div className="flex-shrink-0">
-                      <span className="inline-flex items-center justify-center w-8 h-8 bg-[#71B344] text-white text-sm font-semibold rounded-full">
-                        {dayNumber}
-                      </span>
-                    </div>
+                    className="flex items-start gap-4 transition-shadow duration-200"
+                  >                   
                     <div className="flex-1 min-w-0">
                       <p className="text-gray-800 font-semibold text-lg mb-2">
                         <span className="text-[#71B344]">

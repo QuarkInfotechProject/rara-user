@@ -53,6 +53,7 @@ export interface TripDetails {
 }
 
 export interface TripOverview {
+  intro: string;
   description: string;
   details: TripDetails;
   highlights: string[];
@@ -64,6 +65,19 @@ export interface AltitudeChart {
   alt: string;
 }
 
+// Dossier interfaces - NEW
+export interface Dossier {
+  id: number;
+  content?: string | null;
+  pdf_file: string;
+}
+
+// Share Data interfaces - NEW
+export interface ShareData {
+  slug: string;
+  dossiers: Dossier[];
+}
+
 // Files structure from API
 export interface Files {
   featuredImage?: FileImage;
@@ -71,6 +85,7 @@ export interface Files {
   galleryImages?: FileImage[];
   altitudeChart?: FileImage;
   locationCover?: FileImage;
+  faqImages?: FAQImage;
 }
 
 // Cost related interfaces
@@ -207,6 +222,7 @@ export interface Review {
 }
 
 export interface ReviewsData {
+  slug: string;
   title: string;
   average_rating: number;
   total_rating: number;
@@ -232,12 +248,12 @@ export interface RelatedCircuit {
   overview?: Overview;
 }
 
-// Main API data structure
+// Main API data structure - UPDATED
 export interface RootInterface {
   data: {
     id: number;
     name: string;
-    slug?: string;
+    slug: string;
     type: string;
     location: string;
     tagline: string;
@@ -259,6 +275,7 @@ export interface RootInterface {
     what_to_bring?: string[];
     faqs?: FAQ[];
     related_circuit?: RelatedCircuit[];
+    dossiers?: Dossier[]; // NEW
   };
 }
 
@@ -277,6 +294,7 @@ export interface HeaderData {
 }
 
 export interface IntroData {
+  tagline?: string;
   intro: string;
   description: string;
 }
@@ -320,6 +338,7 @@ export interface LocationProps {
 
 export interface FaqProps {
   data: FAQ[];
+  images: FAQImage[];
 }
 
 export interface ReviewProps {
@@ -328,6 +347,12 @@ export interface ReviewProps {
 
 export interface InquiryProps {
   data: InquiryData;
+  shareData?: ShareData; // NEW - Optional share data
+}
+
+// Share Data Props - NEW
+export interface ShareDataProps {
+  data: ShareData;
 }
 
 // Utility types
@@ -380,3 +405,22 @@ export interface FlexibleItinerary {
   [key: string]: ItineraryDay;
 }
 
+
+export interface TourPageProps {
+  tourData: {
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+    location: string;
+    rating: number;
+    total_rating: number;
+    tagline?: string;
+    images: string[];
+    dossiers: Array<{
+      id: number;
+      pdf_file: string;
+      content?: string;
+    }>;
+  };
+}

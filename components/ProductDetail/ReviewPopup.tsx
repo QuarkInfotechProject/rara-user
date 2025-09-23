@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { ReviewData } from "./Reviews/types"; // <-- use shared type
+import { ReviewData } from "./Reviews/types";
 
 interface TrekReviewDialogProps {
   isOpen: boolean;
@@ -76,6 +76,7 @@ const TrekReviewDialog = ({
 }: TrekReviewDialogProps) => {
   const [reviewData, setReviewData] = useState<ReviewData>({
     name: "",
+    email: "",
     rating: 0,
     review: "",
     photo: null,
@@ -103,11 +104,22 @@ const TrekReviewDialog = ({
   };
 
   const handleSubmit = () => {
-    if (reviewData.name && reviewData.rating > 0 && reviewData.review) {
+    if (
+      reviewData.name &&
+      reviewData.email &&
+      reviewData.rating > 0 &&
+      reviewData.review
+    ) {
       onSubmit(reviewData);
 
       // Reset form
-      setReviewData({ name: "", rating: 0, review: "", photo: null });
+      setReviewData({
+        name: "",
+        email: "",
+        rating: 0,
+        review: "",
+        photo: null,
+      });
       setPhotoPreview(null);
       setHoveredStar(0);
       onClose();
@@ -116,6 +128,7 @@ const TrekReviewDialog = ({
 
   const isFormValid =
     reviewData.name.trim() !== "" &&
+    reviewData.email.trim() !== "" &&
     reviewData.rating > 0 &&
     reviewData.review.trim() !== "";
 
@@ -180,6 +193,22 @@ const TrekReviewDialog = ({
               }
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter your name"
+            />
+          </div>
+
+          {/* Email Input */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">
+              Your Email *
+            </label>
+            <input
+              type="email"
+              value={reviewData.email}
+              onChange={(e) =>
+                setReviewData((prev) => ({ ...prev, email: e.target.value }))
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Enter your email"
             />
           </div>
 
