@@ -46,7 +46,7 @@ const NavItem = ({
           <ChevronDown
             size={16}
             className={`transition-transform duration-200 ${
-              isActive ? "rotate-180" : ""
+              isActive ? "rotate-180 text-gray-800" : "text-gray-400"
             }`}
           />
         )}
