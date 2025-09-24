@@ -52,8 +52,10 @@ const NavigationMenu = () => {
               navItem.slug && handleDirectNavigation(navItem.slug)
             }
           />
+          
         );
       })}
+     
     </div>
   );
 };

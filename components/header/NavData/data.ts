@@ -5,7 +5,7 @@ export const navigationData: NavigationItem[] = [
     id: "trek",
     label: "Trek",
     icon: "PersonSimpleHike",
-    slug: "/trek",
+    slug: "/product/trek",
     dropdownItems: [
       {
         id: "annapurna-north-base-camp",
@@ -76,7 +76,7 @@ export const navigationData: NavigationItem[] = [
     id: "tour",
     label: "Tour",
     icon: "Mountains",
-    slug: "/tour",
+    slug: "/product/tour",
     dropdownItems: [
       {
         id: "cultural-heritage-tour",
@@ -120,7 +120,7 @@ export const navigationData: NavigationItem[] = [
     id: "activities",
     label: "Activities",
     icon: "PersonSimpleTaiChi",
-    slug: "/activities",
+    slug: "/product/activities",
     dropdownItems: [
       {
         id: "rock-climbing",

@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DropdownItem } from "./type";
+import { Button } from "@/components/ui/button";
 
 interface CustomDropdownProps {
   items?: DropdownItem[];
@@ -119,6 +120,15 @@ const CustomDropdown = ({
                   </Link>
                 </div>
               ))}
+              <Link href={slug || "#"}>
+                <Button
+                  variant="outline"
+                  className="bg-transprent border-none shadow-none hover:bg-green-100 rounded-none w-full rounded-bl-lg rounded-br-lg text-sm text-gray-600 flex items-center justify-start py-3 mt-2"
+                >
+                  View All
+                  <ChevronRight size={16} className="ml-1" />
+                </Button>
+              </Link>
             </div>
 
             {/* Content Area */}

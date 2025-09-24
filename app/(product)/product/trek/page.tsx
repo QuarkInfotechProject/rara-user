@@ -1,6 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/product/ProductCard";
+import ProductSkeleton from "@/components/productSkeleton";
 import { useEffect, useState } from "react";
 
 interface Product {
@@ -151,13 +152,8 @@ const TrekProductList = () => {
 
   if (loading && !hasInitialized) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center items-center min-h-[400px]">
-          <div className="flex flex-col items-center space-y-4">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#71B344]"></div>
-            <p className="text-gray-600">Loading trek adventures...</p>
-          </div>
-        </div>
+      <div className="container mx-auto px-4 py-8 w-full">
+        <ProductSkeleton />
       </div>
     );
   }
@@ -188,18 +184,6 @@ const TrekProductList = () => {
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Trek Adventures
         </h1>
-        <div className="flex items-center justify-between">
-          <p className="text-gray-600">
-            Showing {products.length} trek{products.length !== 1 ? "s" : ""}
-            {totalPages > 1 && ` (Page ${currentPage} of ${totalPages})`}
-          </p>
-          {loading && hasInitialized && (
-            <div className="flex items-center space-x-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#71B344]"></div>
-              <span className="text-sm text-gray-500">Loading...</span>
-            </div>
-          )}
-        </div>
       </div>
 
       {/* Content */}
