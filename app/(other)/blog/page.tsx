@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
-import { ArrowRight } from "lucide-react";
-import NewsCard from "./NewsCard";
 import { NewsItem } from "@/types/news.types";
+import { Button } from "@/components/ui/button";
+import NewsCard from "@/components/home/NewsCard";
+import { useRouter } from "next/navigation";
 
 interface ApiResponse {
   code: number;
@@ -18,17 +17,12 @@ interface ApiResponse {
   }[];
 }
 
-interface NewsProps {
-  newsItems?: NewsItem[];
-  onViewAll?: () => void;
-  onNewsClick?: (newsItem: NewsItem) => void;
-}
-
-const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
-  const router = useRouter();
+// Simplified - no props needed since we're not using params or searchParams
+const BlogPage = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   // Fetch news data from API
   useEffect(() => {
@@ -47,7 +41,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
           // Transform API data to match NewsItem interface
           const transformedNews: NewsItem[] = apiData.data.map(
             (item, index) => ({
-              id: (index + 1).toString(), // Generate ID since API doesn't provide it
+              id: (index + 1).toString(),
               title: item.title,
               slug: item.slug,
               publish_date: item.publish_date,
@@ -62,33 +56,22 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
       } catch (err) {
         console.error("Error fetching news:", err);
         setError(err instanceof Error ? err.message : "Failed to fetch news");
-
-        // Fallback to empty array or you could use static data as fallback
         setNews([]);
       } finally {
         setLoading(false);
       }
     };
 
-    // Only fetch if newsItems prop is not provided
-    if (!newsItems) {
-      fetchNews();
-    } else {
-      setNews(newsItems);
-      setLoading(false);
-    }
-  }, [newsItems]);
-
-  const handleViewAll = () => {
-     router.push("/blog");
-  };
+    fetchNews();
+  }, []);
 
   const handleNewsClick = (newsItem: NewsItem) => {
-    onNewsClick?.(newsItem);
+    // Navigate to individual blog post
+    router.push(`/blog/${newsItem.slug}`);
   };
 
-  // Take only first 3 items
-  const displayedNews = news.slice(0, 3);
+  // Show all news items since this is the main blog page
+  const displayedNews = news;
 
   // Loading state
   if (loading) {
@@ -105,7 +88,7 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
           </div>
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((index) => (
+          {Array.from({ length: 6 }).map((_, index) => (
             <div
               key={index}
               className={`${index === 1 || index === 3 ? "mt-8" : ""}`}
@@ -174,16 +157,8 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
           </p>
           <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
             Stories & <span className="text-[#71B344]">News</span>
-          </h1>          
+          </h1>
         </div>
-        {/* Custom navigation buttons */}
-        {news.length > 3 && (
-          <div className="hidden lg:flex items-center justify-center">
-            <Button className="flex items-center gap-1" onClick={handleViewAll}>
-              View All <ArrowRight />
-            </Button>
-          </div>
-        )}
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -196,17 +171,8 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
           </div>
         ))}
       </div>
-
-      {/* Mobile View All Button */}
-      {news.length > 3 && (
-        <div className="lg:hidden flex justify-center mt-6">
-          <Button className="flex items-center gap-1" onClick={handleViewAll}>
-            View All <ArrowRight />
-          </Button>
-        </div>
-      )}
     </div>
   );
 };
 
-export default News;
+export default BlogPage;
