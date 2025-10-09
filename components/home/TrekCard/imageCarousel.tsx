@@ -56,7 +56,7 @@ const ImageCarousel = ({
       {discount && (
         <div className="absolute bottom-1 left-1 rounded-full text-black ">
           <Image
-            src="/assets/icons/star.svg" 
+            src="/assets/icons/stars.svg" 
             alt="Discount Icon"
             width={50}
             height={50}

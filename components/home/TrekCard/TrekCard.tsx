@@ -9,7 +9,7 @@ import TrekDetails from "./TrekDetails";
 import { useRouter } from "next/navigation";
 import { Product } from "@/types/prod";
 
-const TrekCard = (product: Product) => {
+const   TrekCard = (product: Product) => {
   const router = useRouter();
 
   const images = [
