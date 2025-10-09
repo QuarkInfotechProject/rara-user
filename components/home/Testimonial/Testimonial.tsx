@@ -80,20 +80,15 @@ export default function Testimonial({
     fetchTestimonials();
   }, []);
 
-  const handleReadAllClick = () => {
-    if (onReadAllClick) {
-      onReadAllClick();
-    } else {
-      console.log("Read all reviews clicked");
-    }
-  };
 
   if (isLoading) {
     return (
       <div
         className={`w-full flex items-center justify-center h-64 ${className}`}
       >
-        <p className="text-gray-600">Loading testimonials...</p>
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#71B344]"></div>
+        </div>
       </div>
     );
   }
@@ -117,9 +112,9 @@ export default function Testimonial({
         <TestimonialBackground />
 
         {/* Content Overlay */}
-        <div className="w-full container z-2 pt-12 flex flex-col items-start justify-start gap-12 absolute inset-0">
+        <div className="w-full container z-2 pt-12 flex flex-col items-start justify-start absolute inset-0">
           {/* Header Section */}
-          {/* <TestimonialHeader onReadAllClick={handleReadAllClick} /> */}
+          <TestimonialHeader />
 
           {/* Testimonial Grid with Scrolling Columns */}
           <TestimonialGrid testimonials={testimonials} />

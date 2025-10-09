@@ -92,7 +92,11 @@ const MainTourComponent = () => {
   }, []);
 
   if (loading) {
-    return <div className="w-full md:container px-4 py-8">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#71B344]"></div>
+      </div>
+    );
   }
 
   return (

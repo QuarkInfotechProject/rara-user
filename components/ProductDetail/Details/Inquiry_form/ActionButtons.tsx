@@ -28,10 +28,8 @@ function ActionButtons({
 }: ActionButtonsProps) {
   return (
     <div className="space-y-3">
-      <TrekInquiryPopup
-        trekTitle={title}        
-      />
-{/* 
+      <TrekInquiryPopup buttonText="Enquire Now" trekTitle={title} />
+      {/* 
       <Button
         variant="outline"
         className={`w-full border-[#71B344] text-[#71B344] hover:bg-green-50 font-medium py-3 rounded-full ${

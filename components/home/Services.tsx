@@ -1,85 +1,147 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import MobileServices from "./MobileServices";
 
-const services = [
-  {
-    title: "Jungle Safari",
-    image: "/assets/1.png",
-    route: "/services/jungle-safari",
-    width: "wide", // 434px equivalent
-  },
-  {
-    title: "Paragliding",
-    image: "/assets/2.png",
-    route: "/services/paragliding",
-    width: "wide", // 434px equivalent
-  },
-  {
-    title: "Base Camp Trekking",
-    image: "/assets/3.png",
-    route: "/services/base-camp-trekking",
-    width: "narrow", // 332px equivalent
-  },
-  {
-    title: "Green Grassland",
-    image: "/assets/1.png",
-    route: "/services/green-grassland",
-    width: "narrow", // 332px equivalent - positioned differently in row 2
-  },
-  {
-    title: "Upper Mustang Trek",
-    image: "/assets/2.png",
-    route: "/services/upper-mustang-trek",
-    width: "wide", // 434px equivalent
-  },
-  {
-    title: "Beautiful Terai Explore",
-    image: "/assets/3.png",
-    route: "/services/terai-explore",
-    width: "wide", // 434px equivalent
-  },
-  {
-    title: "East Adventure",
-    image: "/assets/1.png",
-    route: "/services/east-adventure",
-    width: "wide", // 434px equivalent
-  },
-  {
-    title: "Hill Trekking",
-    image: "/assets/2.png",
-    route: "/services/hill-trekking",
-    width: "wide", // 434px equivalent
-  },
-  {
-    title: "Mountain Climbing",
-    image: "/assets/3.png",
-    route: "/services/mountain-climbing",
-    width: "narrow", // 332px equivalent
-  },
-];
+interface FeaturedImage {
+  id: number;
+  url: string;
+}
+
+interface Service {
+  id: number;
+  name: string;
+  slug: string;
+  type: string;
+  featuredImage: FeaturedImage;
+  featuredImages: FeaturedImage[];
+}
+
+interface ServiceDisplay {
+  title: string;
+  image: string;
+  route: string;
+  width: "wide" | "narrow";
+  type: string;
+  slug: string;
+}
 
 const Services = () => {
+  const [services, setServices] = useState<ServiceDisplay[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/product/homepage/explore/list");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch services");
+        }
+
+        const result = await response.json();
+
+        if (result.code === 0 && result.data) {
+          // Map API data to display format
+          const mappedServices: ServiceDisplay[] = result.data.map(
+            (service: Service, index: number) => {
+              // Determine width based on position in layout
+              // Pattern: wide, wide, narrow, narrow, wide, wide, wide, wide, narrow
+              const widthPattern = [
+                "wide",
+                "wide",
+                "narrow",
+                "narrow",
+                "wide",
+                "wide",
+                "wide",
+                "wide",
+                "narrow",
+              ];
+              const width = (widthPattern[index % widthPattern.length] ||
+                "wide") as "wide" | "narrow";
+
+              return {
+                title: service.name,
+                image: service.featuredImage.url,
+                route: `/${service.type}/${service.slug}`,
+                width,
+                type: service.type,
+                slug: service.slug,
+              };
+            }
+          );
+
+          setServices(mappedServices);
+        } else {
+          throw new Error(result.message || "Invalid response format");
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+        console.error("Error fetching services:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
   // Arrange services in the specific layout pattern for desktop
   const rows = [
-    [services[0], services[1], services[2]], // Jungle Safari, Paragliding, Base Camp Trekking
-    [services[3], services[4], services[5]], // Green Grassland, Upper Mustang Trek, Beautiful Terai Explore
-    [services[6], services[7], services[8]], // East Adventure, Hill Trekking, Mountain Climbing
+    services.slice(0, 3), // First 3 services
+    services.slice(3, 6), // Next 3 services
+    services.slice(6, 9), // Last 3 services
   ];
 
   // Arrange services in 3x3 grid for mobile
   const mobileGrid = [
-    [services[0], services[1], services[2]],
-    [services[3], services[4], services[5]],
-    [services[6], services[7], services[8]],
+    services.slice(0, 3),
+    services.slice(3, 6),
+    services.slice(6, 9),
   ];
 
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-10 w-full container mx-auto py-16">
+        <div className="flex flex-col w-full items-center justify-center gap-1">
+          <p className="text-xl lg:text-2xl font-satisfy text-gray-600">
+            We offer diverse services
+          </p>
+          <h1 className="text-3xl lg:text-4xl flex items-center gap-2 font-bold text-gray-900">
+            Explore <span className="text-[#71B344]">Services</span>
+          </h1>
+        </div>
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#71B344]"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-10 w-full container mx-auto py-16">
+        <div className="flex flex-col w-full items-center justify-center gap-1">
+          <p className="text-xl lg:text-2xl font-satisfy text-gray-600">
+            We offer diverse services
+          </p>
+          <h1 className="text-3xl lg:text-4xl flex items-center gap-2 font-bold text-gray-900">
+            Explore <span className="text-[#71B344]">Services</span>
+          </h1>
+        </div>
+        <div className="text-red-500 text-center">
+          <p>Failed to load services. Please try again later.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center gap-10 w-full container w-full mx-auto py-16">
-    
+    <div className="flex flex-col items-center justify-center gap-10 w-full container mx-auto py-16">
       <div className="flex flex-col w-full items-center justify-center gap-1">
         <p className="text-xl lg:text-2xl font-satisfy text-gray-600">
           We offer diverse services
@@ -95,7 +157,7 @@ const Services = () => {
           <div key={rowIndex} className="flex flex-row gap-5 h-[213px]">
             {row.map((service, serviceIndex) => (
               <Link
-                key={serviceIndex}
+                key={service.title}
                 href={service.route}
                 className={`relative rounded-[32px] overflow-hidden group cursor-pointer ${
                   service.width === "wide"

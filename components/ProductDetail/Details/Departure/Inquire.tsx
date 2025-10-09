@@ -47,12 +47,16 @@ interface TrekInquiryPopupProps {
   departure?: TransformedDepartureItem;
   trekId?: number;
   trekTitle?: string;
+  buttonText?: string;
+  buttonClassName?: string;
 }
 
 export default function TrekInquiryPopup({
   departure,
   trekId,
   trekTitle,
+  buttonText = "Enquire Now",
+  buttonClassName,
 }: TrekInquiryPopupProps) {
   const [open, setOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<InquiryFormData>({
@@ -199,11 +203,14 @@ export default function TrekInquiryPopup({
   // Check if date fields should be editable
   const hasPrefilledDate: boolean = Boolean(departure?.dateRange);
 
+  const defaultButtonClassName =
+    "bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200";
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
-          Enquire Now
+        <Button className={buttonClassName || defaultButtonClassName}>
+          {buttonText}
         </Button>
       </DialogTrigger>
 

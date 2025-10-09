@@ -1,17 +1,19 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "../ui/button";
+import Link from "next/link";
 import { ArrowRight, Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
 import MobileAdventureCard from "./MobileAdventureCard";
 import { Adventure } from "./Adventure";
+import TrekInquiryPopup from "../ProductDetail/Details/Departure/Inquire";
 
 interface AdventureCardProps {
   data: Adventure;
 }
 
 const AdventureCard = ({ data }: AdventureCardProps) => {
-  const { name, featuredImage, overview, prices, departures } = data;
+  const { name, featuredImage, overview, prices, departures, id, type, slug } =
+    data;
 
   // Get the earliest departure dates
   const earliestDeparture = departures[0];
@@ -48,9 +50,12 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
               <div className="self-stretch text-[#1E2F2280] relative leading-[150%] font-semibold">
                 {formatDate(startDate)}→{formatDate(endDate)}
               </div>
-              <div className=" text-2xl leading-[150%] font-semibold text-[#1e2f22]">
+              <Link
+                href={`/${type}/${slug}`}
+                className="text-2xl leading-[150%] font-semibold text-[#1e2f22] hover:text-[#71b344] transition-colors cursor-pointer"
+              >
                 {name}
-              </div>
+              </Link>
             </div>
             <div className="flex flex-row items-start justify-start gap-3 text-darkslategray-300 font-mulish">
               <div className="flex flex-row items-center justify-start gap-1">
@@ -84,10 +89,12 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
                 </div>
               )}
             </div>
-            <Button className="rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter">
-              <div className="relative leading-[150%]">Book a seat now</div>
-              <ArrowRight className="w-4 h-4 text-white" />
-            </Button>
+            <TrekInquiryPopup
+              trekId={id}
+              trekTitle={name}
+              buttonText="Book a seat now"
+              buttonClassName="rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter"
+            />
           </div>
         </div>
       </div>

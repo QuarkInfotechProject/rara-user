@@ -84,7 +84,7 @@ const MainTourComponent = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[200px]">
+      <div className="flex justify-center items-center w-full min-h-[200px]">
        <ProductSkeleton />
       </div>
     );
