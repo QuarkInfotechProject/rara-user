@@ -3,27 +3,15 @@ import React from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AdventureCard from "./AdventureCard";
+import { Adventure } from "./Adventure";
+import Link from "next/link";
 
-interface Adventure {
-  id: string;
-  title: string;
-  startDate: string;
-  endDate: string;
-  duration: string;
-  groupSize: number;
-  difficulty: string;
-  originalPrice: number;
-  discountedPrice: number;
-  image: string;
-  currency?: string;
-}
-
-interface TrekCarouselProps {
+interface AdventureGridProps {
   title?: string;
   data: Adventure[];
 }
 
-const AdventureGrid = ({ title = "", data }: TrekCarouselProps) => {
+const AdventureGrid = ({ title = "", data }: AdventureGridProps) => {
   return (
     <div className="w-full mx-auto px-4 py-8">
       {/* Header with title and navigation buttons */}
@@ -38,9 +26,11 @@ const AdventureGrid = ({ title = "", data }: TrekCarouselProps) => {
         </div>
         {/* Custom navigation buttons */}
         <div className="hidden lg:flex items-center justify-center">
-          <Button className="flex items-center gap-1">
-            View All Adventures <ArrowRight />
-          </Button>
+          <Link href="/trek">
+            <Button className="flex items-center gap-1">
+              View All Adventures <ArrowRight />
+            </Button>
+          </Link>
         </div>
       </div>
 

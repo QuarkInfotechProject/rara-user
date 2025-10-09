@@ -4,45 +4,39 @@ import { Button } from "../ui/button";
 import { ArrowRight, Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
 import MobileAdventureCard from "./MobileAdventureCard";
-
-interface Adventure {
-  id: string;
-  title: string;
-  startDate: string;
-  endDate: string;
-  duration: string;
-  groupSize: number;
-  difficulty: string;
-  originalPrice: number;
-  discountedPrice: number;
-  image: string;
-  currency?: string;
-}
+import { Adventure } from "./Adventure";
 
 interface AdventureCardProps {
   data: Adventure;
 }
 
 const AdventureCard = ({ data }: AdventureCardProps) => {
-  const {
-    title,
-    startDate,
-    endDate,
-    duration,
-    groupSize,
-    difficulty,
-    originalPrice,
-    discountedPrice,
-    image,
-    currency = "USD",
-  } = data;
+  const { name, featuredImage, overview, prices, departures } = data;
+
+  // Get the earliest departure dates
+  const earliestDeparture = departures[0];
+  const startDate = earliestDeparture?.departure_from || "";
+  const endDate = earliestDeparture?.departure_to || "";
+
+  // Get pricing info
+  const priceInfo = prices[0];
+  const originalPrice = parseFloat(priceInfo?.original_price_usd || "0");
+  const discountedPrice = parseFloat(priceInfo?.discounted_price_usd || "0");
+  const finalPrice = discountedPrice > 0 ? discountedPrice : originalPrice;
+
+  // Format dates
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
+
   return (
     <div className="flex w-full ">
       <div className="w-full hidden md:flex gap-3 items-center justify-center h-full p-2 rounded-2xl border border-[#dde4d7] bg-white">
         <div className="flex items-center justify-center gap-4">
           <Image
-            src={image}
-            alt={title}
+            src={featuredImage.url}
+            alt={name}
             width={255}
             height={200}
             className="rounded-lg w-[255px] h-[230px] object-cover"
@@ -52,35 +46,41 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
           <div className="self-stretch flex flex-col items-start justify-start gap-3">
             <div className="self-stretch flex flex-col items-start justify-start gap-1.5">
               <div className="self-stretch text-[#1E2F2280] relative leading-[150%] font-semibold">
-                {startDate}→{endDate}
+                {formatDate(startDate)}→{formatDate(endDate)}
               </div>
               <div className=" text-2xl leading-[150%] font-semibold text-[#1e2f22]">
-                {title}
+                {name}
               </div>
             </div>
             <div className="flex flex-row items-start justify-start gap-3 text-darkslategray-300 font-mulish">
               <div className="flex flex-row items-center justify-start gap-1">
                 <Clock className="text-sm w-4 h-4 text-[#71b344]" />
-                <div className="relative leading-[150%]">{duration}</div>
+                <div className="relative leading-[150%]">
+                  {overview.duration} Days
+                </div>
               </div>
               <div className="flex flex-row items-center justify-start gap-1">
                 <Users className="text-sm w-4 h-4 text-[#71b344]" />
-                <div className="relative leading-[150%]">{groupSize}</div>
+                <div className="relative leading-[150%]">
+                  {overview.group_size}
+                </div>
               </div>
               <div className="flex flex-row items-center justify-start gap-1">
                 <Mountains className="text-sm w-4 h-4 text-[#71b344]" />
-                <div className="relative leading-[150%]">{difficulty}</div>
+                <div className="relative leading-[150%]">
+                  {overview.trip_grade}
+                </div>
               </div>
             </div>
           </div>
           <div className="self-stretch flex flex-row items-center justify-between gap-0 text-right text-xl text-[#1E2F22] font-mulish">
             <div className="flex flex-col items-start justify-center font-mulish">
               <div className="relative leading-[150%] font-extrabold">
-                {currency} {discountedPrice.toLocaleString()}
+                USD {finalPrice.toLocaleString()}
               </div>
-              {originalPrice !== discountedPrice && (
+              {discountedPrice > 0 && originalPrice !== discountedPrice && (
                 <div className="relative text-sm [text-decoration:line-through] leading-[150%] font-extrabold text-[#1E2F2280]">
-                  {currency} {originalPrice.toLocaleString()}
+                  USD {originalPrice.toLocaleString()}
                 </div>
               )}
             </div>

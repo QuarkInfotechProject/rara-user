@@ -20,14 +20,14 @@ export default function TestimonialHeader({
           Client <span className="text-[#71B344]">Testimonial</span>
         </h1>
       </div>
-      <div className="hidden lg:flex items-center justify-center">
+      {/* <div className="hidden lg:flex items-center justify-center">
         <Button
           onClick={onReadAllClick}
           className="flex items-center gap-1 bg-[#71B344] hover:bg-[#5a8c35] text-white px-6 py-2 rounded-full"
         >
           Read all Reviews <ArrowRight className="w-4 h-4" />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

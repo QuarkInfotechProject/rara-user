@@ -5,10 +5,10 @@ import TestimonialCard from "./TestimonialCard";
 
 export interface TestimonialData {
   id: number;
-  name: string;
-  trek: string;
-  rating: number;
-  review: string;
+  user_name: string;
+  product_name: string;
+  overall_rating: number;
+  public_review: string;
 }
 
 interface ScrollingColumnProps {
@@ -108,10 +108,10 @@ export default function ScrollingColumn({
       {duplicatedData.map((testimonial, index) => (
         <TestimonialCard
           key={`${keyPrefix}-${testimonial.id}-${index}`}
-          name={testimonial.name}
-          trek={testimonial.trek}
-          rating={testimonial.rating}
-          review={testimonial.review}
+          name={testimonial.user_name}
+          trek={testimonial.product_name}
+          rating={testimonial.overall_rating}
+          review={testimonial.public_review}
         />
       ))}
     </div>

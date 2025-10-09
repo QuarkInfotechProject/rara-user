@@ -3,38 +3,31 @@ import React from "react";
 import { Button } from "../ui/button";
 import { ArrowRight, Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
-
-interface Adventure {
-  id: string;
-  title: string;
-  startDate: string;
-  endDate: string;
-  duration: string;
-  groupSize: number;
-  difficulty: string;
-  originalPrice: number;
-  discountedPrice: number;
-  image: string;
-  currency?: string;
-}
+import { Adventure } from "./Adventure";
 
 interface MobileAdventureCardProps {
   data: Adventure;
 }
 
 const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
-  const {
-    title,
-    startDate,
-    endDate,
-    duration,
-    groupSize,
-    difficulty,
-    originalPrice,
-    discountedPrice,
-    image,
-    currency = "USD",
-  } = data;
+  const { name, featuredImage, overview, prices, departures } = data;
+
+  // Get the earliest departure dates
+  const earliestDeparture = departures[0];
+  const startDate = earliestDeparture?.departure_from || "";
+  const endDate = earliestDeparture?.departure_to || "";
+
+  // Get pricing info
+  const priceInfo = prices[0];
+  const originalPrice = parseFloat(priceInfo?.original_price_usd || "0");
+  const discountedPrice = parseFloat(priceInfo?.discounted_price_usd || "0");
+  const finalPrice = discountedPrice > 0 ? discountedPrice : originalPrice;
+
+  // Format dates
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
 
   return (
     <div className="flex flex-col gap-3 h-full p-4 rounded-2xl border border-[#dde4d7] bg-white w-full">
@@ -42,8 +35,8 @@ const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
       <div className="flex items-start gap-3">
         <div className="relative w-[100px] h-[90px]">
           <Image
-            src={image}
-            alt={title}
+            src={featuredImage.url}
+            alt={name}
             fill
             className="rounded-xl object-cover"
           />
@@ -54,9 +47,9 @@ const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
         </div>
         <div className="flex flex-col gap-3">
           <div className="text-[#1E2F2280] text-xs font-semibold">
-            {startDate} → {endDate}
+            {formatDate(startDate)} → {formatDate(endDate)}
           </div>
-          <div className="text-md font-semibold text-[#1e2f22]">{title}</div>
+          <div className="text-md font-semibold text-[#1e2f22]">{name}</div>
         </div>
       </div>
 
@@ -66,15 +59,15 @@ const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
           <div className="flex flex-col gap-3 text-sm text-darkslategray-300 font-mulish">
             <div className="flex items-center gap-1">
               <Clock className="w-4 h-4 text-[#71b344]" />
-              <span>{duration}</span>
+              <span>{overview.duration} Days</span>
             </div>
             <div className="flex items-center gap-1">
               <Users className="w-4 h-4 text-[#71b344]" />
-              <span>{groupSize}</span>
+              <span>{overview.group_size}</span>
             </div>
             <div className="flex items-center gap-1">
               <Mountains className="w-4 h-4 text-[#71b344]" />
-              <span>{difficulty}</span>
+              <span>{overview.trip_grade}</span>
             </div>
           </div>
         </div>
@@ -83,11 +76,11 @@ const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
             <div className="text-xl font-extrabold text-[#1E2F22]">
-              {currency} {discountedPrice.toLocaleString()}
+              USD {finalPrice.toLocaleString()}
             </div>
-            {originalPrice !== discountedPrice && (
+            {discountedPrice > 0 && originalPrice !== discountedPrice && (
               <div className="text-sm line-through font-extrabold text-[#1E2F2280]">
-                {currency} {originalPrice.toLocaleString()}
+                USD {originalPrice.toLocaleString()}
               </div>
             )}
           </div>

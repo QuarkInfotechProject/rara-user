@@ -9,9 +9,18 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import TestimonialCard from "./TestimonialCard";
-import { testimonialData } from "./testimonialData";
 
-const MobileCarousel = () => {
+interface MobileCarouselProps {
+  testimonials: {
+    id: number;
+    user_name: string;
+    product_name: string;
+    overall_rating: number;
+    public_review: string;
+  }[];
+}
+
+const MobileCarousel = ({ testimonials }: MobileCarouselProps) => {
   return (
     <div className="relative w-full">
       <Carousel
@@ -22,16 +31,16 @@ const MobileCarousel = () => {
         className="w-full"
       >
         <CarouselContent className="-ml-4">
-          {testimonialData.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <CarouselItem
-              key={index}
+              key={testimonial.id}
               className="pl-4 md:basis-1/2 lg:basis-1/3"
             >
               <TestimonialCard
-                name={testimonial.name}
-                trek={testimonial.trek}
-                rating={testimonial.rating}
-                review={testimonial.review}
+                name={testimonial.user_name}
+                trek={testimonial.product_name}
+                rating={testimonial.overall_rating}
+                review={testimonial.public_review}
               />
             </CarouselItem>
           ))}

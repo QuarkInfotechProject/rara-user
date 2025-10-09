@@ -172,6 +172,7 @@ const Review = ({ data }: ReviewProps) => {
     return (
       <EmptyReviewState
         title={title}
+        prodId={data.id}
         isDialogOpen={isDialogOpen}
         onWriteReviewClick={handleWriteReviewClick}
         onCloseDialog={handleCloseDialog}

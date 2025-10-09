@@ -7,17 +7,28 @@ import HorizontalScrollingRow from "./MobileScrollingColumn";
 interface MobileTestimonialProps {
   className?: string;
   onReadAllClick?: () => void;
+  testimonials: {
+    id: number;
+    user_name: string;
+    product_name: string;
+    overall_rating: number;
+    public_review: string;
+  }[];
+  isLoading?: boolean;
+  error?: string | null;
 }
 
 export default function MobileTestimonial({
   className = "",
   onReadAllClick,
+  testimonials,
+  isLoading = false,
+  error = null,
 }: MobileTestimonialProps) {
   const handleReadAllClick = () => {
     if (onReadAllClick) {
       onReadAllClick();
     } else {
-      // Default behavior - you can customize this
       console.log("Read all reviews clicked");
     }
   };
@@ -42,7 +53,17 @@ export default function MobileTestimonial({
           {/* Header Section */}
           <TestimonialHeader onReadAllClick={handleReadAllClick} />
 
-          <HorizontalScrollingRow />
+          {isLoading ? (
+            <div className="w-full flex items-center justify-center py-12">
+              <p className="text-gray-600">Loading testimonials...</p>
+            </div>
+          ) : error ? (
+            <div className="w-full flex items-center justify-center py-12">
+              <p className="text-red-600">Error: {error}</p>
+            </div>
+          ) : (
+            <HorizontalScrollingRow testimonials={testimonials} />
+          )}
         </div>
       </div>
     </div>

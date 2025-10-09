@@ -27,10 +27,19 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     ));
   };
 
+  // Get first letter of name
+  const getInitial = (): string => {
+    return name.trim().charAt(0).toUpperCase();
+  };
+
   return (
     <div className="bg-[#1E2F22] flex flex-col gap-4 items-start justify-start p-8 rounded-xl h-fit w-full flex-shrink-0">
       <div className="flex items-start gap-3 justify-start w-full">
-        <div className="w-12 h-12 rounded-full bg-white flex-shrink-0"></div>
+        <div className="w-12 h-12 rounded-full bg-white flex-shrink-0 flex items-center justify-center">
+          <span className="text-[#1E2F22] font-bold text-xl">
+            {getInitial()}
+          </span>
+        </div>
         <div className="flex flex-col items-start justify-start gap-1 flex-1">
           <span className="flex items-center gap-2">
             <p className="font-bold text-white text-base">{name}</p>

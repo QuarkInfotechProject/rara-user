@@ -6,6 +6,7 @@ import { ReviewData } from "./types";
 
 interface EmptyReviewStateProps {
   title: string;
+  prodId: number; // Changed to number
   isDialogOpen: boolean;
   onWriteReviewClick: () => void;
   onCloseDialog: () => void;
@@ -14,6 +15,7 @@ interface EmptyReviewStateProps {
 
 const EmptyReviewState = ({
   title,
+  prodId,
   isDialogOpen,
   onWriteReviewClick,
   onCloseDialog,
@@ -31,6 +33,7 @@ const EmptyReviewState = ({
         isOpen={isDialogOpen}
         onClose={onCloseDialog}
         trekTitle={title || "This Trek"}
+        prodId={prodId}
         onSubmit={onSubmit}
       />
     </div>
