@@ -32,21 +32,16 @@ export const footerData: FooterData = {
       href: "tel:+9779857766245",
       type: "phone",
     },
-    {
-      icon: Phone,
-      text: "977-9857766246",
-      href: "tel:+9779857766246",
-      type: "phone",
-    },
+   
   ],
   menuSections: [
     {
       title: "SERVICES",
       items: [
-        { label: "Trek", href: "/services/trek" },
-        { label: "Tour", href: "/services/tour" },
-        { label: "Activity", href: "/services/activity" },
-        { label: "Departure", href: "/services/departure" },
+        { label: "Trek", href: "/trek" },
+        { label: "Tour", href: "/tour" },
+        { label: "Activity", href: "/activities" },
+        { label: "Departure", href: "/departures" },
       ],
     },
     {
@@ -61,10 +56,8 @@ export const footerData: FooterData = {
     {
       title: "CONNECT",
       items: [
-        { label: "Newsletter", href: "/newsletter" },
-        { label: "Reviews", href: "/reviews" },
-        { label: "Support", href: "/support" },
-        { label: "FAQ", href: "/faq" },
+        { label: "Newsletter", href: "/#newsletter" },
+        { label: "Reviews", href: "/#reviews" },
       ],
     },
   ],

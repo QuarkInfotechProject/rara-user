@@ -23,7 +23,9 @@ async function Home() {
       <Services />
       <Why />
       <Adventure />
-      <Testimonial />
+      <div id="reviews">
+        <Testimonial />
+      </div>
       <News />
     </main>
   );
