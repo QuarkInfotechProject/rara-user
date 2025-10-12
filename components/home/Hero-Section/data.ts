@@ -40,6 +40,7 @@ export const heroData: HeroData = {
       price: 200,
       currency: "USD",
       image: "/assets/1.png",
+      slug: "/trek",
     },
     {
       id: 2,
@@ -47,6 +48,7 @@ export const heroData: HeroData = {
       price: 500,
       currency: "USD",
       image: "/assets/2.png",
+      slug: "/tour",
     },
     {
       id: 3,
@@ -54,6 +56,7 @@ export const heroData: HeroData = {
       price: 300,
       currency: "USD",
       image: "/assets/3.png",
+      slug: "/activities",
     },
     {
       id: 4,
@@ -61,6 +64,7 @@ export const heroData: HeroData = {
       price: 150,
       currency: "USD",
       image: "/assets/2.png",
+      slug: "/car-rental",
     },
   ],
 };

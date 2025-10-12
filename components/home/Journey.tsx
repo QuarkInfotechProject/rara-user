@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Journey = () => {
@@ -7,31 +8,37 @@ const Journey = () => {
       icon: "/assets/icons/journey.svg",
       title: "Culture Journey",
       alt: "Culture Journey Icon",
+      slug: "tour",
     },
     {
       icon: "/assets/icons/trekking.svg",
       title: "Trekking Trials",
       alt: "Trekking Icon",
+      slug: "trek",
     },
     {
       icon: "/assets/icons/mountain.svg",
       title: "Mountain Expeditions",
       alt: "Mountain Icon",
+      slug: "trek",
     },
     {
       icon: "/assets/icons/wildlife.svg",
       title: "Wildlife & Nature",
       alt: "Wildlife Icon",
+      slug: "activities",
     },
     {
       icon: "/assets/icons/adventure.svg",
       title: "Adventure Journey",
       alt: "Adventure Icon",
+      slug: "activities",
     },
     {
       icon: "/assets/icons/scenic.svg",
       title: "Scenic Flights",
       alt: "Scenic Flights Icon",
+      slug: "tour",
     },
   ];
 
@@ -54,8 +61,9 @@ const Journey = () => {
           {/* Desktop Layout */}
           <div className="hidden lg:flex items-center justify-between w-full max-w-7xl px-8 xl:px-16">
             {journeyItems.map((item, index) => (
-              <div
+              <Link
                 key={index}
+                href={`/${item.slug}`}
                 className="flex flex-col items-center justify-center gap-3 group transform transition-all duration-300 hover:scale-110"
               >
                 <div className="flex rounded-full p-3 bg-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
@@ -70,15 +78,16 @@ const Journey = () => {
                 <p className="text-white font-bold text-lg xl:text-xl text-center drop-shadow-lg group-hover:text-yellow-200 transition-colors duration-300">
                   {item.title}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
 
           {/* Tablet Layout */}
           <div className="hidden md:grid lg:hidden grid-cols-3 gap-6 w-full max-w-4xl px-8">
             {journeyItems.map((item, index) => (
-              <div
+              <Link
                 key={index}
+                href={`/${item.slug}`}
                 className="flex flex-col mb-4 items-center justify-center gap-2 group transform transition-all duration-300 hover:scale-105"
               >
                 <div className="flex rounded-full p-2 bg-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
@@ -93,15 +102,16 @@ const Journey = () => {
                 <p className="text-white font-bold text-sm text-center drop-shadow-lg group-hover:text-yellow-200 transition-colors duration-300">
                   {item.title}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
 
           {/* Mobile Layout */}
           <div className="grid md:hidden grid-cols-2 gap-4 w-full max-w-sm px-6">
             {journeyItems.map((item, index) => (
-              <div
+              <Link
                 key={index}
+                href={`/${item.slug}`}
                 className="flex flex-col items-center mb-4 justify-center gap-1 group transform transition-all duration-300 hover:scale-105 active:scale-95"
               >
                 <div className="flex rounded-full p-2 bg-white shadow-md group-hover:shadow-lg transition-shadow duration-300">
@@ -116,7 +126,7 @@ const Journey = () => {
                 <p className="text-white font-semibold text-xs text-center drop-shadow-md leading-tight group-hover:text-yellow-200 transition-colors duration-300">
                   {item.title}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

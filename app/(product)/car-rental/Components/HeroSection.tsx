@@ -4,12 +4,12 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import RentalForm from "./RentalForm";
+import Link from "next/link";
 
 const carTypes = [
   "Economy Cars",
   "Luxury Cars",
   "SUVs",
-  "Sports Cars",
   "Electric Cars",
 ];
 
@@ -102,9 +102,11 @@ const HeroSection = () => {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <RentalForm />
-              <Button className="border-2 border-[#71B344] text-black px-8 py-4 rounded-full font-semibold text-lg hover:bg-teal-600 hover:text-white transition-all duration-300 backdrop-blur-sm bg-white/50">
-                Learn More
-              </Button>
+              <Link href="#learn-more">
+                <Button className="border-2 border-[#71B344] text-black px-8 py-4 rounded-full font-semibold text-lg hover:bg-teal-600 hover:text-white transition-all duration-300 backdrop-blur-sm bg-white/50">
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
 

@@ -4,6 +4,7 @@ export interface Product {
   slug: string;
   type: string;
   short_description: string;
+  average_rating: number;
   featuredImage: {
     id: number;
     url: string;

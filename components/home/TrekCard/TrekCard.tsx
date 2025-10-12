@@ -74,7 +74,7 @@ const   TrekCard = (product: Product) => {
           <ImageCarousel
             images={images}
             alt={product.name}
-            rating={4.5} 
+            rating={product.average_rating}
             discount={discountPercentage > 0 ? `${discountPercentage}` : ""}
           />
 
@@ -83,9 +83,7 @@ const   TrekCard = (product: Product) => {
             onClick={handleCardClick}
           >
             <div className="flex flex-col items-start justify-start w-full">
-              <h2
-                className="text-lg leading-tight font-bold text-gray-900 mb-3 line-clamp-2"
-              >
+              <h2 className="text-lg leading-tight font-bold text-gray-900 mb-3 line-clamp-2">
                 {product.name}
               </h2>
 

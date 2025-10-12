@@ -3,57 +3,37 @@
 import React, { useState, useEffect } from "react";
 import CustomDropdown from "./NavData/CustomDropdown";
 import NavItem from "./NavData/NavItem";
-import { DropdownItem } from "./NavData/type";
 
 // Type definitions for API response
-interface Price {
-  product_id: number;
-  number_of_people: number;
-  original_price_usd: string;
-  discounted_price_usd: string;
-}
-
-interface Tag {
+interface FeaturedImage {
   id: number;
-  name: string;
-  description: string;
-  display_order: string;
-  zoom_level: string;
-  slug: string;
-  latitude: string;
-  longitude: string;
-  pivot: {
-    product_id: number;
-    tag_id: number;
-  };
+  url: string;
 }
 
 interface Product {
   id: number;
   name: string;
-  tagline: string;
   slug: string;
-  type: string;
-  display_order: string;
-  latitude: number;
-  longitude: number;
-  location: string;
-  average_rating: string | null;
-  total_rating: string | null;
-  wishlist: number;
-  featuredImage: string;
-  featuredImages: string[];
-  tags: Tag[];
-  prices: Price[];
+  featured_image: FeaturedImage | null;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  products: Product[];
+}
+
+interface ApiResponseData {
+  trek: Category[];
+  activities: Category[];
+  tour: Category[];
 }
 
 interface ApiResponse {
   code: number;
   message: string;
   data: {
-    trek: Product[];
-    tour: Product[];
-    activities: Product[];
+    data: ApiResponseData;
   };
 }
 
@@ -63,95 +43,70 @@ interface NavigationItem {
   label: string;
   icon: string;
   slug?: string;
-  dropdownItems?: DropdownItem[];
 }
+
+// Static navigation structure
+const STATIC_NAVIGATION: NavigationItem[] = [
+  {
+    id: "trekking",
+    label: "Trekking",
+    icon: "PersonSimpleHike",
+    slug: "/trek",
+  },
+  {
+    id: "tour",
+    label: "Tour",
+    icon: "Jeep",
+    slug: "/tour",
+  },
+  {
+    id: "activities",
+    label: "Activities",
+    icon: "Mountains",
+    slug: "/activities",
+  },
+  {
+    id: "departures",
+    label: "Departures",
+    icon: "AirplaneTakeoff",
+    slug: "/departures",
+  },
+  {
+    id: "car-rental",
+    label: "Car Rental",
+    icon: "Jeep",
+    slug: "/car-rental",
+  },
+];
 
 const NavigationMenu = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [apiData, setApiData] = useState<ApiResponse | null>(null);
-  const [navigationData, setNavigationData] = useState<NavigationItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [dropdownData, setDropdownData] = useState<Record<string, Category[]>>(
+    {}
+  );
 
-  // Transform API products into dropdown items
-  const transformProductsToDropdownItems = (
-    products: Product[]
-  ): DropdownItem[] => {
-    return products.map((product) => ({
-      id: product.id.toString(),
-      label: product.name,
-      description:
-        product.tagline || `Explore ${product.name} in ${product.location}`,
-      slug: `/${product.type}/${product.slug}`,
-      image: product.featuredImage,
-    }));
-  };
-
-  const generateNavigationData = (
-    apiResponse: ApiResponse
-  ): NavigationItem[] => {
-    const { trek, tour, activities } = apiResponse.data;
-
-    return [
-      {
-        id: "trekking",
-        label: "Trekking",
-        icon: "PersonSimpleHike",
-        slug: "/trek",
-        dropdownItems: transformProductsToDropdownItems(trek),
-      },
-      {
-        id: "tour",
-        label: "Tour",
-        icon: "Jeep",
-        slug: "/tour",
-        dropdownItems: transformProductsToDropdownItems(tour),
-      },
-      {
-        id: "activities",
-        label: "Activities",
-        icon: "Mountains",
-        slug: "/activities",
-        dropdownItems: transformProductsToDropdownItems(activities),
-      },
-      {
-        id: "departures",
-        label: "Departures",
-        icon: "AirplaneTakeoff",
-        slug: "/departures",
-      },
-      {
-        id: "car-rental",
-        label: "Car Rental",
-        icon: "Jeep",
-        slug: "/car-rental",
-      },
-    ];
-  };
-
-  // Fetch data from API on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        const response = await fetch("/api/product/homepage/product/list");
+        const response = await fetch("/api/product/homepage/navbar/list");
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data: ApiResponse = await response.json();
-        setApiData(data);
+        console.log("data is :", data);
 
-        // Generate navigation data from API response
-        const generatedNavData = generateNavigationData(data);
-        setNavigationData(generatedNavData);
+        // Store raw categories - NO TRANSFORMATION
+        setDropdownData({
+          trekking: data.data.data.trek,
+          tour: data.data.data.tour,
+          activities: data.data.data.activities,
+        });
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Unknown error occurred";
-        setError(errorMessage);
-      } finally {
-        setLoading(false);
+        console.error("Error loading navigation data:", errorMessage);
       }
     };
 
@@ -162,7 +117,7 @@ const NavigationMenu = () => {
     setActiveDropdown(activeDropdown === itemId ? null : itemId);
   };
 
-  const handleItemClick = (item: DropdownItem) => {
+  const handleItemClick = (product: Product) => {
     setActiveDropdown(null);
   };
 
@@ -172,15 +127,15 @@ const NavigationMenu = () => {
 
   return (
     <div className="w-full flex justify-center gap-24 pb-6 bg-[#F2F5F0] items-center py-6">
-      {navigationData.map((navItem) => {
+      {STATIC_NAVIGATION.map((navItem) => {
         const isActive = activeDropdown === navItem.id;
-        const hasDropdown =
-          navItem.dropdownItems && navItem.dropdownItems.length > 0;
+        const dropdownItems = dropdownData[navItem.id] || [];
+        const hasDropdown = dropdownItems.length > 0;
 
         return (
           <CustomDropdown
             key={navItem.id}
-            items={navItem.dropdownItems}
+            items={dropdownItems}
             trigger={
               <NavItem
                 icon={navItem.icon}
