@@ -7,6 +7,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Star } from "lucide-react";
 
@@ -23,9 +24,32 @@ const ImageCarousel = ({
   rating,
   discount,
 }: ImageCarouselProps) => {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
+  const [canScrollNext, setCanScrollNext] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const updateScrollState = () => {
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+    };
+
+    // Initial state
+    updateScrollState();
+
+    // Listen for slide changes
+    api.on("select", updateScrollState);
+
+    return () => {
+      api.off("select", updateScrollState);
+    };
+  }, [api]);
+
   return (
     <div className="relative w-full h-64 overflow-hidden rounded-t-lg">
-      <Carousel className="w-full h-full group">
+      <Carousel setApi={setApi} className="w-full h-full group">
         <CarouselContent>
           {images.map((image, index) => (
             <CarouselItem key={index}>
@@ -42,8 +66,14 @@ const ImageCarousel = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 border-0 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 border-0 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <CarouselPrevious
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 border-0 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 disabled:opacity-0 disabled:cursor-not-allowed"
+          disabled={!canScrollPrev}
+        />
+        <CarouselNext
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 border-0 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 disabled:opacity-0 disabled:cursor-not-allowed"
+          disabled={!canScrollNext}
+        />
       </Carousel>
 
       {rating && (
@@ -56,7 +86,7 @@ const ImageCarousel = ({
       {discount && (
         <div className="absolute bottom-1 left-1 rounded-full text-black ">
           <Image
-            src="/assets/icons/stars.svg" 
+            src="/assets/icons/stars.svg"
             alt="Discount Icon"
             width={50}
             height={50}
