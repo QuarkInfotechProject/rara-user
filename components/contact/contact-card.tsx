@@ -26,7 +26,7 @@ function    ContactCard() {
         </li>
         <li>
           <IconMapPin stroke={ICON_STROKE} className="text-primary/80" />
-          Lal Durbar Marg, Kathmandu, Nepal
+           Kathmandu, Nepal
         </li>
       </ul>
       <SocialIcons size={30} className="[&_svg]:text-white [&_svg:hover]:text-gray-300" />
