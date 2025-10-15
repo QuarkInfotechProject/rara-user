@@ -22,11 +22,6 @@ export const heroData: HeroData = {
       url: "https://twitter.com",
       hoverColor: "hover:text-blue-300",
     },
-    {
-      icon: "Youtube",
-      url: "https://youtube.com",
-      hoverColor: "hover:text-red-400",
-    },
   ],
   rating: {
     score: 4.0,

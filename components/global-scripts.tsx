@@ -4,7 +4,7 @@ import React from "react";
 function GlobalScripts() {
   return (
     <>
-      <Script id="google-tag-manager">
+      {/* <Script id="google-tag-manager">
         {`
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -12,7 +12,7 @@ function GlobalScripts() {
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-P94GH44');
         `}
-      </Script>
+      </Script> */}
     </>
   );
 }
