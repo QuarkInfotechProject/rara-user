@@ -56,7 +56,7 @@ export const footerData: FooterData = {
     {
       title: "CONNECT",
       items: [
-        { label: "Newsletter", href: "/#newsletter" },
+        // { label: "Newsletter", href: "/#newsletter" },
         { label: "Reviews", href: "/#reviews" },
       ],
     },
