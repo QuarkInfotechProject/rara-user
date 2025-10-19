@@ -8,7 +8,7 @@ interface TrekDetailsProps {
 }
 
 const TrekDetails = ({ duration, minPeople, difficulty }: TrekDetailsProps) => (
-  <div className=" bg-gray-50">
+  <div >
     <div className="space-y-2">
       <div className="flex items-center gap-2 text-gray-600">
         <Calendar className="w-4 h-4" />

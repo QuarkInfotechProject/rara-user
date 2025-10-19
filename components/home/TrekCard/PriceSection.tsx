@@ -14,7 +14,7 @@ const PriceSection = ({
   const hasDiscount = originalPrice && originalPrice !== currentPrice;
 
   return (
-    <div className="bg-gray-50 p-4">
+    <div className="p-4">
       <div className="flex items-center justify-between">
         <div className="flex flex-col items-end justify-end">
           {hasDiscount ? (
