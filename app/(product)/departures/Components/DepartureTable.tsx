@@ -48,7 +48,7 @@ const DepartureTable = ({
         // Parse the departure date
         const startDate = new Date(departure.departure_from);
         const monthYear = startDate.toLocaleDateString("en-US", {
-          month: "long",
+          month: "short",
           year: "numeric",
         });
 
@@ -140,8 +140,8 @@ const DepartureTable = ({
         <h2 className="font-bold text-gray-800">{message}</h2>
       </div>
 
-      {/* Month Tabs */}
-      <div className="flex items-center gap-2 md:gap-4 overflow-x-auto pb-2">
+      {/* Month Tabs - Compact */}
+      <div className="flex items-center gap-1 md:gap-2 overflow-x-auto pb-2 -mx-1 px-1">
         {months.map((month) => (
           <button
             key={month}
@@ -149,10 +149,10 @@ const DepartureTable = ({
             className={`
               ${
                 selectedMonth === month
-                  ? "bg-green-600 hover:bg-green-700 text-white shadow-md"
-                  : "bg-transparent border-0 text-gray-700 hover:bg-gray-50"
+                  ? "bg-green-600 hover:bg-green-700 text-white shadow-sm"
+                  : "bg-gray-100 border border-gray-200 text-gray-700 hover:bg-gray-200"
               } 
-              rounded-full px-4 md:px-6 py-2 transition-all duration-200 whitespace-nowrap text-sm md:text-base font-medium
+              rounded-full px-2.5 md:px-3 py-1.5 transition-all duration-200 whitespace-nowrap text-xs md:text-sm font-medium flex-shrink-0
             `}
           >
             {month}

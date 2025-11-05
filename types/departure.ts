@@ -1,4 +1,3 @@
-
 // Individual departure information
 export interface Departure {
   id: number;
@@ -46,6 +45,7 @@ export interface DepartureResponse {
   code: number;
   message: string;
   data: {
+    trek: Product[];
     tour: Product[];
     activities: Product[];
   };
