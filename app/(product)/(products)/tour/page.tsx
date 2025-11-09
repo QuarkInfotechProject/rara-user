@@ -3,6 +3,8 @@
 import ProductCard from "@/components/product/ProductCard";
 import ProductSkeleton from "@/components/productSkeleton";
 import { useEffect, useState } from "react";
+import Why from "@/components/home/Why";
+
 
 interface Product {
   id: number;
@@ -278,6 +280,7 @@ const TourProductList = () => {
           )}
         </>
       )}
+      <Why />
     </div>
   );
 };

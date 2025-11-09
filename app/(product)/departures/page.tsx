@@ -5,6 +5,8 @@ import Breadcrumbs from "@/components/ProductDetail/Breadcrumbs";
 import DepartureHero from "./Components/HeroSection";
 import DepartureTable from "./Components/DepartureTable";
 import type { SimplifiedProduct, DepartureResponse } from "@/types/departure";
+import Why from "@/components/home/Why";
+
 
 interface DepartureState {
   trek: SimplifiedProduct[];
@@ -122,6 +124,7 @@ const Departures = () => {
           />
         )}
       </div>
+      <Why />
     </div>
   );
 };

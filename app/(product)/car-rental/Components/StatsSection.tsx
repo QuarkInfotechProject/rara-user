@@ -14,8 +14,8 @@ const StatsSection: React.FC = () => {
             <span className="text-emerald-300 font-bold">Commercial and</span>
           </p>
           <p className="text-emerald-400 text-xl">
-            <span className="text-emerald-300 font-bold">Luxury cars</span>{" "}
-            customized to suit any requirements.
+            <span className="text-emerald-300 font-bold">customized cars</span>{" "}
+            to suit any requirements.
           </p>
         </div>
 

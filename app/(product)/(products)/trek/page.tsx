@@ -1,5 +1,6 @@
 "use client";
 
+import Why from "@/components/home/Why";
 import ProductCard from "@/components/product/ProductCard";
 import ProductSkeleton from "@/components/productSkeleton";
 import { useEffect, useState } from "react";
@@ -278,6 +279,8 @@ const TrekProductList = () => {
           )}
         </>
       )}
+
+      <Why />
     </div>
   );
 };

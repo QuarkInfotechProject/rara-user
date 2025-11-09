@@ -2,11 +2,8 @@ import { Trophy, Phone, MapPin } from "lucide-react";
 import { Car, FAQ, StatsItem, ServiceFeature, SpecialService } from "./types";
 
 export const carTypes = [
-  "Luxury Sedans",
   "SUVs",
-  "Sports Cars",
   "Electric Vehicles",
-  "Convertibles",
   "Minivans",
   "Commercial Vehicles",
   "Economy Cars",
@@ -156,10 +153,10 @@ export const faqs: FAQ[] = [
 ];
 
 export const statsData: StatsItem[] = [
-  { value: "5000+", label: "No of Vehicles" },
-  { value: "2 Lakh+", label: "Customers Served Annually" },
-  { value: "5000+", label: "No of Drivers" },
-  { value: "30", label: "Years of Experience" },
+  { value: "10+", label: "No of Vehicles" },
+  { value: "200+", label: "Customers Served Annually" },
+  { value: "10+", label: "No of Drivers" },
+  { value: "5", label: "Years of Experience" },
 ];
 
 export const serviceFeatures: ServiceFeature[] = [
