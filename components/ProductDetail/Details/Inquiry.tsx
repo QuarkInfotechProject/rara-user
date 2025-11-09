@@ -6,6 +6,7 @@ import { GuestCounts } from "./Inquiry_form/GuestSelector";
 import InfoNote from "./Inquiry_form/InfoNote";
 import PriceHeader from "./Inquiry_form/PriceHeader";
 import { InquiryData } from "@/components/ProductDetail/type";
+import CustomTripInquiryPopup from "./Departure/CustomInquiry";
 
 interface InquiryProps {
   data: InquiryData;
@@ -74,9 +75,7 @@ function Inquiry({ data }: InquiryProps) {
       <div className="p-6 bg-white rounded-2xl">
         <CostSummary costPerAdult={currentPrice} totalCost={totalCost} />
 
-        <InfoNote
-          impact={data.impact}
-        />
+        <InfoNote impact={data.impact} />
 
         <ActionButtons
           disabled={!isFormComplete}
@@ -89,6 +88,13 @@ function Inquiry({ data }: InquiryProps) {
             console.log("Inquire availability clicked")
           }
           onCheckAvailability={() => console.log("Check availability clicked")}
+        />
+      </div>
+      <div className="p-4 pt-6">
+        <CustomTripInquiryPopup
+          buttonText="Create Custom Trip"
+          trekTitle={data.title}
+          trekId={data.id}
         />
       </div>
     </div>

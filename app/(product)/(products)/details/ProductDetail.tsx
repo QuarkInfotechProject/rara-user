@@ -22,6 +22,7 @@ import {
   IntroData,
   TripOverview,
   AltitudeChart as AltitudeChartType,
+  TripOverview as TripOverviewData,
   TransformedItineraryDay,
   CostDetail as CostDetailType,
   trip_location,
@@ -174,6 +175,7 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
       bestTime: productData.overview?.best_time || "N/A",
       starts: productData.overview?.starts || "N/A",
     },
+    what_to_bring: productData.what_to_bring || [],
     highlights: productData.highlights || [],
   };
 

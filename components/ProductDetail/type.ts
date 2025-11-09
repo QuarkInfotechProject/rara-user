@@ -52,11 +52,19 @@ export interface TripDetails {
   starts: string;
 }
 
+export interface WhatToBringItem {
+  id: number;
+  name: string;
+  icon: string;
+  description: string;
+}
+
 export interface TripOverview {
   intro: string;
   description: string;
   details: TripDetails;
   highlights: string[];
+  what_to_bring: WhatToBringItem[];
 }
 
 // Altitude Chart interfaces
@@ -188,7 +196,7 @@ export interface InquiryData {
   title: string;
   prices: TransformedPrice[];
   impact: string;
-  what_to_bring: string[];
+  what_to_bring: WhatToBringItem[];
 }
 
 // FAQ interfaces
@@ -273,7 +281,7 @@ export interface RootInterface {
     how_to_get?: string;
     departures?: DepartureItem[];
     prices?: Price[];
-    what_to_bring?: string[];
+    what_to_bring?: WhatToBringItem[];
     faqs?: FAQ[];
     related_circuit?: RelatedCircuit[];
     dossiers?: Dossier[]; // NEW
@@ -405,7 +413,6 @@ export interface Itinerary {
 export interface FlexibleItinerary {
   [key: string]: ItineraryDay;
 }
-
 
 export interface TourPageProps {
   tourData: {

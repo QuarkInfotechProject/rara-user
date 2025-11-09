@@ -1,6 +1,8 @@
 
+import { useCallback } from "react";
 import CustomTripBookingPopup from "../Departure/Booking";
 import CustomTripInquiryPopup from "../Departure/CustomInquiry";
+import CustomTripSection from "../Departure/CustomTripSection";
 
 interface GuestCounts {
   infant: number;
@@ -26,6 +28,7 @@ function ActionButtons({
   title,
   id,
 }: ActionButtonsProps) {
+    
   return (
     <div className=" gap-4 flex">
       <CustomTripInquiryPopup
@@ -38,6 +41,7 @@ function ActionButtons({
         trekTitle={title}
         trekId={id}
       />
+      
     </div>
   );
 }
