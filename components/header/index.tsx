@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import CHNLogo from "../chn-logo";
 import Link from "next/link";
 import MobileHeader from "./mobile-header";
@@ -37,6 +37,7 @@ const aboutNavItems: AboutNavItem[] = [
 
 function Header() {
   const { isTransparent } = useHeader();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Fragment>
@@ -71,15 +72,24 @@ function Header() {
             {/* Right Section */}
             <div className="flex gap-8 justify-center items-center">
               {/* About Dropdown using shadcn */}
-              <DropdownMenu>
+              <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-2 text-gray-700 whitespace-nowrap hover:text-gray-900 transition-all">
+                  <button
+                    className="flex items-center gap-2 text-gray-700 whitespace-nowrap hover:text-gray-900 transition-all"
+                    onMouseEnter={() => setIsOpen(true)}
+                    onMouseLeave={() => setIsOpen(false)}
+                  >
                     <EarthIcon size={16} className="text-gray-400" />
                     About Us
                     <ChevronDown size={14} className="text-gray-400" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuContent
+                  align="end"
+                  className="w-48"
+                  onMouseEnter={() => setIsOpen(true)}
+                  onMouseLeave={() => setIsOpen(false)}
+                >
                   <DropdownMenuLabel>About Us</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {aboutNavItems.map((item) => (

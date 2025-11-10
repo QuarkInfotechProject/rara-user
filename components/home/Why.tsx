@@ -1,5 +1,12 @@
 import React from "react";
 import Card from "./Card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface CardData {
   icon: string;
@@ -53,34 +60,32 @@ const Why = () => {
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center flex items-center justify-center gap-2">
           Why choose <span className="text-[#71B344]">Rara Trek</span>
         </h2>
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-          {cardData.map((card: CardData, index: number) => (
-            <div
-              key={index}
-              className={`${index === 1 || index === 4 ? "lg:mt-8" : ""}`}
-            >
-              <Card
-                icon={card.icon}
-                title={card.title}
-                description={card.description}
-              />
-            </div>
-          ))}
-        </div>
 
-        <div className="block md:hidden flex flex-col gap-8 w-full">
-          {cardData.map((card: CardData, index: number) => (
-            <div
-              key={index}
-              className={`w-[70%] ${index % 2 === 0 ? "ml-auto" : "mr-auto"}`}
-            >
-              <Card
-                icon={card.icon}
-                title={card.title}
-                description={card.description}
-              />
-            </div>
-          ))}
+        <div className="w-full px-4 md:px-0">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {cardData.map((card: CardData, index: number) => (
+                <CarouselItem
+                  key={index}
+                  className="basis-1/2 pl-2 md:basis-1/4 md:pl-4"
+                >
+                  <Card
+                    icon={card.icon}
+                    title={card.title}
+                    description={card.description}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </div>
     </div>

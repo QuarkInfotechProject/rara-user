@@ -23,19 +23,19 @@ export const TripsCarousel = ({
         ))}
       </div>
 
-      <div className="md:hidden relative w-full mt-[-250px]">
-        <Carousel className="w-full">
-          <CarouselContent className="-ml-6">
+      <div className="md:hidden relative w-full grid grid-cols-2 gap-2 absolute mt-[-200px] px-4">
+        {/* <Carousel className="w-full">
+          <CarouselContent className="-ml-6"> */}
             {trips.map((trip: Trip) => (
-              <CarouselItem
-                key={trip.id}
-                className="basis-[70%] md:basis-1/3 snap-center"
-              >
+              // <CarouselItem
+              //   key={trip.id}
+              //   className="basis-[50%] md:basis-2/3 snap-center"
+              // >
                 <MobileTripCard trip={trip} />
-              </CarouselItem>
+              // </CarouselItem>
             ))}
-          </CarouselContent>
-        </Carousel>
+          {/* </CarouselContent>
+        </Carousel> */}
       </div>
     </>
   );

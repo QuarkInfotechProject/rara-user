@@ -17,18 +17,9 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Set a timeout to ensure video plays
-    const playTimeout = setTimeout(() => {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.warn("Video autoplay failed:", error);
-          setVideoError(true);
-        });
-      }
-    }, 100);
+    // Preload the video by setting src attribute
+    video.src = "/assets/video/video.mp4";
 
-    // Handle browser cache and buffering
     const handleCanPlay = () => {
       setVideoLoaded(true);
     };
@@ -38,12 +29,28 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
       setVideoError(true);
     };
 
+    const handleLoadedData = () => {
+      setVideoLoaded(true);
+      // Attempt to play once data is loaded
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Video autoplay failed:", error);
+          setVideoError(true);
+        });
+      }
+    };
+
     video.addEventListener("canplay", handleCanPlay);
+    video.addEventListener("loadeddata", handleLoadedData);
     video.addEventListener("error", handleError);
 
+    // Load the video
+    video.load();
+
     return () => {
-      clearTimeout(playTimeout);
       video.removeEventListener("canplay", handleCanPlay);
+      video.removeEventListener("loadeddata", handleLoadedData);
       video.removeEventListener("error", handleError);
     };
   }, []);
@@ -53,17 +60,14 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
       {/* Video element with optimized settings */}
       <video
         ref={videoRef}
-        src="/assets/video/video.mp4"
         autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="auto"
         className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${
           videoLoaded && !videoError ? "opacity-100" : "opacity-0"
         }`}
-        onLoadedData={() => setVideoLoaded(true)}
-        onPlay={() => setVideoLoaded(true)}
         controlsList="nodownload"
       />
 

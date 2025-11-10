@@ -11,7 +11,7 @@ export const MobileTripCard = ({
 }: MobileTripCardProps) => {
   return (
     <div className="w-full flex-shrink-0 flex flex-col items-center justify-center p-2 gap-2">
-      <div className="relative w-[280px] h-[380px] rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat">
+      <div className="relative w-[180px] h-[280px] rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat">
         <Image
           src={trip.image}
           alt={trip.title}
@@ -29,11 +29,11 @@ export const MobileTripCard = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-start text-lg text-darkslategray px-4">
+      {/* <div className="flex flex-col items-center justify-start text-lg text-darkslategray px-4">
         <b className="text-center leading-[150%] hover:text-olivedrab transition-colors cursor-pointer">
           {trip.title}
         </b>
-      </div>
+      </div> */}
     </div>
   );
 };
