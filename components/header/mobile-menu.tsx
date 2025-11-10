@@ -15,6 +15,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+
 // Type definitions
 interface FeaturedImage {
   id: number;
@@ -55,12 +56,18 @@ interface NavigationItem {
   slug?: string;
 }
 
-const iconComponents = {
-  PersonSimpleHike,
-  Jeep,
-  Mountains,
-  AirplaneTakeoff,
-};
+interface AboutNavItem {
+  label: string;
+  href: string;
+}
+
+const aboutNavItems: AboutNavItem[] = [
+  { label: "About Us", href: "/about" },
+  { label: "Who we are", href: "/about#who_we_are" },
+  { label: "What we do", href: "/about#what_we_do" },
+  { label: "Mission", href: "/about#mission" },
+  { label: "Our Team", href: "/about#our-team" },
+];
 
 // Static navigation structure
 const STATIC_NAVIGATION: NavigationItem[] = [
@@ -181,10 +188,11 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
           {STATIC_NAVIGATION.map((item) => {
             const categories = dropdownData[item.id] || [];
             const hasDropdown = categories.length > 0;
+            const isAboutSection = item.id === "about";
 
             return (
               <div key={item.id} className="border-b">
-                {hasDropdown ? (
+                {hasDropdown || isAboutSection ? (
                   <div>
                     <button
                       onClick={() =>
@@ -206,55 +214,75 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
 
                     {activeDropdown === item.id && (
                       <div className="bg-gray-50">
-                        {categories.map((category) => (
-                          <div
-                            key={category.id}
-                            className="border-b last:border-b-0"
-                          >
-                            <button
-                              onClick={() => toggleCategory(category.id)}
-                              className="w-full flex items-center justify-between px-6 py-2 hover:bg-gray-100 transition-colors"
-                            >
-                              <span className="text-sm font-medium text-gray-900">
-                                {category.name}
-                              </span>
-                              <ChevronRight
-                                size={14}
-                                className={`transition-transform duration-200 ${
-                                  expandedCategory === category.id
-                                    ? "rotate-90"
-                                    : ""
-                                }`}
-                              />
-                            </button>
-
-                            {expandedCategory === category.id && (
-                              <div className="bg-gray-100">
-                                {category.products.map((product) => (
-                                  <Link
-                                    key={product.id}
-                                    href={`/${getProductType(item.id)}/${
-                                      product.slug
+                        {isAboutSection ? (
+                          // About Us dropdown
+                          <>
+                            {aboutNavItems.map((navItem, index) => (
+                              <Link
+                                key={index}
+                                href={navItem.href}
+                                onClick={handleLinkClick}
+                              >
+                                <div className="px-6 py-3 text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors border-b last:border-b-0">
+                                  {navItem.label}
+                                </div>
+                              </Link>
+                            ))}
+                          </>
+                        ) : (
+                          // Products dropdown
+                          <>
+                            {categories.map((category) => (
+                              <div
+                                key={category.id}
+                                className="border-b last:border-b-0"
+                              >
+                                <button
+                                  onClick={() => toggleCategory(category.id)}
+                                  className="w-full flex items-center justify-between px-6 py-2 hover:bg-gray-100 transition-colors"
+                                >
+                                  <span className="text-sm font-medium text-gray-900">
+                                    {category.name}
+                                  </span>
+                                  <ChevronRight
+                                    size={14}
+                                    className={`transition-transform duration-200 ${
+                                      expandedCategory === category.id
+                                        ? "rotate-90"
+                                        : ""
                                     }`}
-                                    onClick={handleLinkClick}
-                                  >
-                                    <div className="px-8 py-2 text-sm text-gray-700 hover:bg-gray-200 transition-colors">
-                                      {product.name}
-                                    </div>
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                                  />
+                                </button>
 
-                        {item.slug && (
-                          <Link href={item.slug} onClick={handleLinkClick}>
-                            <div className="px-6 py-2 text-sm font-medium text-green-600 hover:bg-green-50 transition-colors flex items-center gap-1">
-                              View All
-                              <ChevronRight size={14} />
-                            </div>
-                          </Link>
+                                {expandedCategory === category.id && (
+                                  <div className="bg-gray-100">
+                                    {category.products.map((product) => (
+                                      <Link
+                                        key={product.id}
+                                        href={`/${getProductType(item.id)}/${
+                                          product.slug
+                                        }`}
+                                        onClick={handleLinkClick}
+                                      >
+                                        <div className="px-8 py-2 text-sm text-gray-700 hover:bg-gray-200 transition-colors">
+                                          {product.name}
+                                        </div>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+
+                            {item.slug && (
+                              <Link href={item.slug} onClick={handleLinkClick}>
+                                <div className="px-6 py-2 text-sm font-medium text-green-600 hover:bg-green-50 transition-colors flex items-center gap-1">
+                                  View All
+                                  <ChevronRight size={14} />
+                                </div>
+                              </Link>
+                            )}
+                          </>
                         )}
                       </div>
                     )}

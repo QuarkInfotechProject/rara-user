@@ -16,12 +16,12 @@ const Topbar = () => {
         </Link>
         <p>Grab your opportunity to travel all over Nepal</p>
         <Link
-          href="https://maps.app.goo.gl/F6vX5uaXZxYyfL7q6"
+          href="https://wa.me/9779851177054"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline transition-all"
+          className="hover:underline transition-all "
         >
-          See Our Location
+          Chat with Us
         </Link>
       </div>
     </div>

@@ -1,16 +1,39 @@
 "use client";
+
 import React, { Fragment } from "react";
 import CHNLogo from "../chn-logo";
 import Link from "next/link";
 import MobileHeader from "./mobile-header";
 import { cn } from "@/lib/utils";
-import { IconSearch } from "@tabler/icons-react";
 import useHeader from "@/lib/hooks/use-header";
-import { EarthIcon, PhoneCallIcon } from "lucide-react";
+import { EarthIcon, PhoneCallIcon, ChevronDown } from "lucide-react";
 import NavigationMenu from "./NavigationMenu";
 import Search from "./search";
 
+// ✅ shadcn/ui imports
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+
 export const TRANSPARENT_PATHS = new Set(["/"]);
+
+type AboutNavItem = {
+  label: string;
+  href: string;
+};
+
+const aboutNavItems: AboutNavItem[] = [
+  { label: "About Us", href: "/about" },
+  { label: "Who we are", href: "/about#who_we_are" },
+  { label: "What we do", href: "/about#what_we_do" },
+  { label: "Mission", href: "/about#mission" },
+  { label: "Our Team", href: "/about#our-team" },
+];
 
 function Header() {
   const { isTransparent } = useHeader();
@@ -19,13 +42,14 @@ function Header() {
     <Fragment>
       <header
         className={cn(
-          "hidden w-fullw md:block relative  z-50 ",
+          "hidden w-full md:block relative z-50",
           !isTransparent && "border-b bg-[#F2F5F0]"
         )}
       >
-        <div className="w-full container bg-[#F2F5F0]  flex flex-col items-center">
-          <div className=" w-full px-8 flex justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-[20px] my-8 items-center py-3">
-            <div >
+        <div className="w-full container bg-[#F2F5F0] flex flex-col items-center">
+          <div className="w-full px-8 flex justify-between shadow-[0_0_15px_0_rgba(0,0,0,0.1)] rounded-[20px] my-8 items-center py-3">
+            {/* Logo */}
+            <div>
               <Link href="/">
                 <CHNLogo
                   variant={isTransparent ? "white" : "default"}
@@ -33,33 +57,56 @@ function Header() {
                 />
               </Link>
             </div>
-            <div >
+
+            {/* Navigation */}
+            <div>
               <NavigationMenu />
             </div>
 
-            <div className=" flex  justify-center items-center">
+            {/* Search */}
+            <div className="flex justify-center items-center">
               <Search />
             </div>
 
+            {/* Right Section */}
             <div className="flex gap-8 justify-center items-center">
-              <Link href="/about">
-                <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
-                  <EarthIcon size={16} className="text-gray-400" />
-                  About Us
-                </span>
-              </Link>
+              {/* About Dropdown using shadcn */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 text-gray-700 whitespace-nowrap hover:text-gray-900 transition-all">
+                    <EarthIcon size={16} className="text-gray-400" />
+                    About Us
+                    <ChevronDown size={14} className="text-gray-400" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuLabel>About Us</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {aboutNavItems.map((item) => (
+                    <DropdownMenuItem key={item.href} asChild>
+                      <Link
+                        href={item.href}
+                        className="w-full text-sm text-gray-700 hover:text-gray-900"
+                      >
+                        {item.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Contact */}
               <Link href="/contact">
-                <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+                <span className="flex items-center gap-2 text-gray-700 whitespace-nowrap hover:text-gray-900 transition-all">
                   <PhoneCallIcon size={16} className="text-gray-400" />
                   Contact Us
                 </span>
               </Link>
             </div>
           </div>
-
-          {/* <NavigationMenu /> */}
         </div>
       </header>
+
       <MobileHeader />
     </Fragment>
   );
