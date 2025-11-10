@@ -30,13 +30,13 @@ const MobileGallery = ({ images, onImageClick }: MobileGalleryProps) => {
         <CarouselContent className="-ml-0">
           {images.map((image, index) => (
             <CarouselItem key={index} className="pl-0">
-              <div className="relative w-full h-[300px] overflow-hidden">
+              <div className="relative w-full h-[300px] object-cover overflow-hidden">
                 <Image
                   src={image}
                   alt={`Gallery image ${index + 1}`}
                   width={500}
                   height={300}
-                  className="object-cover cursor-pointer"
+                  className="object-cover w-full h-[300px] cursor-pointer"
                   onClick={() => onImageClick(index)}
                   sizes="100vw"
                 />

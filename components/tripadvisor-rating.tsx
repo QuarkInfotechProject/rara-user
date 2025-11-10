@@ -10,14 +10,18 @@ interface Props {
 function TripadvisorRating({ className }: Props) {
   return (
     <Link
-      href="https://www.tripadvisor.com/Attraction_Review-g293890-d17609501-Reviews-Community_Homestay_Network-Kathmandu_Kathmandu_Valley_Bagmati_Zone_Central_Regio.html"
+      href="https://www.tripadvisor.com/Attraction_Review-g293890-d24948428-Reviews-Rara_Treks_Tours_Travels-Kathmandu_Kathmandu_Valley_Bagmati_Zone_Central_Region.html"
       rel="noreferrer"
       target="_blank"
       className={className}
     >
-      <div className="grid grid-cols-[auto_auto] gap-2 w-fit items-center">
+      <div className="grid grid-cols-[auto_auto] bg-white p-4 rounded-3xl gap-2 w-fit items-center">
         <div>
-          <Image src={TripadvisorLogo} alt="Tripadvisor logo" className="size-12" />
+          <Image
+            src={TripadvisorLogo}
+            alt="Tripadvisor logo"
+            className="size-12"
+          />
         </div>
         <div>
           <h4 className="font-semibold text-sm">Tripadvisor</h4>
@@ -28,7 +32,7 @@ function TripadvisorRating({ className }: Props) {
             <div></div>
             <div></div>
           </div>
-          <h6 className="text-sm">200+ reviews</h6>
+          <h6 className="text-sm">0 reviews</h6>
         </div>
         {/* <div>
           <h6 className="font-bebas-neue text-3xl">4.9</h6>

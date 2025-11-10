@@ -9,7 +9,7 @@ const MonthTabs = ({
   onTabChange,
 }: MonthTabsProps) => {
   return (
-    <div className="flex items-center justify-start gap-6 w-full flex-wrap">
+    <div className="flex items-center justify-start gap-3 w-full flex-wrap">
       {availableMonths.map((month: string) => (
         <Button
           key={month}

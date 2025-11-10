@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Sen, Satisfy, Mulish } from "next/font/google";
 import "./globals.css";
@@ -10,6 +11,7 @@ import NextTopLoader from "nextjs-toploader";
 import GlobalScripts from "@/components/global-scripts";
 import ScrollToTopTempFix from "@/components/scroll-to-top-temp-fix";
 import Topbar from "@/components/header/Topbar";
+import FloatingButtons from "@/components/HoveringButtons/FloatingButtons";
 
 const sen = Sen({
   subsets: ["latin"],
@@ -66,6 +68,7 @@ export default function RootLayout({
             <Toaster />
             <NextTopLoader height={5} color="hsl(var(--primary))" />
             <ScrollToTopTempFix />
+            <FloatingButtons />
           </UserContext>
         </ReactQueryContext>
         <GlobalScripts />
@@ -73,4 +76,3 @@ export default function RootLayout({
     </html>
   );
 }
-

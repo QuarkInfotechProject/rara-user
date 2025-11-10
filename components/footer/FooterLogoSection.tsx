@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import CHNLogo from "../chn-logo";
 import { CompanyInfo } from "@/types/footer";
+import TripadvisorRating from "../tripadvisor-rating";
 
 interface FooterLogoSectionProps {
   companyInfo: CompanyInfo;
@@ -38,6 +39,7 @@ function FooterLogoSection({
             style={{ border: 0 }}
           ></iframe>
         </div> */}
+        <TripadvisorRating className="mt-4" />
       </div>
     </div>
   );

@@ -36,6 +36,7 @@ import {
   FAQImage,
 } from "@/components/ProductDetail/type";
 import RelatedProductCover from "@/components/home/RelatedProductCover";
+import MobilePrice from "@/components/ProductDetail/Details/MobilePrice";
 
 const Product_Detail = ({ productData }: ProductDetailProps) => {
   const [activeTab, setActiveTab] = useState<string>("Trip_Overview");
@@ -391,11 +392,15 @@ const faqImages: FAQImage[] =
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 container mb-6">
-        <div className="lg:col-span-7 flex flex-col gap-6">
+        <div className="lg:col-span-7 flex flex-col gap-3 md:gap-6">
           <Intro data={introData} />
 
+          <div className="flex md:hidden">
+              <MobilePrice data={inquiryData} />
+          </div>
+
           {/* Sticky Tab Navigation */}
-          <div className="sticky top-0 z-40 bg-[#F2F5F0] p-4 mb-6">
+          <div className="sticky top-0 z-40 bg-[#F2F5F0] p-4 mb-2 md:mb-6">
             <div className="flex overflow-x-auto scrollbar-hide">
               <div className="flex space-x-1 min-w-max">
                 {tabs.map((tab) => (

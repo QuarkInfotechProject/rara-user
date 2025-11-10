@@ -8,8 +8,16 @@ import PriceHeader from "./Inquiry_form/PriceHeader";
 import { InquiryData } from "@/components/ProductDetail/type";
 import CustomTripInquiryPopup from "./Departure/CustomInquiry";
 
+interface PricingTier {
+  discounted_price_usd: number;
+  number_of_people: number;
+  original_price_usd: number;
+}
+
 interface InquiryProps {
-  data: InquiryData;
+  data: InquiryData & {
+    prices: PricingTier[];
+  };
 }
 
 function Inquiry({ data }: InquiryProps) {
@@ -29,6 +37,8 @@ function Inquiry({ data }: InquiryProps) {
     if (!data.prices || data.prices.length === 0) {
       return { originalPrice: 0, currentPrice: 0 };
     }
+
+    console.log("pricing received is as ::::::::::::::::::::::: ", data.prices);
 
     const matchingPrice =
       data.prices.find((price) => price.number_of_people === guests.adult) ||
@@ -73,7 +83,13 @@ function Inquiry({ data }: InquiryProps) {
       />
 
       <div className="p-6 bg-white rounded-2xl">
-        <CostSummary costPerAdult={currentPrice} totalCost={totalCost} />
+        <CostSummary
+          costPerAdult={currentPrice}
+          totalCost={totalCost}
+          numberOfPeople={guests.adult}
+          pricingTiers={data.prices}
+          onNumberOfPeopleChange={(num) => setGuests({ ...guests, adult: num })}
+        />
 
         <InfoNote impact={data.impact} />
 

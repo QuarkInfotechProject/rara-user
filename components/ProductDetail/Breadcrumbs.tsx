@@ -19,6 +19,15 @@ interface BreadcrumbsProps {
   };
 }
 
+// Helper function to convert text to title case
+const toTitleCase = (str: string): string => {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const Breadcrumbs = ({ data }: BreadcrumbsProps) => {
   if (!data) return null;
 
@@ -31,11 +40,11 @@ const Breadcrumbs = ({ data }: BreadcrumbsProps) => {
       href: "/",
     },
     {
-      label: type || "Tours",
+      label: toTitleCase(type || "Tours"),
       href: `/${type?.toLowerCase() || "tours"}`,
     },
     {
-      label: title || "Tour Details",
+      label: toTitleCase(title || "Tour Details"),
       isCurrentPage: true,
     },
   ];

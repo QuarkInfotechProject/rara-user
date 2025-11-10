@@ -4,13 +4,14 @@ import CHNLogo from "../chn-logo";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import useHeader from "@/lib/hooks/use-header";
-import { Search } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import MobileMenu from "./mobile-menu";
 import MobileSearchPopup from "./Search/mobile-search-popup";
 
 function MobileHeader() {
   const { isTransparent } = useHeader();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
@@ -32,17 +33,27 @@ function MobileHeader() {
                   />
                 </Link>
               </div>
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className="px-4 hover:bg-gray-100 rounded-full p-2 transition-colors"
-              >
-                <Search size={20} stroke="gray" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsSearchOpen(true)}
+                  className="px-4 hover:bg-gray-100 rounded-full p-2 transition-colors"
+                >
+                  <Search size={20} stroke="gray" />
+                </button>
+
+                <button
+                  onClick={() => setIsMenuOpen(true)}
+                  className="px-4 hover:bg-gray-100 rounded-full p-2 transition-colors"
+                >
+                  <Menu stroke="gray" size={20} />
+                </button>
+              </div>
             </div>
           </div>
-          <MobileMenu />
         </div>
       </header>
+
+      <MobileMenu isOpen={isMenuOpen} onOpenChange={setIsMenuOpen} />
 
       <MobileSearchPopup
         isOpen={isSearchOpen}
