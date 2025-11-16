@@ -3,6 +3,7 @@ import { ChevronRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "./types";
 import Link from "next/link";
+import GeneralInquiryPopup from "./GeneralInquiryPopup";
 
 interface HeroContentProps {
   hero: Hero;
@@ -82,33 +83,26 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
       )}
 
       {/* Content overlay */}
-      <div className="relative h-full flex flex-col items-center justify-start pt-[190px] px-2 md:px-5 pb-[68px] gap-4 z-10">
-        <h1 className="w-full text-[28px] md:text-3xl lg:text-[64px] text-center mb-2 lg:mb-6 leading-[150%] font-extrabold text-white drop-shadow-lg">
+      <div className="relative h-full flex flex-col items-center justify-center px-2 md:px-5 gap-8 z-10">
+        <h1 className="w-full text-[28px] md:text-3xl lg:text-[64px] text-center leading-[150%] font-extrabold text-white drop-shadow-lg">
           {hero.title}
         </h1>
-      </div>
-      <div className="flex items-center gap-12 relative left-10 bottom-20">
-        <Link href="#trips" aria-label="View available trips">
-          <Button className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter hover:bg-[#5fa035] active:bg-[#4a7828] transition-colors duration-200 cursor-pointer shadow-lg">
-            <span className="leading-[150%]">{hero.buttonText}</span>
-            <ChevronRightIcon
-              className="text-white"
-              size={16}
-              aria-hidden="true"
-            />
-          </Button>
-        </Link>
 
-        <Link href="#trips" aria-label="View available trips">
-          <Button className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter hover:bg-[#5fa035] active:bg-[#4a7828] transition-colors duration-200 cursor-pointer shadow-lg">
-            <span className="leading-[150%]">{hero.buttonText}</span>
-            <ChevronRightIcon
-              className="text-white"
-              size={16}
-              aria-hidden="true"
-            />
-          </Button>
-        </Link>
+        {/* Buttons Container */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+          <GeneralInquiryPopup buttonText="Plan Your Trip" />
+
+          <Link href="/departures" aria-label="View available trips">
+            <Button className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter hover:bg-[#5fa035] active:bg-[#4a7828] transition-colors duration-200 cursor-pointer shadow-lg">
+              <span className="leading-[150%]">Browse Treks</span>
+              <ChevronRightIcon
+                className="text-white"
+                size={16}
+                aria-hidden="true"
+              />
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

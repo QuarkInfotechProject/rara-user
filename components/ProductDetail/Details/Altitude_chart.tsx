@@ -21,69 +21,65 @@ interface UpdatedAltitudeChartProps {
   altitudeChartData?: AltitudeChartData;
 }
 
-const Altitude_chart = ({
-  itineraryData,
-  altitudeChartData,
-}: UpdatedAltitudeChartProps) => {
+const Altitude_chart = ({ altitudeChartData }: UpdatedAltitudeChartProps) => {
   return (
     <div className="flex flex-col w-full gap-6">
       <h1 className="text-3xl font-bold">Altitude Chart</h1>
 
-      {/* Use altitude chart data if available */}
-      {altitudeChartData?.src ? (
-        <div className="w-full bg-white rounded-3xl p-6 shadow-sm">
-          <Image
-            src={altitudeChartData.src}
-            alt={altitudeChartData.alt || "Altitude Chart"}
-            width={800}
-            height={400}
-            priority
-            className="w-full h-auto rounded-lg shadow-sm"
-          />
-        </div>
-      ) : (
-        <div className="w-full p-6 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-300">
-          <p className="text-gray-600 text-center">
-            Altitude chart data is not available.
-          </p>
-        </div>
-      )}
-
-      <div className="flex w-full flex-col gap-4">
-        <h2 className="font-bold text-xl text-[#3E641C]">Brief Itinerary</h2>
-
-        {/* Display itinerary data in bullet points */}
-        {itineraryData && itineraryData.length > 0 ? (
-          <div className="bg-white rounded-3xl p-6 shadow-sm">
-            <div className="flex flex-col gap-3">
-              {itineraryData.map((dayData, index) => {
-                const dayNumber = dayData.day || index + 1;
-
-                return (
-                  <div
-                    key={`day-${dayNumber}`}
-                    className="flex items-start gap-4 transition-shadow duration-200"
-                  >                   
-                    <div className="flex-1 min-w-0">
-                      <p className="text-gray-800 font-semibold text-lg mb-2">
-                        <span className="text-[#71B344]">
-                          Day {String(dayNumber).padStart(2, "0")}:
-                        </span>{" "}
-                        {dayData.title}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+      <div className="grid grid-cols-2 gap-6">
+        {/* Altitude Chart Section */}
+        <div>
+          {altitudeChartData?.src ? (
+            <div
+              className="bg-white rounded-3xl p-6 overflow-hidden shadow-sm cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => window.open(altitudeChartData.src, "_blank")}
+            >
+              <Image
+                src={altitudeChartData.src}
+                alt={altitudeChartData.alt || "Altitude Chart"}
+                width={400}
+                height={500}
+                priority
+                className="w-full max-h-[420px] object-fit rounded-lg shadow-sm"
+              />
             </div>
-          </div>
-        ) : (
-          <div className="w-full p-6 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-300">
-            <p className="text-gray-600 text-center">
-              Itinerary data is not available.
+          ) : (
+            <div className="p-6 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-300 flex items-center justify-center">
+              <p className="text-gray-600 text-center">
+                Altitude chart data is not available.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Dummy Text Section */}
+        <div className="bg-white rounded-3xl p-6 shadow-sm flex flex-col gap-4">
+          <h2 className="text-2xl font-semibold">Elevation Overview</h2>
+          <div className="space-y-3 text-gray-700">
+            <p>
+              The altitude chart above displays the elevation profile of your
+              trek, showing how the terrain changes throughout your journey.
+            </p>
+            <p>
+              Key highlights include starting altitude, peak elevation points,
+              and descent sections, helping you understand the physical demands
+              of each day.
+            </p>
+            <p>
+              <span className="font-semibold">Maximum Altitude:</span> Reach the
+              highest point of your adventure with gradual acclimatization.
+            </p>
+            <p>
+              <span className="font-semibold">Daily Segments:</span> Each
+              segment is carefully planned to ensure proper altitude adaptation
+              and physical conditioning.
+            </p>
+            <p>
+              This profile is designed to help you prepare mentally and
+              physically for the elevation challenges ahead.
             </p>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

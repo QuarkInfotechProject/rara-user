@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import ActionButtons from "./Inquiry_form/ActionButtons";
 import CostSummary from "./Inquiry_form/CostSummary";
 import { GuestCounts } from "./Inquiry_form/GuestSelector";
-import InfoNote from "./Inquiry_form/InfoNote";
 import PriceHeader from "./Inquiry_form/PriceHeader";
 import { InquiryData } from "@/components/ProductDetail/type";
 import CustomTripInquiryPopup from "./Departure/CustomInquiry";
@@ -38,7 +37,6 @@ function Inquiry({ data }: InquiryProps) {
       return { originalPrice: 0, currentPrice: 0 };
     }
 
-    console.log("pricing received is as ::::::::::::::::::::::: ", data.prices);
 
     const matchingPrice =
       data.prices.find((price) => price.number_of_people === guests.adult) ||
@@ -90,9 +88,6 @@ function Inquiry({ data }: InquiryProps) {
           pricingTiers={data.prices}
           onNumberOfPeopleChange={(num) => setGuests({ ...guests, adult: num })}
         />
-
-        <InfoNote impact={data.impact} />
-
         <ActionButtons
           disabled={!isFormComplete}
           id={data.id}

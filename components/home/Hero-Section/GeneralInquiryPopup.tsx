@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -31,9 +31,9 @@ import {
   Clock,
   CheckCircle2,
 } from "lucide-react";
-import ActivitiesMultiSelect from "./ActivitiesMultiSelect";
+import ActivitiesMultiSelect from "@/components/ProductDetail/Details/Departure/ActivitiesMultiSelect";
 
-interface CustomTripFormData {
+interface GeneralInquiryFormData {
   fullName: string;
   email: string;
   phone: string;
@@ -52,34 +52,17 @@ interface CustomTripFormData {
   message: string;
 }
 
-interface TransformedDepartureItem {
-  id: number;
-  dateRange: string;
-  availability: string;
-  price: string;
-  departure_from?: string;
-  departure_to?: string;
-}
-
-interface CustomTripInquiryPopupProps {
-  defaultDestination?: string;
-  trekTitle?: string;
-  trekId?: number;
-  departure?: TransformedDepartureItem;
+interface GeneralInquiryPopupProps {
   buttonText: string;
 }
 
-export default function CustomTripInquiryPopup({
-  defaultDestination = "",
-  trekTitle,
-  trekId,
-  departure,
+export default function GeneralInquiryPopup({
   buttonText,
-}: CustomTripInquiryPopupProps) {
+}: GeneralInquiryPopupProps) {
   const [open, setOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState<CustomTripFormData>({
+  const [formData, setFormData] = useState<GeneralInquiryFormData>({
     fullName: "",
     email: "",
     phone: "",
@@ -114,22 +97,15 @@ export default function CustomTripInquiryPopup({
     return `${diffDays} day${diffDays > 1 ? "s" : ""}`;
   };
 
-  // Initialize form when component mounts or departure changes
-  useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      destination: trekTitle || defaultDestination || "",
-      departure_from: departure?.departure_from || "",
-      departure_to: departure?.departure_to || "",
-      duration:
-        departure?.departure_from && departure?.departure_to
-          ? calculateDuration(departure.departure_from, departure.departure_to)
-          : "",
-    }));
-  }, [departure, trekTitle, defaultDestination]);
+  const handleInputChange = (
+    field: keyof GeneralInquiryFormData,
+    value: string | number[]
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   // Auto-calculate duration when dates change
-  useEffect(() => {
+  React.useEffect(() => {
     if (formData.departure_from && formData.departure_to) {
       const duration = calculateDuration(
         formData.departure_from,
@@ -140,13 +116,6 @@ export default function CustomTripInquiryPopup({
       }
     }
   }, [formData.departure_from, formData.departure_to]);
-
-  const handleInputChange = (
-    field: keyof CustomTripFormData,
-    value: string | number[]
-  ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
 
   const handleSubmit = async () => {
     if (
@@ -182,25 +151,19 @@ export default function CustomTripInquiryPopup({
       const groupSize =
         parseInt(formData.adults || "0") + parseInt(formData.children || "0");
 
-      // Determine type based on whether departure dates are provided
-      const inquiryType =
-        departure?.departure_from && departure?.departure_to
-          ? "inquiry"
-          : "custom";
-
       // Parse duration to get numeric value
       const durationMatch = formData.duration.match(/(\d+)/);
       const durationValue = durationMatch ? parseInt(durationMatch[1]) : null;
 
       // Transform form data to API format
       const payload = {
-        product_id: trekId || null,
+        product_id: null,
         from_date: formData.departure_from || null,
         to_date: formData.departure_to || null,
         adult: parseInt(formData.adults) || 0,
         children: parseInt(formData.children) || 0,
         infant: 0,
-        type: inquiryType,
+        type: "custom",
         fullname: formData.fullName,
         mobile_number: formData.phone,
         email: formData.email,
@@ -239,18 +202,12 @@ export default function CustomTripInquiryPopup({
         email: "",
         phone: "",
         country: "",
-        destination: trekTitle || defaultDestination || "",
+        destination: "",
         adults: "",
         children: "",
-        departure_from: departure?.departure_from || "",
-        departure_to: departure?.departure_to || "",
-        duration:
-          departure?.departure_from && departure?.departure_to
-            ? calculateDuration(
-                departure.departure_from,
-                departure.departure_to
-              )
-            : "",
+        departure_from: "",
+        departure_to: "",
+        duration: "",
         budget: "",
         accommodation: "",
         transportation: "",
@@ -265,10 +222,6 @@ export default function CustomTripInquiryPopup({
     }
   };
 
-  const hasPrefilledDate = Boolean(
-    departure?.departure_from && departure?.departure_to
-  );
-
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -282,7 +235,7 @@ export default function CustomTripInquiryPopup({
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-center text-gray-800 flex items-center justify-center gap-2">
               <MapPin className="w-6 h-6 text-orange-600" />
-              Plan you Journey With us{" "}
+              Plan Your Journey With us
             </DialogTitle>
             <p className="text-center text-gray-600 mt-2">
               Let us create a personalized travel experience just for you
@@ -374,8 +327,6 @@ export default function CustomTripInquiryPopup({
                   handleInputChange("destination", e.target.value)
                 }
                 placeholder="Where would you like to go?"
-                className={trekTitle ? "bg-gray-100 cursor-not-allowed" : ""}
-                readOnly={!!trekTitle}
               />
             </div>
 
@@ -450,10 +401,6 @@ export default function CustomTripInquiryPopup({
                   onChange={(e) =>
                     handleInputChange("departure_from", e.target.value)
                   }
-                  readOnly={hasPrefilledDate}
-                  className={
-                    hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
-                  }
                   min={new Date().toISOString().split("T")[0]}
                 />
               </div>
@@ -468,10 +415,6 @@ export default function CustomTripInquiryPopup({
                   value={formData.departure_to}
                   onChange={(e) =>
                     handleInputChange("departure_to", e.target.value)
-                  }
-                  readOnly={hasPrefilledDate}
-                  className={
-                    hasPrefilledDate ? "bg-gray-100 cursor-not-allowed" : ""
                   }
                   min={
                     formData.departure_from ||
@@ -584,7 +527,7 @@ export default function CustomTripInquiryPopup({
                 onActivitiesChange={(activities) =>
                   handleInputChange("activities", activities)
                 }
-                placeholder="Select activities you'd like to add to your trek"
+                placeholder="Select activities you'd like to add to your trip"
               />
             </div>
 
@@ -650,8 +593,8 @@ export default function CustomTripInquiryPopup({
               Inquiry Submitted Successfully!
             </DialogTitle>
             <DialogDescription className="text-center pt-2">
-              Thank you for your custom trip inquiry! Our team will review your
-              request and contact you soon at the email address you provided.
+              Thank you for your inquiry! Our team will review your request and
+              contact you soon at the email address you provided.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-center pt-4">

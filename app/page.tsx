@@ -8,19 +8,22 @@ import Adventure from "@/components/home/Adventure";
 import Testimonial from "@/components/home/Testimonial/Testimonial";
 import News from "@/components/home/News";
 import HomePopup from "@/components/home-popup";
+import Newsletter from "@/components/footer/Newsletter";
 
 async function Home() {
   return (
-    <main className="flex flex-col gap-10 pb-10">
+    <main className="flex flex-col gap-10">
       <div className="w-full">
         <HeroSection />
       </div>
-      <Journey />
+      <Why />
       <div className="container" id="trips">
         <MainTourComponent />
       </div>
+      {/* <Journey /> */}
+
       <Experience />
-      <Why />
+
       <Adventure />
       <div className="flex flex-col">
         <div id="reviews">
@@ -30,6 +33,9 @@ async function Home() {
       </div>
 
       <HomePopup />
+       <div id="newsletter">
+              <Newsletter />
+            </div>
     </main>
   );
 }

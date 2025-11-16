@@ -36,34 +36,20 @@ const DesktopGallery = ({
     <div className="hidden md:flex w-full h-[480px] gap-4">
       {/* Left side - single large image */}
       {mainImage && (
-        <div className="relative w-1/2 h-full overflow-hidden rounded-2xl">
+        <div className="relative w-4/5 h-full overflow-hidden rounded-2xl">
           <Image
             src={mainImage}
             alt="Main gallery image"
             fill
             className="object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={() => onImageClick(0)}
-            sizes="50vw"
+            sizes="70vw"
           />
         </div>
       )}
 
       {/* Right side - grid of smaller images */}
-      <div className="w-1/2 h-full grid grid-cols-2 grid-rows-2 gap-4">
-        {/* Top left image - spans 1 col, 2 rows (tall image) */}
-        {tallImage && (
-          <div className="relative w-full h-full overflow-hidden rounded-2xl row-span-2">
-            <Image
-              src={tallImage}
-              alt="Gallery image 2"
-              fill
-              className="object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
-              onClick={() => onImageClick(1)}
-              sizes="25vw"
-            />
-          </div>
-        )}
-
+      <div className="w-1/5 h-full grid grid-cols-1 grid-rows-2 gap-4">
         {/* Top right image */}
         {smallImage && (
           <div className="relative w-full h-full overflow-hidden rounded-2xl">

@@ -224,6 +224,8 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
   // Location data mapping
   const locationData: trip_location = {
     how_to_get: productData.how_to_get || "",
+    latitude: productData.latitude || 0,
+    longitude: productData.longitude || 0,
     image: productData.files?.locationCover
       ? {
           id: productData.files.locationCover.id,
@@ -383,8 +385,11 @@ const faqImages: FAQImage[] =
         <Header data={headerData} shareData={shareData} />
       </div>
 
-      <div className="w-full md:container">
+      <div className="w-full md:container relative flex flex-col">
         <GalleryGrid data={galleryData} />
+        <div className=" absolute bottom-0 ">
+          <Intro data={introData} />
+        </div>
       </div>
 
       <div className="container w-full flex md:hidden">
@@ -393,14 +398,12 @@ const faqImages: FAQImage[] =
 
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 container mb-6">
         <div className="lg:col-span-7 flex flex-col gap-3 md:gap-6">
-          <Intro data={introData} />
-
           <div className="flex md:hidden">
-              <MobilePrice data={inquiryData} />
+            <MobilePrice data={inquiryData} />
           </div>
 
           {/* Sticky Tab Navigation */}
-          <div className="sticky top-0 z-40 bg-[#F2F5F0] p-4 mb-2 md:mb-6">
+          <div className="sticky top-0 z-40 bg-[#F2F5F0] p-4">
             <div className="flex overflow-x-auto scrollbar-hide">
               <div className="flex space-x-1 min-w-max">
                 {tabs.map((tab) => (
