@@ -1,110 +1,186 @@
-// app/blog/[slug]/page.tsx
 "use client";
 
-import BlogSkeleton from "@/components/BlogSkeleton";
-import News from "@/components/home/News";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { BlogPost, TableOfContentItem } from "./components/types";
+import TableOfContents from "./components/TableOfContents";
+import BlogSkeleton from "./components/BlogSkeleton";
+import BlogPostHeader from "./components/BlogPostHeader";
+import BlogPostBody from "./components/BlogPostBody";
 
-interface BlogPost {
-  id: number;
-  title: string;
-  featured_image: string;
-  short_description: string;
-  description: string;
-  publish_date: string;
-  read_time: string;
-  author: {
-    name: string;
-  };
-  category: {
-    name: string;
-  };
-  meta: {
-    keywords: string[];
-  };
+interface BlogPageProps {
+  params: Promise<{ slug: string }>;
 }
 
-const BlogPage = ({ params }: { params: Promise<{ slug: string }> }) => {
+const BlogPage: React.FC<BlogPageProps> = ({ params }) => {
   const [blog, setBlog] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
+  const [tableOfContents, setTableOfContents] = useState<TableOfContentItem[]>(
+    []
+  );
+  const [activeSectionId, setActiveSectionId] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
+  // Load blog data
   useEffect(() => {
-    const fetchBlog = async () => {
-      const { slug } = await params;
+    const loadBlog = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      fetch(`/api/product/blog/${slug}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setBlog(data.data);
-          setLoading(false);
-        })
-        .catch(() => setLoading(false));
+        const { slug } = await params;
+        const response = await fetch(`/api/product/blog/${slug}`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const jsonResponse = await response.json();
+        const data = jsonResponse.data as BlogPost;
+
+        // Parse HTML and extract headings
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data.description, "text/html");
+        const headings: TableOfContentItem[] = [];
+
+        doc
+          .querySelectorAll("h1, h2, h3, h4, h5, h6")
+          .forEach((heading, index) => {
+            const level = parseInt(heading.tagName[1]);
+            const text = heading.textContent || "";
+            const id =
+              text
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]+/g, "") + `-${index}`;
+
+            heading.id = id;
+            headings.push({ id, text, level });
+          });
+
+        data.description = doc.body.innerHTML;
+        setBlog(data);
+        setTableOfContents(headings);
+
+        if (headings.length > 0) {
+          setActiveSectionId(headings[0].id);
+        }
+      } catch (err) {
+        const message =
+          err instanceof Error ? err.message : "Failed to load blog post";
+        console.error("Failed to load blog post:", err);
+        setError(message);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchBlog();
+    loadBlog();
   }, [params]);
 
+  // Handle scroll events to update active section
+  const handleScroll = useCallback(() => {
+    if (tableOfContents.length === 0) return;
+
+    let currentActiveId = "";
+    let smallestDistance = Infinity;
+
+    tableOfContents.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const distanceFromTop = Math.abs(rect.top - 100);
+
+        // Check if element is above viewport and closer to top
+        if (rect.top < 200 && distanceFromTop < smallestDistance) {
+          smallestDistance = distanceFromTop;
+          currentActiveId = id;
+        }
+      }
+    });
+
+    // If no element found in upper area, find the first one in viewport
+    if (!currentActiveId) {
+      for (const { id } of tableOfContents) {
+        const element = document.getElementById(id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top >= 0 && rect.top < window.innerHeight) {
+            currentActiveId = id;
+            break;
+          }
+        }
+      }
+    }
+
+    if (currentActiveId && currentActiveId !== activeSectionId) {
+      setActiveSectionId(currentActiveId);
+    }
+  }, [tableOfContents, activeSectionId]);
+
+  // Setup scroll listener
+  useEffect(() => {
+    if (loading || tableOfContents.length === 0) return;
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Call once on mount to set initial active section
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [tableOfContents, loading, handleScroll]);
+
+  // Handle smooth scroll to heading
+  const handleTocClick = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSectionId(id);
+    }
+  };
+
   if (loading) {
-    return <div className="max-w-4xl mx-auto p-8">
-      <BlogSkeleton />
-    </div>;
+    return <BlogSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-xl text-red-500 mb-4">Error: {error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Try Again
+        </button>
+      </div>
+    );
   }
 
   if (!blog) {
-    return <div className="max-w-4xl mx-auto p-8">Blog not found</div>;
+    return (
+      <div className="text-center py-20 text-xl text-red-500">
+        Blog post not found.
+      </div>
+    );
   }
 
   return (
-    <div className="w-full">
-      <div className="max-w-4xl mx-auto p-8">
-        <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
-        <p className="text-xl text-gray-600 mb-6">
-          {blog.short_description.replace(/<[^>]*>/g, "")}
-        </p>
-
-        <div className="flex items-center gap-4 mb-8 text-gray-500">
-          <span>{blog.author.name}</span>
-          <span>•</span>
-          <span>{new Date(blog.publish_date).toLocaleDateString()}</span>
-          <span>•</span>
-          <span>{blog.read_time} min read</span>
-          <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
-            {blog.category.name}
-          </span>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="lg:flex lg:flex-row-reverse lg:gap-6">
+        <div className="flex-1 min-w-0">
+          <BlogPostHeader blog={blog} />
+          <BlogPostBody blog={blog} contentRef={contentRef} />
         </div>
-
-        {blog.featured_image && (
-          <Image
-            src={blog.featured_image}
-            alt={blog.title}
-            width={1200}
-            height={600}
-            className="w-full h-96 object-cover rounded mb-8"
-          />
-        )}
-
-        <div
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: blog.description }}
+        <TableOfContents
+          tocItems={tableOfContents}
+          activeSectionId={activeSectionId}
+          onItemClick={handleTocClick}
+          blogUrl={typeof window !== "undefined" ? window.location.href : ""}
+          blogTitle={blog.title}
         />
-
-        {blog.meta.keywords.length > 0 && (
-          <div className="mt-8 pt-8 border-t">
-            <span className="text-gray-600 mr-2">Tags:</span>
-            {blog.meta.keywords.map((tag, i) => (
-              <span
-                key={i}
-                className="px-2 py-1 bg-gray-100 rounded text-sm mr-2"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-      <div className="mb-20">
-        <News />
       </div>
     </div>
   );
