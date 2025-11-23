@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   ClockCounterClockwiseIcon,
   CloudSunIcon,
@@ -10,6 +11,7 @@ import {
 
 import Image from "next/image";
 import React from "react";
+import Departure from "./Departure";
 
 interface TripDetails {
   duration: string;
@@ -37,8 +39,29 @@ interface TripOverviewData {
   what_to_bring: WhatToBringItem[];
 }
 
+interface TransformedDepartureItem {
+  id: number;
+  dateRange: string;
+  price: string;
+  availability: string;
+  departure_from: string;
+  departure_to: string;
+  departure_per_price: number;
+}
+
+interface DepartureData {
+  [month: string]: TransformedDepartureItem[];
+}
+
+interface DepartureDataProp {
+  id: number;
+  title: string;
+  departureData: DepartureData;
+}
+
 interface UpdatedTripOverviewProps {
   data: TripOverviewData;
+  departureData: DepartureDataProp;
 }
 
 const ICONS = {
@@ -81,7 +104,7 @@ const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
   );
 };
 
-const Trip_Data = ({ data }: UpdatedTripOverviewProps) => {
+const Trip_Data = ({ data, departureData }: UpdatedTripOverviewProps) => {
   if (!data) {
     return (
       <div className="w-full flex flex-col gap-6">
@@ -97,7 +120,7 @@ const Trip_Data = ({ data }: UpdatedTripOverviewProps) => {
 
   return (
     <div className="w-full flex flex-col gap-6 lg:px-3">
-      <div className="rounded-3xl bg-white p-4 flex flex-col w-full gap-6 shadow-sm">        
+      <div className="rounded-3xl bg-white p-4 flex flex-col w-full gap-6 shadow-sm">
         <div className="flex flex-col">
           <h2 className="text-xl font-bold text-gray-800">Trip Details</h2>
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 ">
@@ -141,6 +164,10 @@ const Trip_Data = ({ data }: UpdatedTripOverviewProps) => {
               label="Starts/Ends"
               value={data.details.starts}
             />
+            <br className="block md:hidden mt-4 md:mt-0" />
+            <div className="p-2">
+              <Departure data={departureData} />
+            </div>
           </div>
         </div>
       </div>

@@ -102,10 +102,10 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [tabs]);
 
-    const shareData: ShareData = {
-      slug: productData.slug || "",
-      dossiers: productData.dossiers || [],
-    };
+  const shareData: ShareData = {
+    slug: productData.slug || "",
+    dossiers: productData.dossiers || [],
+  };
 
   // Header data mapping with safe number conversion
   const headerData: HeaderData = {
@@ -327,21 +327,22 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
   };
 
   // FAQ data mapping
-const faqData: FAQ[] =
-  productData.faqs?.map((faq) => ({
-    id: faq.id,
-    question: faq.question,
-    answer: faq.answer,
-    order: faq.order,
-  })) || [];
+  const faqData: FAQ[] =
+    productData.faqs?.map((faq) => ({
+      id: faq.id,
+      question: faq.question,
+      answer: faq.answer,
+      order: faq.order,
+    })) || [];
 
-const faqImages: FAQImage[] =
-  Array.isArray(productData.files?.faqImages)
-    ? productData.files.faqImages.map((img: { id: any; url: any; }, index: number) => ({
-        id: img.id,
-        src: img.url,
-        alt: `FAQ Image ${index + 1}`,
-      }))
+  const faqImages: FAQImage[] = Array.isArray(productData.files?.faqImages)
+    ? productData.files.faqImages.map(
+        (img: { id: any; url: any }, index: number) => ({
+          id: img.id,
+          src: img.url,
+          alt: `FAQ Image ${index + 1}`,
+        })
+      )
     : [];
 
   // Reviews data mapping with safe number conversion
@@ -395,7 +396,7 @@ const faqImages: FAQImage[] =
       </div>
 
       <div className="px-1 md:px-4">
-        <Trip_Data data={overviewData} />
+        <Trip_Data data={overviewData} departureData={departureData} />
       </div>
 
       <div className="container w-full flex md:hidden">
@@ -453,10 +454,6 @@ const faqImages: FAQImage[] =
 
             <div id="Tour_Location">
               <Location data={locationData} />
-            </div>
-
-            <div id="Departure_Date">
-              <Departure data={departureData} />
             </div>
 
             {faqData.length > 0 && (

@@ -2,20 +2,47 @@
 
 import { useState, useCallback, useEffect } from "react";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "lucide-react";
+import {
   TransformedDepartureItem,
   DepartureProps,
   DepartureData,
 } from "../type";
-import CustomTripSection from "./Departure/CustomTripSection";
 import DepartureHeader from "./Departure/DepartureHeader";
 import DepartureTable from "./Departure/DepartureTable";
 import MonthTabs from "./Departure/MonthTabs";
 import NoDataMessage from "./Departure/NoDataMessage";
 
 const Departure = ({ data }: DepartureProps) => {
+  const [open, setOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>("");
+
   // Early return if no data
   if (!data) {
-    return <NoDataMessage />;
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button className="bg-green-600 hover:bg-green-700">
+            <Calendar className="w-4 h-4 mr-2" />
+            Check Availability
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="bg-[#1E2F22] text-white border-gray-700 max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Departure Dates</DialogTitle>
+          </DialogHeader>
+          <NoDataMessage />
+        </DialogContent>
+      </Dialog>
+    );
   }
 
   const {
@@ -30,7 +57,22 @@ const Departure = ({ data }: DepartureProps) => {
 
   // Check if departureData exists and has valid structure
   if (!departureData || typeof departureData !== "object") {
-    return <NoDataMessage />;
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button className="bg-green-600 hover:bg-green-700">
+            <Calendar className="w-4 h-4 mr-2" />
+            Check Availability
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="bg-[#1E2F22] text-white border-gray-700 max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Departure Dates</DialogTitle>
+          </DialogHeader>
+          <NoDataMessage />
+        </DialogContent>
+      </Dialog>
+    );
   }
 
   // Get available months with data
@@ -41,9 +83,6 @@ const Departure = ({ data }: DepartureProps) => {
       return monthData && Array.isArray(monthData) && monthData.length > 0;
     }
   );
-
-  // State for active tab
-  const [activeTab, setActiveTab] = useState<string>("");
 
   // Set initial active tab when availableMonths changes
   useEffect(() => {
@@ -64,13 +103,6 @@ const Departure = ({ data }: DepartureProps) => {
     [title]
   );
 
-  // Handle custom trip creation
-  const handleCreateCustomTrip = useCallback((): void => {    
-    alert(
-      `Redirecting to custom trip creation for: ${title || "Unknown Trek"}`
-    );
-  }, [title]);
-
   // Handle tab change
   const handleTabChange = useCallback(
     (month: string): void => {
@@ -88,9 +120,17 @@ const Departure = ({ data }: DepartureProps) => {
   // Show no data message if no months available
   if (availableMonths.length === 0) {
     return (
-      <div className="w-full flex flex-col gap-6">
-        <div className="w-full flex flex-col gap-6 p-6 bg-[#1E2F22] text-white rounded-2xl">
-          <DepartureHeader title="Departure Date" />
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button className="bg-green-600 hover:bg-green-700">
+            <Calendar className="w-4 h-4 mr-2" />
+            Check Availability
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="bg-[#1E2F22] text-white border-gray-700 max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Departure Dates</DialogTitle>
+          </DialogHeader>
           <div className="flex flex-col gap-3 items-center justify-center py-8">
             <p className="text-gray-300 text-center">
               No departure dates available at the moment.
@@ -99,24 +139,33 @@ const Departure = ({ data }: DepartureProps) => {
               Please check back later or contact us for custom arrangements.
             </p>
           </div>
-        </div>
-        <CustomTripSection
-          trekTitle={title}
-          onCreateCustomTrip={handleCreateCustomTrip}
-        />
-      </div>
+        </DialogContent>
+      </Dialog>
     );
   }
 
   return (
-    <div className="w-full flex flex-col gap-6">
-      <div className="w-full flex flex-col gap-6 p-6 bg-[#1E2F22] text-white rounded-2xl">
-        <DepartureHeader title="Departure Date" />
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button className="bg-green-600 hover:bg-green-700 text-white">
+          <Calendar className="w-4 h-4 mr-2" />
+          Check Availability
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="bg-[#1E2F22] text-white border-gray-700 max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl">
+            {title} - Departure Dates
+          </DialogTitle>
+          <DialogDescription className="text-gray-400">
+            Select your preferred departure date and enquire about availability
+          </DialogDescription>
+        </DialogHeader>
 
-        <div className="flex flex-col gap-3">
-          <p className="text-gray-200">Select Departure Dates</p>
+        <div className="flex flex-col gap-6 py-4">
+          <div className="flex flex-col gap-3">
+            <p className="text-gray-200 font-medium">Select Departure Month</p>
 
-          <div className="w-full flex flex-col gap-3">
             {/* Month Tabs */}
             <MonthTabs
               availableMonths={availableMonths}
@@ -125,7 +174,7 @@ const Departure = ({ data }: DepartureProps) => {
             />
 
             {/* Departure Table */}
-            {activeTab && (
+            {activeTab && currentDepartures.length > 0 && (
               <DepartureTable
                 departures={currentDepartures}
                 onEnquire={handleEnquire}
@@ -148,15 +197,8 @@ const Departure = ({ data }: DepartureProps) => {
             )}
           </div>
         </div>
-      </div>
-
-      {/* Custom Trip Section */}
-      <CustomTripSection
-        trekTitle={title}
-        trekId={id}
-        onCreateCustomTrip={handleCreateCustomTrip}
-      />
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

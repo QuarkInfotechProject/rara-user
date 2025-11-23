@@ -1,3 +1,5 @@
+"import client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { Check, ChevronDown, X } from "lucide-react";
 
@@ -14,7 +16,7 @@ interface ActivitiesMultiSelectProps {
   placeholder?: string;
 }
 
-export default function ActivitiesMultiSelect({
+function ActivitiesMultiSelect({
   selectedActivities,
   onActivitiesChange,
   placeholder = "Select activities",
@@ -174,3 +176,5 @@ export default function ActivitiesMultiSelect({
     </div>
   );
 }
+
+export default ActivitiesMultiSelect;

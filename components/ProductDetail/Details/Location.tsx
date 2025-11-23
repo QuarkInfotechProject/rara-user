@@ -25,12 +25,12 @@ const Location = ({ data }: LocationProps) => {
 
   return (
     <section id="Tour_Location">
-      <div className=" mx-auto">
+      <div className="mx-auto">
         <h2 className="text-2xl font-bold mb-6">Location</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
           {/* Map */}
-          <div className="w-full h-80 z-1 rounded-md overflow-hidden shadow-md">
+          <div className="w-full h-80 relative z-0 rounded-md overflow-hidden shadow-md">
             {hasCoordinates && mapReady ? (
               <MapComponent
                 latitude={data.latitude as number}

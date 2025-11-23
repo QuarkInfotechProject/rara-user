@@ -273,10 +273,12 @@ export default function CustomTripInquiryPopup({
           {isMobile ? (
             <button className="flex flex-col bg-transparent text-black  items-center justify-center w-full gap-1 hover:opacity-80 transition-all">
               {icon}
-              <span className="text-[6px] text-center font-medium">{label}</span>
+              <span className="text-[6px] text-center font-medium">
+                {label}
+              </span>
             </button>
           ) : (
-            <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
+            <Button className=" w-full bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
               {buttonText}
             </Button>
           )}
@@ -553,6 +555,19 @@ export default function CustomTripInquiryPopup({
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="activities" className="text-sm font-medium">
+                Preferred Activities (Add-ons)
+              </Label>
+              <ActivitiesMultiSelect
+                selectedActivities={formData.activities}
+                onActivitiesChange={(activityIds) =>
+                  handleInputChange("activities", activityIds)
+                }
+                placeholder="Select activities you're interested in"
+              />
             </div>
 
             <div className="space-y-2">

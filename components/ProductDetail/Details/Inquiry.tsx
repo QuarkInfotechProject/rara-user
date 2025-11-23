@@ -101,7 +101,7 @@ function Inquiry({ data }: InquiryProps) {
           onCheckAvailability={() => console.log("Check availability clicked")}
         />
       </div>
-      <div className="p-4 pt-6">
+      <div className="w-full p-4 pt-6">
         <CustomTripInquiryPopup
           buttonText="Create Custom Trip"
           trekTitle={data.title}
