@@ -2,7 +2,7 @@ import { HeroData } from "./types";
 
 export const heroData: HeroData = {
   hero: {
-    title: "DISCOVER YOUR ADVENTURE",
+    title: "Adventure Awaits in the Himalayas",
     buttonText: "View all Trips",
     backgroundImage: "/assets/bg.png",
   },

@@ -226,7 +226,7 @@ export default function GeneralInquiryPopup({
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white rounded-full px-6 py-2 transition-colors duration-200">
+          <Button className="bg-[#71B344] hover:bg-[#5A8F37] text-white font-bold rounded-full px-6 py-2 transition-colors duration-200">
             {buttonText}
           </Button>
         </DialogTrigger>

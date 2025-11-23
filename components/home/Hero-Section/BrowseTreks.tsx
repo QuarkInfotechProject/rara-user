@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronRightIcon } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface Departure {
@@ -212,10 +212,15 @@ const BrowseTreks = () => {
     <div>
       <Button
         onClick={handleOpenDialog}
-        className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter hover:bg-[#5fa035] active:bg-[#4a7828] transition-colors duration-200 cursor-pointer shadow-lg"
+        className="rounded-[22px] bg-[#71B344] flex flex-row items-center justify-center py-2 px-4 gap-2 text-base text-whitesmoke font-inter transition-colors duration-200 cursor-pointer shadow-lg"
       >
-        <span className="leading-[150%]">Browse Treks</span>
-        <ChevronRightIcon className="text-white" size={16} aria-hidden="true" />
+        <CalendarDays
+          className="text-white font-bold"
+          size={16}
+          aria-hidden="true"
+        />
+
+        <span className="leading-[150%]">Next Departure</span>
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
