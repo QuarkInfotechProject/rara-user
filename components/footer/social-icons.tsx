@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils";
 import IconFacebook from "../icons/facebook";
 import IconInstagram from "../icons/instagram";
 import IconPinterest from "../icons/pinterest";
-import { IconX } from "@tabler/icons-react";
-
+import { Twitter } from "lucide-react";
 interface Props {
   size: number;
   className?: string;
@@ -23,22 +22,22 @@ function SocialIcons({ size = 30, className }: Props) {
         className
       )}
     >
-      <Link href="#" target="_blank">
+      <Link href="https://www.facebook.com/raratreks" target="_blank">
         <li>
           <IconFacebook />
         </li>
       </Link>
-      <Link href="#" target="_blank">
+      <Link href="https://www.instagram.com/raratreks" target="_blank">
         <li>
           <IconInstagram />
         </li>
       </Link>
-      <Link href="#" target="_blank">
+      <Link href="https://x.com/raratreks" target="_blank">
         <li>
-          <IconX />
+          <Twitter />
         </li>
       </Link>
-      <Link href="#" target="_blank">
+      <Link href="https://www.pinterest.com/raratreks/" target="_blank">
         <li>
           <IconPinterest />
         </li>

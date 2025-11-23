@@ -16,8 +16,7 @@ function    ContactCard() {
         <li>
           <IconPhone stroke={ICON_STROKE} className="text-primary/80" />
           <div className="flex flex-wrap">
-            <Link href="tel:+977-01-4519039">+977-01-2145326</Link> <span className="px-1">|</span>{" "}
-            <Link href="tel:+977-9801902572">9874563210</Link>
+            <Link href="tel:+977-01-4519039">+977-14977054</Link>
           </div>
         </li>
         <li>

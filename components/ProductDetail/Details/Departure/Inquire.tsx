@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { TransformedDepartureItem } from "../../type";
 
+
 interface InquiryFormData {
   fullName: string;
   email: string;
@@ -417,7 +418,7 @@ export default function TrekInquiryPopup({
                 <SelectItem value="10000+">$10,000+</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div>          
 
           <div className="space-y-2">
             <Label

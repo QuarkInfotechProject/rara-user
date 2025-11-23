@@ -3,7 +3,8 @@ import React from "react";
 import { Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
 import { Adventure } from "./Adventure";
-import TrekInquiryPopup from "../ProductDetail/Details/Departure/Inquire";
+// import TrekInquiryPopup from "../ProductDetail/Details/Departure/Inquire";
+import CustomTripBookingPopup from "../ProductDetail/Details/Departure/Booking";
 
 interface MobileAdventureCardProps {
   data: Adventure;
@@ -87,13 +88,18 @@ const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
         </div>
       </div>
 
-      {/* Full Width Button */}
+      <CustomTripBookingPopup
+        buttonText="Book a seat now"
+        trekTitle={name}
+        trekId={id}
+      />
+      {/* Full Width Button
       <TrekInquiryPopup
         trekId={id}
         trekTitle={name}
         buttonText="Book a seat now"
         buttonClassName="rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter"
-      />
+      /> */}
     </div>
   );
 };

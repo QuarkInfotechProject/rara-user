@@ -140,7 +140,7 @@ const HeroSection = () => {
               {/* Car images with smooth cross-fade transition */}
               <div className="relative space-y-8">
                 <div className="relative transform transition-transform duration-700 hover:scale-105">
-                  <div className="relative overflow-hidden rounded-2xl h-96 bg-gray-100">
+                  <div className="relative overflow-hidden rounded-2xl h-60 md:h-96 bg-gray-100">
                     {/* Smooth cross-fade container */}
                     {carData.map((car, index) => (
                       <Image

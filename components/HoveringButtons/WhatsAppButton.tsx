@@ -16,8 +16,12 @@ export default function WhatsAppButton() {
   )}`;
 
   return (
-    <div className="z-99">
-      
+    <div className="relative z-50">
+      {/* Pulsing Ring Effect */}
+      <div className="absolute inset-0 flex items-center justify-center animate-ping-slow">
+        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-500 opacity-75"></div>
+      </div>
+
       {/* WhatsApp Button */}
       <Link
         href={whatsappLink}
@@ -25,26 +29,41 @@ export default function WhatsAppButton() {
         rel="noopener noreferrer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 ease-in-out hover:scale-110"
+        className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-2xl hover:shadow-green-500/50 transform transition-all duration-300 ease-in-out hover:scale-110 animate-float"
         aria-label="Chat on WhatsApp"
         title="Chat on WhatsApp"
       >
         <MessageCircle size={24} className="sm:w-6 sm:h-6" />
       </Link>
 
-      <style>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
+      <style jsx>{`
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px);
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+          50% {
+            transform: translateY(-10px);
           }
         }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-in-out forwards;
+
+        @keyframes ping-slow {
+          0% {
+            transform: scale(1);
+            opacity: 0.9;
+          }
+          100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-ping-slow {
+          animation: ping-slow 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
       `}</style>
     </div>
