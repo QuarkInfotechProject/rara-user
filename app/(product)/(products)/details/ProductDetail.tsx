@@ -394,7 +394,9 @@ const faqImages: FAQImage[] =
         </div>
       </div>
 
-      <Trip_Data data={overviewData} />
+      <div className="px-1 md:px-4">
+        <Trip_Data data={overviewData} />
+      </div>
 
       <div className="container w-full flex md:hidden">
         <HeaderBtm data={shareData} />

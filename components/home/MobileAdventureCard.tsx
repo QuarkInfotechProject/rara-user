@@ -1,16 +1,16 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "../ui/button";
-import { ArrowRight, Clock, Users } from "lucide-react";
+import { Clock, Users } from "lucide-react";
 import { Mountains } from "@phosphor-icons/react";
 import { Adventure } from "./Adventure";
+import TrekInquiryPopup from "../ProductDetail/Details/Departure/Inquire";
 
 interface MobileAdventureCardProps {
   data: Adventure;
 }
 
 const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
-  const { name, featuredImage, overview, prices, departures } = data;
+  const { name, featuredImage, overview, id, prices, departures } = data;
 
   // Get the earliest departure dates
   const earliestDeparture = departures[0];
@@ -88,10 +88,12 @@ const MobileAdventureCard = ({ data }: MobileAdventureCardProps) => {
       </div>
 
       {/* Full Width Button */}
-      <Button className="w-full rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex items-center justify-center py-3 px-4 gap-2 text-base text-white font-inter">
-        <span>Book a Seat Now</span>
-        <ArrowRight className="w-4 h-4" />
-      </Button>
+      <TrekInquiryPopup
+        trekId={id}
+        trekTitle={name}
+        buttonText="Book a seat now"
+        buttonClassName="rounded-[22px] bg-[#71b344] border-[#71b344] border-solid border-[1px] flex flex-row items-center justify-center py-2 px-4 gap-2 text-left text-base text-whitesmoke font-inter"
+      />
     </div>
   );
 };

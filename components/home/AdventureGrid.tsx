@@ -11,7 +11,16 @@ interface AdventureGridProps {
   data: Adventure[];
 }
 
-const AdventureGrid = ({ title = "", data }: AdventureGridProps) => {
+const AdventureGrid = ({ title = "", data = [] }: AdventureGridProps) => {
+  if (!data || data.length === 0) {
+    return (
+      <div className="w-full mx-auto px-4 py-8">
+        <p className="text-center text-gray-500">
+          No adventures available at the moment.
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="w-full mx-auto px-4 py-8">
       {/* Header with title and navigation buttons */}

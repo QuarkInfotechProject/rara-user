@@ -71,17 +71,30 @@ export interface ApiResponse {
 const MainTourComponent = () => {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAdventures = async () => {
       try {
         const response = await fetch("/api/product/homepage/adventure/list");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch adventures");
+        }
+
         const data: ApiResponse = await response.json();
 
-
-        setAdventures(data.data);
+        // Add validation to ensure data.data exists and is an array
+        if (data && Array.isArray(data.data)) {
+          setAdventures(data.data);
+        } else {
+          console.error("Invalid data structure:", data);
+          setAdventures([]); // Set empty array as fallback
+        }
       } catch (error) {
         console.error("Error fetching adventures:", error);
+        setError("Failed to load adventures");
+        setAdventures([]); // Set empty array on error
       } finally {
         setLoading(false);
       }
@@ -98,8 +111,16 @@ const MainTourComponent = () => {
     );
   }
 
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full md:container px-4">
+    <div className="w-full md:container px-2 md:px-4">
       <AdventureGrid title="Adventures" data={adventures} />
     </div>
   );

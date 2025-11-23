@@ -2,6 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
+import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
 
 const experienceData = {
   backgroundImage: {
@@ -31,7 +33,7 @@ const experienceData = {
       "Ready to tread where few have been and capture the essence of one of Nepal's most tranquil wilderness destinations?",
     ],
     callToAction: {
-      text: "Plan your trip →",
+      text: "Plan your trip",
     },
   },
 };
@@ -57,7 +59,7 @@ const Experience = ({ data = experienceData }) => {
   }, []);
 
   return (
-    <div className="w-full lg:min-h-screen flex flex-col items-center justify-center ">
+    <div className="w-full lg:min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#1E2F22] to-[#162319] md:bg-transparent">
       <div className="relative w-full h-[130vh] md:h-screen lg:h-full mx-auto">
         <Image
           src={backgroundImage.src}
@@ -67,13 +69,14 @@ const Experience = ({ data = experienceData }) => {
           quality={85}
           loading={"lazy"}
           sizes="100vw"
-          className="w-full h-full object-cover rounded-lg min-h-[500px] md:min-h-[600px] lg:min-h-[700px]"
+          className="hidden md:flex w-full h-full object-cover rounded-lg min-h-[500px] md:min-h-[600px] lg:min-h-[700px]"
         />
+
         <div className="absolute inset-0 flex flex-col items-center justify-center p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 lg:space-y-8">
           {/* Dynamic Title */}
           <h2 className="text-2xl md:text-3xl lg:text-4xl flex flex-wrap items-center justify-center gap-2 text-center font-bold text-white mb-4 md:mb-6 lg:mb-8">
             {title.main}{" "}
-            <span className="text-[#71B344]">{title.highlight}</span>{" "}
+            <span className="text-[#71B344]">{title.highlight}</span>
             {title.suffix}
           </h2>
 
@@ -120,10 +123,11 @@ const Experience = ({ data = experienceData }) => {
                 </p>
               ))}
 
-              <Link href="/contact" className="mt-4">
-                <button className="bg-white text-green-700 px-4 py-2 md:px-6 md:py-2 mt-4 rounded-full font-medium hover:bg-gray-100 transition-colors text-sm md:text-base">
+              <Link href="/contact" className="mt-4 items-center gap-4 flex">
+                <Button className="flex items-center gap-3 px-6 font-bold text-white bg-[#71B344] hover:bg-[#71B344] hover:text-white transition-all duration-300">
                   {content.callToAction.text}
-                </button>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
               </Link>
             </div>
           </div>

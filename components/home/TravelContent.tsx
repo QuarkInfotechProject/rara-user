@@ -92,29 +92,29 @@ const MainTourComponent = () => {
 
   return (
     <div className="w-full">
-      <Tabs defaultValue="treks" className="w-full">
-        <TabsList className="w-fit gap-2 bg-transparent p-0 border-b-2 border-gray-300">
+      <Tabs defaultValue="treks" className="w-full ">
+        <TabsList className="w-fit gap-2 bg-transparent p-0">
           <TabsTrigger
             value="treks"
-            className="px-4 py-2 text-sm font-semibold rounded-t-lg border-b-2 border-transparent text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-green-600 data-[state=active]:bg-green-50 data-[state=active]:text-green-700 hover:bg-gray-100 hover:text-gray-800 transition-all duration-200"
+            className="px-4 py-2 text-lg font-semibold rounded-t-lg border-b-2 border shadow-md data-[state=active]:shadow-lg text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-green-600 data-[state=active]:bg-green-50 data-[state=active]:text-green-700 hover:bg-gray-100 hover:text-gray-800 transition-all duration-200"
           >
             Trek
           </TabsTrigger>
           <TabsTrigger
             value="tours"
-            className="px-4 py-2 text-sm font-semibold rounded-t-lg border-b-2 border-transparent text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-green-600 data-[state=active]:bg-green-50 data-[state=active]:text-green-700 hover:bg-gray-100 hover:text-gray-800 transition-all duration-200"
+            className="px-4 py-2 text-lg font-semibold rounded-t-lg border-b-2 border shadow-md data-[state=active]:shadow-lg text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-green-600 data-[state=active]:bg-green-50 data-[state=active]:text-green-700 hover:bg-gray-100 hover:text-gray-800 transition-all duration-200"
           >
             Tour
           </TabsTrigger>
           <TabsTrigger
             value="activities"
-            className="px-4 py-2 text-sm font-semibold rounded-t-lg border-b-2 border-transparent text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-green-600 data-[state=active]:bg-green-50 data-[state=active]:text-green-700 hover:bg-gray-100 hover:text-gray-800 transition-all duration-200"
+            className="px-4 py-2 text-lg font-semibold rounded-t-lg border-b-2 border shadow-md data-[state=active]:shadow-lg text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-green-600 data-[state=active]:bg-green-50 data-[state=active]:text-green-700 hover:bg-gray-100 hover:text-gray-800 transition-all duration-200"
           >
             Activity
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="treks" className="mt-6">
+        <TabsContent value="treks" className="mt-4">
           <TourCarousel title="Trek" data={trekData} />
         </TabsContent>
 

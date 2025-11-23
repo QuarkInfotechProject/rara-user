@@ -181,7 +181,7 @@ const MobileMenu = ({ isOpen, onOpenChange }: MobileMenuProps) => {
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-80 p-0">
         <SheetHeader className="px-4 py-4 border-b">
-          <SheetTitle>Menu</SheetTitle>
+          <SheetTitle className="text-3xl text-[#71B344]">Menu</SheetTitle>
         </SheetHeader>
 
         <div className="overflow-y-auto h-full pb-20">

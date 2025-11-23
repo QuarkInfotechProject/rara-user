@@ -5,9 +5,13 @@ const ProductSkeleton = ({ count = 4 }) => {
     <div className="w-full animate-pulse">
       <div className="w-full animate-pulse">
         <Skeleton className="h-8 w-64 bg-gray-300 mb-6" />
-        <div className="grid grid-cols-4 gap-6 w-full">
+        {/* Mobile: show only 1 card, Desktop: show all cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full">
           {Array.from({ length: count }, (_, index) => (
-            <div key={index} className="space-y-2">
+            <div
+              key={index}
+              className={`space-y-2 ${index > 0 ? "hidden md:block" : ""}`}
+            >
               <Skeleton className="h-auto w-full flex flex-col gap-4 bg-gray-100">
                 <Skeleton className="h-60 w-full bg-gray-300" />
                 <div className="p-2 flex flex-col gap-4 w-full">

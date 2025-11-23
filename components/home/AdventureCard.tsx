@@ -15,13 +15,11 @@ const AdventureCard = ({ data }: AdventureCardProps) => {
   const { name, featuredImage, overview, prices, departures, id, type, slug } =
     data;
 
-  // Get the earliest departure dates
-  const earliestDeparture = departures[0];
+  const earliestDeparture = departures?.[0];
   const startDate = earliestDeparture?.departure_from || "";
   const endDate = earliestDeparture?.departure_to || "";
 
-  // Get pricing info
-  const priceInfo = prices[0];
+  const priceInfo = prices?.[0];
   const originalPrice = parseFloat(priceInfo?.original_price_usd || "0");
   const discountedPrice = parseFloat(priceInfo?.discounted_price_usd || "0");
   const finalPrice = discountedPrice > 0 ? discountedPrice : originalPrice;

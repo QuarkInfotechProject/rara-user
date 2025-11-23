@@ -22,14 +22,14 @@ export const footerData: FooterData = {
     },
     {
       icon: Mail,
-      text: "info@raratrekandtour.com",
-      href: "mailto:info@raratrekandtour.com",
+      text: "info@raratreks.com",
+      href: "mailto:info@raratreks.com",
       type: "email",
     },
     {
       icon: Phone,
-      text: "977-9851177054",
-      href: "tel:+9779851177054",
+      text: "+977-14977054",
+      href: "tel:+97714977054",
       type: "phone",
     },
   ],
