@@ -15,7 +15,7 @@ export const HeroContent = ({ hero }: HeroContentProps) => {
         loop
         muted
         playsInline
-        src="/assets/video/video.mp4"
+        src="https://raratreks.oss-ap-southeast-1.aliyuncs.com/public/raratreks.mp4?OSSAccessKeyId=LTAI5tBLcHS1BZEEJDorpqSF&Expires=1795423865&Signature=0NEBZf%2BpaukBnqTAy1izgxf2q%2B0%3D"
         className="absolute inset-0 w-full h-full object-cover object-top"
       />
 
