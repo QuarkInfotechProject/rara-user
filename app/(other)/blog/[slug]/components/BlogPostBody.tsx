@@ -17,27 +17,29 @@ const BlogPostBody: React.FC<BlogPostBodyProps> = ({ blog, contentRef }) => {
         />
       )} */}
 
-      <article
-        ref={contentRef}
-        className="prose prose-lg max-w-none prose-indigo prose-headings:font-bold prose-headings:scroll-mt-24"
-        dangerouslySetInnerHTML={{ __html: blog.description }}
-      />
+      <div className="flex flex-col gap-4">
+        <article
+          ref={contentRef}
+          className="prose prose-lg max-w-none prose-indigo prose-headings:font-bold prose-headings:scroll-mt-24"
+          dangerouslySetInnerHTML={{ __html: blog.description }}
+        />
 
-      {blog.meta.keywords.length > 0 && (
-        <div className="mt-12 pt-8 border-t">
-          <span className="text-gray-600 mr-2 font-semibold">Tags:</span>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {blog.meta.keywords.map((tag, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium"
-              >
-                {tag}
-              </span>
-            ))}
+        {blog.meta.keywords.length > 0 && (
+          <div className="mt-12 pt-8 border-t">
+            <span className="text-gray-600 mr-2 font-semibold">Tags:</span>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {blog.meta.keywords.map((tag, i) => (
+                <span
+                  key={i}
+                  className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };
