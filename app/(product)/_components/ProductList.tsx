@@ -2,7 +2,7 @@
 
 import ProductCard from "@/components/product/ProductCard";
 import ProductSkeleton from "@/components/productSkeleton";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface Product {
@@ -89,7 +89,8 @@ interface ProductListProps {
   title?: string;
 }
 
-const ProductList = ({ type, title }: ProductListProps) => {
+// Separate component that uses useSearchParams
+const ProductListContent = ({ type, title }: ProductListProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
@@ -295,6 +296,21 @@ const ProductList = ({ type, title }: ProductListProps) => {
         </>
       )}
     </div>
+  );
+};
+
+// Main component with Suspense boundary
+const ProductList = ({ type, title }: ProductListProps) => {
+  return (
+    <Suspense
+      fallback={
+        <div className="container mx-auto px-4 py-8 w-full">
+          <ProductSkeleton />
+        </div>
+      }
+    >
+      <ProductListContent type={type} title={title} />
+    </Suspense>
   );
 };
 
