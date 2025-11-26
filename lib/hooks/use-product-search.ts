@@ -1,3 +1,4 @@
+"use client";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { validProductTypes } from "../data/product";
 
