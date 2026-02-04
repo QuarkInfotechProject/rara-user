@@ -89,7 +89,7 @@ const ActivityDetailItem = ({ icon, label, value }: ActivityDetailProps) => {
         {typeof IconComponent === "string" ? (
           <Image
             src={IconComponent}
-            alt=""
+            alt="maximum altitude icon"
             width={24}
             height={24}
             className="w-5 h-5 text-[#086032]"

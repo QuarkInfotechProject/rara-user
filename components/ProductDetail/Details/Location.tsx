@@ -30,7 +30,7 @@ const Location = ({ data, productName }: LocationProps) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
           {/* Map */}
-          <div className="w-full h-80 relative z-0 rounded-md overflow-hidden shadow-md">
+          <figure className="w-full h-80 relative z-0 rounded-md overflow-hidden shadow-md m-0">
             {hasCoordinates && mapReady ? (
               <MapComponent
                 latitude={data.latitude as number}
@@ -44,12 +44,13 @@ const Location = ({ data, productName }: LocationProps) => {
                 style={{ border: 0 }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                title="Location Map"
               />
             )}
-          </div>
+          </figure>
 
           {/* How to Get Section */}
-          <div className="flex flex-col justify-center">
+          <article className="flex flex-col justify-center">
             {data.how_to_get ? (
               <div
                 className="text-sm text-gray-700 leading-relaxed"
@@ -58,7 +59,7 @@ const Location = ({ data, productName }: LocationProps) => {
             ) : (
               <p className="text-gray-500">No information available.</p>
             )}
-          </div>
+          </article>
         </div>
       </div>
     </section>

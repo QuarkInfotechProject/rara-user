@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import TrekDetailClient from "./TrekDetailClient";
 import { stripHtmlAndTruncate } from "@/lib/utils";
+import ProductSchema from "@/components/ProductSchema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -120,5 +121,10 @@ export default async function TrekDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const productData = await getProductData(slug);
 
-  return <TrekDetailClient slug={slug} productData={productData} />;
+  return (
+    <>
+      <ProductSchema productData={productData} />
+      <TrekDetailClient slug={slug} productData={productData} />
+    </>
+  );
 }

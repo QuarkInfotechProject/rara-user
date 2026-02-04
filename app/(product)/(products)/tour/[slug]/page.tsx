@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import TourDetailClient from "./TourDetailClient";
 import { stripHtmlAndTruncate } from "@/lib/utils";
+import ProductSchema from "@/components/ProductSchema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -120,5 +121,10 @@ export default async function TourDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const productData = await getProductData(slug);
 
-  return <TourDetailClient slug={slug} productData={productData} />;
+  return (
+    <>
+      <ProductSchema productData={productData} />
+      <TourDetailClient slug={slug} productData={productData} />
+    </>
+  );
 }

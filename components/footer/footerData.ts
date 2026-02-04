@@ -23,7 +23,6 @@ export const footerData: FooterData = {
     {
       icon: Mail,
       text: "info@raratreks.com",
-      href: "info@raratreks.com",
       type: "email",
     },
     {

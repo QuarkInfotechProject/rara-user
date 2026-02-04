@@ -5,7 +5,7 @@ import SocialIcons from "../footer/social-icons";
 
 const ICON_STROKE = 1.5;
 
-function    ContactCard() {
+function ContactCard() {
   return (
     <section className="bg-neutral-800 text-white rounded-2xl p-5 md:p-10 flex flex-col gap-8 justify-between">
       <div>
@@ -21,11 +21,11 @@ function    ContactCard() {
         </li>
         <li>
           <IconMail stroke={ICON_STROKE} className="text-primary/80" />
-          <Link href="info@raratreks.com">info@raratreks.com</Link>
+          <span>info@raratreks.com</span>
         </li>
         <li>
           <IconMapPin stroke={ICON_STROKE} className="text-primary/80" />
-           Kathmandu, Nepal
+          Kathmandu, Nepal
         </li>
       </ul>
       <SocialIcons size={30} className="[&_svg]:text-white [&_svg:hover]:text-gray-300" />

@@ -32,9 +32,9 @@ const Faq = ({ data, images, productName }: FaqProps) => {
       <h2 id="faqs-heading" className="text-3xl font-bold mb-4">{productName ? `${productName} FAQs` : "FAQs"}</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-        <div className="w-full hidden lg:block sticky top-24 self-start">
+        <aside className="w-full hidden lg:block sticky top-24 self-start">
           {imageArray.length > 0 && (
-            <div className="w-full relative aspect-[4/3] rounded-lg overflow-hidden">
+            <figure className="w-full relative aspect-[4/3] rounded-lg overflow-hidden m-0">
               {imageArray[0] && (
                 <Image
                   src={imageArray[0].src}
@@ -43,9 +43,9 @@ const Faq = ({ data, images, productName }: FaqProps) => {
                   className="object-cover"
                 />
               )}
-            </div>
+            </figure>
           )}
-        </div>
+        </aside>
         <div className="w-full max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
           <Accordion type="single" collapsible className="w-full">
             {sortedFaqs.map((faq, index) => (
@@ -82,7 +82,7 @@ const Faq = ({ data, images, productName }: FaqProps) => {
       </div>
 
       {/* SEO-friendly hidden content for search engines */}
-      <div className="sr-only" aria-hidden="false">
+      <section className="sr-only" aria-hidden="false">
         <h3>{productName ? `${productName} Frequently Asked Questions` : "Frequently Asked Questions"}</h3>
         {sortedFaqs.map((faq, index) => (
           <article key={`seo-faq-${faq.id || index}`}>
@@ -90,7 +90,7 @@ const Faq = ({ data, images, productName }: FaqProps) => {
             <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
           </article>
         ))}
-      </div>
+      </section>
     </section>
   );
 };

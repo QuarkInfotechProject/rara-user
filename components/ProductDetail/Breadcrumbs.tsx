@@ -11,7 +11,7 @@ import {
 interface BreadcrumbsProps {
   data: {
     type?: string;
-    title?: string;
+    title?: string; 
     location?: string;
     rating?: number;
     total_rating?: number;

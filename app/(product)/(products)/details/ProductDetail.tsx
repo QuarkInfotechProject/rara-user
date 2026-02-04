@@ -395,10 +395,10 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
 
   return (
     <main className="w-full flex flex-col gap-4 px-2 md:px-8 lg:px-12 bg-[#F2F5F0]" >
-      <div className="w-full flex flex-col gap-4 container mt-8">
+      <header className="w-full flex flex-col gap-4 container mt-8">
         <Breadcrumbs data={headerData} />
         <Header data={headerData} shareData={shareData} />
-      </div>
+      </header>
 
       <section className="w-full md:container relative flex flex-col">
         <GalleryGrid data={galleryData} />
@@ -424,20 +424,21 @@ const Product_Detail = ({ productData }: ProductDetailProps) => {
           {/* Sticky Tab Navigation */}
           <nav className="sticky top-0 z-40 bg-[#F2F5F0] p-4">
             <div className="flex overflow-x-auto scrollbar-hide">
-              <div className="flex space-x-1 min-w-max">
+              <ul className="flex space-x-1 min-w-max list-none p-0 m-0">
                 {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => scrollToSection(tab.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${activeTab === tab.id
-                      ? "bg-[#086032] text-white shadow-sm rounded-full"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                      }`}
-                  >
-                    {tab.label}
-                  </button>
+                  <li key={tab.id}>
+                    <button
+                      onClick={() => scrollToSection(tab.id)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${activeTab === tab.id
+                        ? "bg-[#086032] text-white shadow-sm rounded-full"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                        }`}
+                    >
+                      {tab.label}
+                    </button>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </nav>
 

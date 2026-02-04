@@ -208,12 +208,10 @@ const Trip_Overview = ({ data, productName }: UpdatedTripOverviewProps) => {
       {data.description && (
         <article className="flex flex-col gap-4 w-full bg-white p-6 rounded-3xl shadow-sm">
           <h3 className="font-bold text-xl text-[#3E641C]">Trip Description</h3>
-          <div className="prose prose-sm md:prose-base max-w-none text-gray-700">
-            <div
-              className="[&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-2"
-              dangerouslySetInnerHTML={{ __html: data.description }}
-            />
-          </div>
+          <div
+            className="prose prose-sm md:prose-base max-w-none text-gray-700 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-2"
+            dangerouslySetInnerHTML={{ __html: data.description }}
+          />
         </article>
       )}
 

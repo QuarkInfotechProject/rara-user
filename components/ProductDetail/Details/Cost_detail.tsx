@@ -21,15 +21,16 @@ const CostDetail = ({ data, productName }: CostDetailProps) => {
       {data.includes && data.includes.length > 0 && (
         <article className="w-full p-6 rounded-3xl bg-[#F9FFF7] flex flex-col gap-4">
           <h3 className="font-bold text-lg md:text-xl text-[#3E641C]">What's Included</h3>
-          <div className="w-full items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="w-full items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 list-none p-0 m-0">
             {data.includes.map((item, index) => (
-              <CostItem
-                key={item.id || `include-${index}`}
-                item={item}
-                type="include"
-              />
+              <li key={item.id || `include-${index}`}>
+                <CostItem
+                  item={item}
+                  type="include"
+                />
+              </li>
             ))}
-          </div>
+          </ul>
         </article>
       )}
 
@@ -39,15 +40,16 @@ const CostDetail = ({ data, productName }: CostDetailProps) => {
           <h3 className="font-bold text-xl text-[#641C1C]">
             What's Not Included
           </h3>
-          <div className="w-full items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="w-full items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 list-none p-0 m-0">
             {data.excludes.map((item, index) => (
-              <CostItem
-                key={item.id || `exclude-${index}`}
-                item={item}
-                type="exclude"
-              />
+              <li key={item.id || `exclude-${index}`}>
+                <CostItem
+                  item={item}
+                  type="exclude"
+                />
+              </li>
             ))}
-          </div>
+          </ul>
         </article>
       )}
     </section>

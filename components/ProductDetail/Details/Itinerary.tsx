@@ -152,41 +152,48 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
         {/* Timeline Line */}
         <div className="hidden md:block md:absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
 
-        <div className="space-y-6">
+        <ol className="space-y-6 list-none p-0 m-0">
           {data.map((dayData, index) => {
             const isExpanded = expandedDays.has(dayData.day);
 
             return (
-              <div key={dayData.day} className="relative">
+              <li key={dayData.day} className="relative">
                 {/* Timeline Node */}
                 <div className="hidden md:block md:absolute left-4 md:left-6 w-4 h-4 bg-[#086032] rounded-full border-4 border-white shadow-lg z-10"></div>
 
                 {/* Content Card */}
-                <div className=" md:ml-16">
+                <article className=" md:ml-16">
                   <div className="bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                     {/* Day Header - Always Visible */}
                     <div
-                      className="py-3 px-4 md:p-4 cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      className="py-3 px-4 md:p-4 cursor-pointer w-full text-left"
                       onClick={() => toggleDay(dayData.day)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          toggleDay(dayData.day);
+                        }
+                      }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 flex-wrap">
+                          <header className="flex items-center gap-3 flex-wrap">
                             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#086032] text-white">
                               Day {dayData.day}
                             </span>
                             <h3 className="text-md md:text-lg font-semibold text-gray-900 mb-1">
                               {dayData.title}
                             </h3>
-                          </div>
+                          </header>
                         </div>
-                        <button className="ml-4 p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 flex-shrink-0">
+                        <div className="ml-4 p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200 flex-shrink-0">
                           {isExpanded ? (
                             <ChevronUp className="w-5 h-5 text-gray-500" />
                           ) : (
                             <ChevronDown className="w-5 h-5 text-gray-500" />
                           )}
-                        </button>
+                        </div>
                       </div>
                     </div>
 
@@ -202,9 +209,9 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
                           </div>
 
                           {/* Details Grid */}
-                          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 pt-2">
+                          <ul className="grid grid-cols-2 lg:grid-cols-3 gap-2 pt-2 list-none p-0 m-0">
                             {dayData.duration !== "N/A" && (
-                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Clock className="w-5 h-5 text-[#086032] mt-0.5 flex-shrink-0" />
                                 <div>
                                   <div className="font-medium text-gray-900 text-md">
@@ -214,11 +221,11 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
                                     {dayData.duration}
                                   </div>
                                 </div>
-                              </div>
+                              </li>
                             )}
 
                             {dayData.location !== "N/A" && (
-                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <MapPin className="w-5 h-5 text-[#086032] mt-0.5 flex-shrink-0" />
                                 <div>
                                   <div className="font-medium text-gray-900 text-md">
@@ -228,11 +235,11 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
                                     {dayData.location}
                                   </div>
                                 </div>
-                              </div>
+                              </li>
                             )}
 
                             {dayData.altitude !== "N/A" && (
-                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <MountainIcon className="w-5 h-5 text-[#086032] mt-0.5 flex-shrink-0" />
                                 <div>
                                   <div className="font-medium text-gray-900 text-md">
@@ -242,11 +249,11 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
                                     {dayData.altitude}
                                   </div>
                                 </div>
-                              </div>
+                              </li>
                             )}
 
                             {dayData.activities !== "N/A" && (
-                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Home className="w-5 h-5 text-[#086032] mt-0.5 flex-shrink-0" />
                                 <div>
                                   <div className="font-medium text-gray-900 text-md">
@@ -256,11 +263,11 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
                                     {dayData.activities}
                                   </div>
                                 </div>
-                              </div>
+                              </li>
                             )}
 
                             {dayData.accommodation !== "N/A" && (
-                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Hotel className="w-5 h-5 text-[#086032] mt-0.5 flex-shrink-0" />
                                 <div>
                                   <div className="font-medium text-gray-900 text-md">
@@ -270,12 +277,12 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
                                     {dayData.accommodation}
                                   </div>
                                 </div>
-                              </div>
+                              </li>
                             )}
 
                             {/* Meals */}
                             {dayData.meals !== "N/A" && (
-                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                                 <Cake className="w-5 h-5 text-[#086032] mt-0.5 flex-shrink-0" />
                                 <div>
                                   <div className="font-medium text-gray-900 text-md">
@@ -285,18 +292,18 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
                                     {formatMeals(dayData.meals)}
                                   </div>
                                 </div>
-                              </div>
+                              </li>
                             )}
-                          </div>
+                          </ul>
                         </div>
                       </div>
                     )}
                   </div>
-                </div>
-              </div>
+                </article>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </div>
 
       {/* SEO-friendly hidden content for search engines */}
@@ -316,14 +323,14 @@ const Itinerary = ({ data, productName, productType }: ItineraryProps) => {
       </div>
 
       {/* Footer Note */}
-      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <footer className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <p className="text-sm text-blue-800">
           <strong>Note:</strong> Itinerary may be subject to change due to
           weather conditions, local circumstances, or safety considerations.
           Your guide will inform you of any necessary adjustments during the
           {typeLabel}.
         </p>
-      </div>
+      </footer>
     </section>
   );
 };
