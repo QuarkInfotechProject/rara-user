@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const productData = await getProductData(slug);
 
-  const siteOrigin = process.env.SITE_ORIGIN || "https://www.raratreks.com";
+  const siteOrigin = process.env.SITE_ORIGIN;
   const siteName = "RARA Treks, Tours and Travel";
 
   // Default metadata if product not found
@@ -52,36 +52,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const title = productData.name
-    ? `${productData.name} - Adventure Trek in ${productData.location || "Nepal"}`
-    : "Adventure Trek - RARA Treks";
+  const title = productData.meta?.metaTitle || productData.name;
 
-  const rawDescription =
-    productData.short_description ||
-    productData.description ||
-    `Experience the amazing ${productData.name || "trek"} in ${productData.location || "Nepal"}. ${productData.tagline || "Book your adventure today with RARA Treks."}`;
+  const description =
+    productData.meta?.metaDescription ||
+    stripHtmlAndTruncate(
+      productData.short_description || productData.description,
+      160
+    );
 
-  const description = stripHtmlAndTruncate(rawDescription, 160);
-
-  const url = `${siteOrigin}/trek/${slug}`;
+  const url = siteOrigin ? `${siteOrigin}/trek/${slug}` : undefined;
 
   // Get the featured image URL
   const featuredImage =
     productData.files?.featuredImage?.url ||
-    productData.files?.featuredImages?.[0]?.url ||
-    `${siteOrigin}/og-default.jpg`;
+    productData.files?.featuredImages?.[0]?.url;
 
   return {
     title,
     description,
-    keywords: [
-      "Nepal trekking",
-      productData.name,
-      productData.location,
-      "adventure trek",
-      "Himalayan trekking",
-      "RARA Treks",
-    ].filter(Boolean),
+    keywords:
+      productData.meta?.keywords && productData.meta.keywords.length > 0
+        ? productData.meta.keywords
+        : [productData.name, productData.location].filter(Boolean),
     authors: [{ name: siteName }],
     openGraph: {
       type: "article",

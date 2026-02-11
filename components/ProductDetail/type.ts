@@ -288,7 +288,12 @@ export interface RootInterface {
     what_to_bring?: WhatToBringItem[];
     faqs?: FAQ[];
     related_circuit?: RelatedCircuit[];
-    dossiers?: Dossier[]; // NEW
+    dossiers?: Dossier[];
+    meta?: {
+      metaTitle?: string;
+      metaDescription?: string;
+      keywords?: string[];
+    };
   };
 }
 

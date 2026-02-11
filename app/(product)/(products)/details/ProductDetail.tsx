@@ -17,7 +17,7 @@ import Review from "@/components/ProductDetail/Review";
 
 import {
   ProductDetailProps,
-  HeaderData,
+  HeaderData, 
   Gallery,
   IntroData,
   TripOverview,

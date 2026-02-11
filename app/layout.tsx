@@ -58,6 +58,7 @@ export const metadata: Metadata = {
     siteName: "RARA Treks, Tours and Travel",
     locale: "en_US",
   },
+  publisher: "RARA Treks, Tours and Travel",
 };
 
 export default function RootLayout({
