@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    qualities: [75, 85, 90],
     remotePatterns: [
       { hostname: "flagcdn.com" },
       { hostname: "rara.api.quarkinfotech.com" },

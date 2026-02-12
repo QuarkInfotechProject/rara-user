@@ -85,14 +85,20 @@ const DepartureHero = ({
           <div className="flex justify-center lg:justify-end">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-lg w-full">
               <div className="relative h-64 md:h-80">
-                <Image
-                  src={departure.imageUrl}
-                  alt={`${departure.destination} departure`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 400px"
-                />
-              </div>              
+                {departure.imageUrl ? (
+                  <Image
+                    src={departure.imageUrl}
+                    alt={`${departure.destination} departure`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 400px"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                    <span className="text-gray-400">No Image</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

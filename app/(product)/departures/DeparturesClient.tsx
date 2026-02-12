@@ -152,7 +152,7 @@ const DeparturesClient = () => {
     }
 
     return (
-        <div className="flex flex-col gap-3 w-full">
+        <main className="flex flex-col gap-3 w-full">
             <div className="w-full flex flex-col container mx-auto">
                 <Breadcrumbs data={{ type: "Departures", title: "Departures" }} />
             </div>
@@ -184,7 +184,7 @@ const DeparturesClient = () => {
                 )}
             </div>
             <Why />
-        </div>
+        </main>
     );
 };
 

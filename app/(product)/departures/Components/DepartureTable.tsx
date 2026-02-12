@@ -118,9 +118,9 @@ const DepartureTable = ({
     return (
       <div className="rounded-lg overflow-hidden flex flex-col gap-4 p-4 w-full mx-auto">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl md:text-3xl font-bold text-green-600">
+          <h2 className="text-2xl md:text-3xl font-bold text-green-600">
             {title}
-          </h1>
+          </h2>
           <h2 className="font-bold text-gray-800">{message}</h2>
         </div>
         <div className="text-center py-12 text-gray-500 bg-gray-50 rounded-lg">
@@ -132,13 +132,13 @@ const DepartureTable = ({
   }
 
   return (
-    <div className="rounded-lg overflow-hidden flex flex-col gap-4 p-4 w-full mx-auto">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl md:text-3xl font-bold text-green-600">
+    <section className="rounded-lg overflow-hidden flex flex-col gap-4 p-4 w-full mx-auto">
+      <header className="flex flex-col gap-1">
+        <h2 className="text-2xl md:text-3xl font-bold text-green-600">
           {title}
-        </h1>
+        </h2>
         <h2 className="font-bold text-gray-800">{message}</h2>
-      </div>
+      </header>
 
       {/* Month Tabs - Compact */}
       <div className="flex items-center gap-1 md:gap-2 overflow-x-auto pb-2 -mx-1 px-1">
@@ -147,10 +147,9 @@ const DepartureTable = ({
             key={month}
             onClick={() => setSelectedMonth(month)}
             className={`
-              ${
-                selectedMonth === month
-                  ? "bg-green-600 hover:bg-green-700 text-white shadow-sm"
-                  : "bg-gray-100 border border-gray-200 text-gray-700 hover:bg-gray-200"
+              ${selectedMonth === month
+                ? "bg-green-600 hover:bg-green-700 text-white shadow-sm"
+                : "bg-gray-100 border border-gray-200 text-gray-700 hover:bg-gray-200"
               } 
               rounded-full px-2.5 md:px-3 py-1.5 transition-all duration-200 whitespace-nowrap text-xs md:text-sm font-medium flex-shrink-0
             `}
@@ -168,11 +167,10 @@ const DepartureTable = ({
               {currentData.map((departure, index) => (
                 <tr
                   key={departure.id}
-                  className={`${
-                    index !== currentData.length - 1
+                  className={`${index !== currentData.length - 1
                       ? "border-b border-gray-200"
                       : ""
-                  } hover:bg-gray-50 transition-colors duration-150`}
+                    } hover:bg-gray-50 transition-colors duration-150`}
                 >
                   <td className="p-4 font-medium text-gray-900">
                     {departure.productName}
@@ -290,7 +288,7 @@ const DepartureTable = ({
           <p className="text-sm mt-2">Please select a different month</p>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
