@@ -7,6 +7,8 @@ import EmptyReviewState from "./Reviews/EmptyReviewState";
 import ReviewCarousel from "./Reviews/ReviewCarousel";
 import ReviewHeader from "./Reviews/ReviewHeader";
 import { Review as ReviewType, ReviewData } from "./Reviews/types";
+import { Skeleton } from "@/components/ui/skeleton";
+import ReviewSkeleton from "./Reviews/ReviewSkeleton";
 
 interface ReviewProps {
   data: {
@@ -46,7 +48,7 @@ const Review = ({ data }: ReviewProps) => {
         const cachedData = reviewsCache.get(slug);
 
         if (cachedData) {
-        
+
           setReviews(cachedData.reviews);
           setTitle(cachedData.title);
           setLoading(false);
@@ -91,11 +93,11 @@ const Review = ({ data }: ReviewProps) => {
               name: review.user?.name || "Guest",
               country: review.user?.country || null,
               email: review.user?.email,
-              avatar: "/default-avatar.png", 
+              avatar: "/default-avatar.png",
               trek: reviewData.product_name || "Trek",
-              rating: Math.round(parseFloat(review.overall_rating)), 
+              rating: Math.round(parseFloat(review.overall_rating)),
               review: review.public_review || "No review provided",
-              marginTop: index % 2 === 1 ? "mt-6" : "", 
+              marginTop: index % 2 === 1 ? "mt-6" : "",
 
               cleanliness: parseFloat(review.cleanliness),
               hospitality: parseFloat(review.hospitality),
@@ -136,7 +138,7 @@ const Review = ({ data }: ReviewProps) => {
     }
   }, [slug, data]);
 
- 
+
 
   const handleWriteReviewClick = () => {
     setIsDialogOpen(true);
@@ -149,8 +151,20 @@ const Review = ({ data }: ReviewProps) => {
   // Loading state
   if (loading) {
     return (
-      <div className="w-full flex justify-center items-center py-8">
-        <div className="text-gray-500">Loading reviews...</div>
+      <div className="w-full flex flex-col gap-4 mb-2">
+        <div className="w-full flex items-center justify-between">
+          <Skeleton className="h-8 w-32 bg-gray-200" />
+          <Skeleton className="h-10 w-32 rounded-full bg-gray-200" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ReviewSkeleton />
+          <div className="hidden md:block">
+            <ReviewSkeleton />
+          </div>
+          <div className="hidden lg:block">
+            <ReviewSkeleton />
+          </div>
+        </div>
       </div>
     );
   }
@@ -192,7 +206,7 @@ const Review = ({ data }: ReviewProps) => {
         isOpen={isDialogOpen}
         onClose={handleCloseDialog}
         trekTitle={title}
-        prodId= {data.id}
+        prodId={data.id}
       />
     </div>
   );

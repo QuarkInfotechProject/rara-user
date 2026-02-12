@@ -9,8 +9,8 @@ interface ReviewHeaderProps {
 
 const ReviewHeader = ({ onWriteReviewClick }: ReviewHeaderProps) => {
   return (
-    <div className="w-full flex items-center justify-between">
-      <h2 className="text-3xl font-bold">Review</h2>
+    <header className="w-full flex items-center justify-between">
+      <h2 className="text-3xl font-bold">Reviews</h2>
       <Button
         variant="outline"
         size="sm"
@@ -20,7 +20,7 @@ const ReviewHeader = ({ onWriteReviewClick }: ReviewHeaderProps) => {
         Write Review
         <ArrowRight className="w-4 h-4" />
       </Button>
-    </div>
+    </header>
   );
 };
 
