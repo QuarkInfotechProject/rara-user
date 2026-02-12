@@ -131,9 +131,9 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
             <p className="text-xl lg:text-2xl font-satisfy">
               Here is our insight on the latest trend
             </p>
-            <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
+            <h2 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
               Stories & <span className="text-[#086032]">News</span>
-            </h1>
+            </h2>
           </div>
         </div>
         <div className="w-full text-center py-8">
@@ -155,9 +155,9 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
             <p className="text-xl lg:text-2xl font-satisfy">
               Here is our insight on the latest trend
             </p>
-            <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
+            <h2 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
               Stories & <span className="text-[#086032]">News</span>
-            </h1>
+            </h2>
           </div>
         </div>
         <div className="w-full text-center py-8">
@@ -176,9 +176,9 @@ const News = ({ newsItems, onViewAll, onNewsClick }: NewsProps) => {
           <p className="text-xl lg:text-2xl font-satisfy">
             Here is our insight on the latest trend
           </p>
-          <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
+          <h2 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
             Stories & <span className="text-[#086032]">News</span>
-          </h1>
+          </h2>
         </div>
         {/* Custom navigation buttons */}
         {news.length > 3 && (

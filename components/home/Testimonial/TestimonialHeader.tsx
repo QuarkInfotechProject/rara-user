@@ -16,9 +16,9 @@ export default function TestimonialHeader({
         <p className="text-xl lg:text-2xl font-satisfy">
           Stories of unforgettable adventutres
         </p>
-        <h1 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
+        <h2 className="text-3xl lg:text-4xl flex items-center gap-1 font-bold text-gray-900">
           Happy <span className="text-[#086032]">Explorers</span>
-        </h1>
+        </h2>
       </div>
       {/* <div className="hidden lg:flex items-center justify-center">
         <Button
